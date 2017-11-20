@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="transparent">@android:color/transparent</drawable>
+    <!-- start 下拉刷新所需要的color值 -->
+    <color name="pull_refresh_textview">#000000</color>
+    <color name="gold">#1c7efb</color>
+    <!-- end 下拉刷新所需要的color值 -->
+    <color name="green">#00ff00</color>
+
+    <color name="tab_bg_selected">@android:color/transparent</color>
+    <color name="tab_bg_unselected">@android:color/transparent</color>
+    <color name="tab_font_selected">#0853ac</color>
+    <color name="tab_font_unselected">#000000</color>
+    <color name="main_color">#2148a8</color>
+    <color name="dark_blue">#2242aa</color>
+    <!-- old drawer_bg 1d2736 -->
+    <color name="drawer_bg">#1f2855</color>
+    <color name="drawer_text_color">#679ee5</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="transparent_black">#88000000</color>
+    <color name="live_header_fucos_color">#16b0f7</color>
+    <color name="live_header_default_color">#91dbfd</color>
+    <color name="light_gray">#cbcccd</color>
+    <color name="light_gray2">#f0eff5</color>
+    <color name="warning_line_color">#c1c2c2</color>
+    <color name="warning_table_header">#ebecec</color>
+
+    <drawable name="seven_days_line">#aaacacac</drawable>
+    
+    
+    <color name="blue">#900000FE</color>
+    <color name="yellow">#90FFFF00</color>
+    <color name="orange">#90FE9900</color>
+    <color name="red">#90FE0000</color>
+    <color name="translucent">#60000000</color>
+    <color name="typhoon_bg">#f3758c97</color>
+    <color name="gray">#d9d9d9</color>
+    
+    <color name="text_color1">#CBCBCB</color>
+    <color name="text_color2">#A3A7AC</color>
+    <color name="text_color3">#f0000000</color>
+    <color name="text_color4">#8A8A8A</color>
+    <color name="cubic_color">#12ADEF</color>
+    <color name="low_color">#15ADF2</color>
+    <color name="high_color">#C07C7A</color>
+    <color name="builder">#d87a80</color>
+    <color name="snow">#8D98B3</color>
+    <color name="rain">#29A308</color>
+    <color name="fog">#59FFFF</color>
+    <color name="shachen">#FD6801</color>
+    <color name="mai">#C99B14</color>
+
+</resources>

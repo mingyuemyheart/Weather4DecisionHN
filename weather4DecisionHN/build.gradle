@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    //png图片命名带有数字则编译不通过使用一下声明
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+    //apache使用声明
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId "com.pmsc.weather4decision.phone.hainan"
+        minSdkVersion 14
+        targetSdkVersion 22
+        versionCode 136
+        versionName "2.1.55"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //个推
+        manifestPlaceholders = [
+                GETUI_APP_ID : "XXWnlGGaHg6RjsNz9ClXg",
+                GETUI_APP_KEY : "jQw2utiZhT6F0JMrOpoJE8",
+                GETUI_APP_SECRET : "HsfcxVuJ3V6cX057vGjgV3",
+
+                HUAWEI_APP_ID   : "100122495",
+                XIAOMI_APP_ID   : "2882303761517633419",
+                XIAOMI_APP_KEY  : "5481763311419",
+                MEIZU_APP_ID    : "111600",
+                MEIZU_APP_KEY   : "849752dd8f9b4b5db11b7649325de6de"
+        ]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    lintOptions {
+        disable "ResourceType"
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile project(':pdfViewerLibrary')
+    compile 'com.google.code.gson:gson:2.2.1'
+    compile files('libs/AMap_3DMap_V4.0.1_20160923.jar')
+    compile files('libs/AMap_Location_V2.4.0_20160308.jar')
+    compile files('libs/ChinaWeatherAPI.jar')
+    compile files('libs/MapApiServices.jar')
+    compile files('libs/bitmcap-cache-1.0.jar')
+    compile files('libs/commons-codec-1.7.jar')
+    compile files('libs/httpmime-4.1.3.jar')
+    compile files('libs/pinyin4j-2.5.0.jar')
+    compile files('libs/scene-final.jar')
+    compile files('libs/umeng-analytics-v5.6.3.jar')
+    compile files('libs/uk-co-senab-photoview.jar')
+    compile files('libs/GetuiSDK2.11.1.0.jar')
+    compile files('libs/GetuiSDK2.11.1.0-support-HWP-1.0.2.jar')
+    compile files('libs/GetuiSDK2.11.1.0-support-MZP-1.0.4.jar')
+    compile files('libs/GetuiSDK2.11.1.0-support-XMP-1.0.2.jar')
+}

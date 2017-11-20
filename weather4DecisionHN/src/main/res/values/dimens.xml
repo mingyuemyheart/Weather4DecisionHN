@@ -1,0 +1,38 @@
+<resources>
+
+    <dimen name="action_bar_height">50dp</dimen>
+    <dimen name="action_bar_font_size">17dp</dimen>
+    <!-- for  login activity -->
+    <dimen name="login_view_margin_h">20dp</dimen>
+    <dimen name="login_view_margin_v">40dp</dimen>
+    <dimen name="login_font_size">20sp</dimen>
+    <dimen name="login_input_height">42dp</dimen>
+    <dimen name="login_hn_decision_service_font_size">22sp</dimen>
+    <dimen name="login_hn_weather_font_size">18sp</dimen>
+
+    <!-- for main activity -->
+    <dimen name="navigation_drawer_width">220dp</dimen>
+    <dimen name="bottom_font_size">14sp</dimen>
+    <dimen name="item_font_size">18sp</dimen>
+    <!-- for warning activity -->
+    <dimen name="tab_bar_font_size">20sp</dimen>
+    <dimen name="tab_bar_height">46dp</dimen>
+    <dimen name="tab_bar_bottom_line_height">3dp</dimen>
+    
+    <dimen name="pop_menu_width">200dp</dimen>
+    <dimen name="seven_day_height">36dp</dimen>
+    <dimen name="seven_day_height_chart">28dp</dimen>
+    <dimen name="seven_day_margin_chart">10dp</dimen>
+    <dimen name="horizontal_list_view_height">120dp</dimen>
+    <dimen name="warning_table_line_width">0.8dp</dimen>
+    <dimen name="image_play_btn_size">42dp</dimen>
+    <dimen name="image_play_pop_width">130dp</dimen>
+    
+    <dimen name="level_1">20dip</dimen>
+    <dimen name="level_2">18dip</dimen>
+    <dimen name="level_3">16dip</dimen>
+    <dimen name="level_4">14dip</dimen>
+    <dimen name="level_5">12dip</dimen>
+    <dimen name="level_6">10dip</dimen>
+    
+</resources>

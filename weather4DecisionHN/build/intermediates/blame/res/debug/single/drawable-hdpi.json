@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable-hdpi/iv_marker_info_bg.9.png",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/iv_marker_info_bg.9.png"
+    },
+    {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable-hdpi/iv_marker_bubble.9.png",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/iv_marker_bubble.9.png"
+    },
+    {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable-hdpi/iv_marker_info2_bg.9.png",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/iv_marker_info2_bg.9.png"
+    }
+]

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#88FFFFFF"
+    android:focusable="true"
+    android:padding="10dp" >
+
+    <Button
+        android:id="@+id/play_btn"
+        android:layout_width="@dimen/image_play_btn_size"
+        android:layout_height="@dimen/image_play_btn_size"
+        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
+        android:background="@drawable/btn_play" />
+
+    <SeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/play_btn"
+        android:layout_toRightOf="@+id/play_btn"
+        android:max="100"
+        android:maxHeight="4dp"
+        android:minHeight="4dp"
+        android:progress="100"
+        android:progressDrawable="@drawable/po_seekbar"
+        android:thumb="@drawable/white_ball"
+        android:thumbOffset="0dip" />
+
+    <ImageView
+        android:id="@+id/arrow_iv"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/arrow_down_white"
+        android:visibility="gone" />
+
+</RelativeLayout>
