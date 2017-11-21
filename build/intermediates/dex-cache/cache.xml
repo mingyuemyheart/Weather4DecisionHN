@@ -21,21 +21,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/scene-final.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.3"
-        sha1="f83bea50820e42e7d186ff9650a299adab7a26ec">
-        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/scene-final_c42f9c111ff60810bafaed6c2029f1d7635df3f0.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/okhttp-3.4.1.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.3"
         sha1="c728a64042cd183a7a2e2fb0b611342278f374c9">
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/okhttp-3.4.1_a2ea51a08f94d693d479aadeb52fe277e19ad016.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/scene-final.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f83bea50820e42e7d186ff9650a299adab7a26ec">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/scene-final_c42f9c111ff60810bafaed6c2029f1d7635df3f0.jar" />
     </item>
     <item
         is-multidex="false"
@@ -210,21 +210,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/okio-1.6.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.3"
-        sha1="cc96a1b8821438d09a3fdbd22f7206d4dee358c3">
-        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/okio-1.6.0_1eefc6c2d3efd9934274db51f9664145875b9ced.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/retrofit-2.1.0.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.3"
         sha1="0de0b5bff73ae77e4fa499adf5aae433e78ba036">
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/retrofit-2.1.0_359f5d7ef98ca011a0f32c8058b8f5a4a0a54c01.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/okio-1.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="cc96a1b8821438d09a3fdbd22f7206d4dee358c3">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/okio-1.6.0_1eefc6c2d3efd9934274db51f9664145875b9ced.jar" />
     </item>
     <item
         is-multidex="true"
@@ -241,7 +241,7 @@
         jumboMode="false"
         optimize="true"
         revision="25.0.3"
-        sha1="885e7c0119614a299f454b1b6971f1ce94019c6a">
+        sha1="1c2cc5d045d4f73990570b9ad382f0b5a64a4122">
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_3a14379e834cb09c3bfc37a28bd561ce3b332d97.jar" />
     </item>
     <item
@@ -313,7 +313,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="2926204265daa9636378b8494559077dae5064f3">
+        sha1="8c8cb0c8b3da23825a912616fee9d6ea20c6ead1">
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_80d855c47a44c41bc0cd14fa8e3752f089ff88ef/classes.dex" />
     </item>
     <item
