@@ -3,10 +3,6 @@ package com.pmsc.weather4decision.phone.hainan.view;
 /**
  * 一周预报曲线图
  */
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,12 +14,18 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.media.ThumbnailUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.dto.WeatherDto;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
 import com.pmsc.weather4decision.phone.hainan.util.WeatherUtil;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint({ "SimpleDateFormat", "DrawAllocation" })
 public class WeeklyView extends View{
@@ -39,6 +41,8 @@ public class WeeklyView extends View{
 	private Bitmap highBit = null;//高温图标
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
 	private SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd");
+	private int totalDivider = 0;
+	private int itemDivider = 1;
 	
 	public WeeklyView(Context context) {
 		super(context);
@@ -96,6 +100,27 @@ public class WeeklyView extends View{
 					minTemp = tempList.get(i).lowTemp;
 				}
 			}
+
+			if (maxTemp > 0 && minTemp > 0) {
+				totalDivider = maxTemp-minTemp;
+			}else if (maxTemp >= 0 && minTemp <= 0) {
+				totalDivider = maxTemp-minTemp;
+			}else if (maxTemp < 0 && minTemp < 0) {
+				totalDivider = Math.abs(maxTemp+minTemp);
+			}
+			if (totalDivider <= 5) {
+				itemDivider = 1;
+			}else if (totalDivider > 5 && totalDivider <= 15) {
+				itemDivider = 2;
+			}else if (totalDivider > 15 && totalDivider <= 25) {
+				itemDivider = 3;
+			}else if (totalDivider > 25 && totalDivider <= 40) {
+				itemDivider = 4;
+			}else {
+				itemDivider = 5;
+			}
+//			maxTemp = maxTemp+itemDivider*3/2;
+//			minTemp = minTemp-itemDivider;
 		}
 	}
 	
@@ -109,35 +134,24 @@ public class WeeklyView extends View{
 		float chartH = h-CommonUtil.dip2px(mContext, 260);
 		float leftMargin = CommonUtil.dip2px(mContext, 20);
 		float rightMargin = CommonUtil.dip2px(mContext, 20);
-		float topMargin = CommonUtil.dip2px(mContext, 130);
-		float bottomMargin = CommonUtil.dip2px(mContext, 130);
+		float topMargin = CommonUtil.dip2px(mContext, 140);
 		
 		int size = tempList.size();
 		//获取曲线上每个温度点的坐标
 		for (int i = 0; i < size; i++) {
 			WeatherDto dto = tempList.get(i);
-			
-			//获取最低温度的对应的坐标点信息
-			dto.lowX = (chartW/(size-1))*i + leftMargin;
-			float lowTemp = tempList.get(i).lowTemp;
-			if (maxTemp > 0 && minTemp > 0) {
-				dto.lowY = chartH - chartH*(lowTemp-minTemp)/(maxTemp-minTemp) + bottomMargin;
-			}else if (maxTemp >= 0 && minTemp <= 0) {
-				dto.lowY = chartH - chartH*lowTemp/(maxTemp-minTemp) + bottomMargin;
-			}else if (maxTemp < 0 && minTemp < 0) {
-				dto.lowY = chartH*(lowTemp-maxTemp)/(minTemp-maxTemp) + bottomMargin;
-			}
-			
+
 			//获取最高温度对应的坐标点信息
 			dto.highX = (chartW/(size-1))*i + leftMargin;
 			float highTemp = tempList.get(i).highTemp;
-			if (maxTemp > 0 && minTemp > 0) {
-				dto.highY = chartH - chartH*(highTemp-minTemp)/(maxTemp-minTemp) + topMargin;
-			}else if (maxTemp >= 0 && minTemp <= 0) {
-				dto.highY = chartH - chartH*highTemp/(maxTemp-minTemp) + topMargin;
-			}else if (maxTemp < 0 && minTemp < 0) {
-				dto.highY = chartH*(highTemp-maxTemp)/(minTemp-maxTemp) + topMargin;
-			}
+			dto.highY = chartH*Math.abs(maxTemp-highTemp)/totalDivider+topMargin;
+			Log.e("highTemp", highTemp+"---"+dto.highY);
+
+			//获取最低温度的对应的坐标点信息
+			dto.lowX = (chartW/(size-1))*i + leftMargin;
+			float lowTemp = tempList.get(i).lowTemp;
+			dto.lowY = chartH*Math.abs(maxTemp-lowTemp)/totalDivider+topMargin;
+			Log.e("lowTemp", lowTemp+"---"+dto.lowY);
 			
 			tempList.set(i, dto);
 		}

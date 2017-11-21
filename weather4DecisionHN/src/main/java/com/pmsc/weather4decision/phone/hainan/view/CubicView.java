@@ -3,10 +3,6 @@ package com.pmsc.weather4decision.phone.hainan.view;
 /**
  * 绘制平滑曲线
  */
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,12 +14,18 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.media.ThumbnailUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.dto.WeatherDto;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
 import com.pmsc.weather4decision.phone.hainan.util.WeatherUtil;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint({ "SimpleDateFormat", "DrawAllocation" })
 public class CubicView extends View{
@@ -32,11 +34,13 @@ public class CubicView extends View{
 	private SimpleDateFormat sdf0 = new SimpleDateFormat("yyyyMMddHHmm");
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("HH时");
 	private SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
-	private List<WeatherDto> tempList = new ArrayList<WeatherDto>();
+	private List<WeatherDto> tempList = new ArrayList<>();
 	private int maxTemp = 0;//最高温度
 	private int minTemp = 0;//最低温度
 	private Paint lineP = null;//画线画笔
 	private Paint textP = null;//写字画笔
+	private int totalDivider = 0;
+	private int itemDivider = 1;
 	
 	public CubicView(Context context) {
 		super(context);
@@ -84,29 +88,27 @@ public class CubicView extends View{
 					minTemp = tempList.get(i).hourlyTemp;
 				}
 			}
-			
-			int totalDivider = 0;
+
 			if (maxTemp > 0 && minTemp > 0) {
-				totalDivider = (int) (maxTemp-minTemp);
+				totalDivider = maxTemp-minTemp;
 			}else if (maxTemp >= 0 && minTemp <= 0) {
-				totalDivider = (int) (maxTemp-minTemp);
+				totalDivider = maxTemp-minTemp;
 			}else if (maxTemp < 0 && minTemp < 0) {
-				totalDivider = (int) (minTemp-maxTemp);
+				totalDivider = Math.abs(maxTemp+minTemp);
 			}
-			int itemDivider = 1;
 			if (totalDivider <= 5) {
 				itemDivider = 1;
-			}else if (totalDivider > 5 && totalDivider <= 10) {
+			}else if (totalDivider > 5 && totalDivider <= 15) {
 				itemDivider = 2;
-			}else if (totalDivider > 10 && totalDivider <= 20) {
+			}else if (totalDivider > 15 && totalDivider <= 25) {
+				itemDivider = 3;
+			}else if (totalDivider > 25 && totalDivider <= 40) {
 				itemDivider = 4;
-			}else if (totalDivider > 20 && totalDivider <= 40) {
-				itemDivider = 8;
-			}else if (totalDivider > 40) {
-				itemDivider = 10;
+			}else {
+				itemDivider = 5;
 			}
-			maxTemp = maxTemp+itemDivider;
-			minTemp = minTemp-itemDivider/2;
+			maxTemp = maxTemp+itemDivider*3/2;
+			minTemp = minTemp-itemDivider;
 		}
 	}
 	
@@ -121,61 +123,25 @@ public class CubicView extends View{
 		float h = canvas.getHeight();
 		canvas.drawColor(Color.TRANSPARENT);
 		float chartW = w-CommonUtil.dip2px(mContext, 60);
-		float chartH = h-CommonUtil.dip2px(mContext, 115);
+		float chartH = h-CommonUtil.dip2px(mContext, 150);
 		float leftMargin = CommonUtil.dip2px(mContext, 40);
 		float rightMargin = CommonUtil.dip2px(mContext, 20);
-		float topMargin = CommonUtil.dip2px(mContext, 0);
-		float bottomMargin = CommonUtil.dip2px(mContext, 5);
-		
+
 		int size = tempList.size();
 		//获取曲线上每个温度点的坐标
 		for (int i = 0; i < size; i++) {
 			WeatherDto dto = tempList.get(i);
 			dto.x = (chartW/(size-1))*i + leftMargin;
-			
+
 			float temp = dto.hourlyTemp;
-			if (maxTemp > 0 && minTemp > 0) {
-				dto.y = chartH - chartH*(temp-minTemp)/(maxTemp-minTemp) - topMargin;
-			}else if (maxTemp >= 0 && minTemp <= 0) {
-				dto.y = chartH - chartH*temp/(maxTemp-minTemp) - topMargin;
-			}else if (maxTemp < 0 && minTemp < 0) {
-				dto.y = chartH*(temp-maxTemp)/(minTemp-maxTemp) - topMargin;
-			}
+			dto.y = chartH*Math.abs(maxTemp-temp)/totalDivider;
+			Log.e("temp", temp+"---"+dto.y);
 			tempList.set(i, dto);
 		}
-		
+
 		//绘制刻度线
-		int totalDivider = 0;
-		if (maxTemp > 0 && minTemp > 0) {
-			totalDivider = (int) (maxTemp-minTemp);
-		}else if (maxTemp >= 0 && minTemp <= 0) {
-			totalDivider = (int) (maxTemp-minTemp);
-		}else if (maxTemp < 0 && minTemp < 0) {
-			totalDivider = (int) (minTemp-maxTemp);
-		}
-		int itemDivider = 1;
-		if (totalDivider <= 5) {
-			itemDivider = 1;
-		}else if (totalDivider > 5 && totalDivider <= 10) {
-			itemDivider = 2;
-		}else if (totalDivider > 10 && totalDivider <= 20) {
-			itemDivider = 4;
-		}else if (totalDivider > 20 && totalDivider <= 40) {
-			itemDivider = 8;
-		}else if (totalDivider > 40) {
-			itemDivider = 10;
-		}
-		
 		for (int i = minTemp; i <= maxTemp; i+=itemDivider) {
-			float dividerY = 0;
-			int value = i;
-			if (maxTemp > 0 && minTemp > 0) {
-				dividerY = chartH - chartH*(value-minTemp)/(maxTemp-minTemp) - topMargin;
-			}else if (maxTemp >= 0 && minTemp <= 0) {
-				dividerY = chartH - chartH*value/(maxTemp-minTemp) - topMargin;
-			}else if (maxTemp < 0 && minTemp < 0) {
-				dividerY = chartH*(value-maxTemp)/(minTemp-maxTemp) - topMargin;
-			}
+			float dividerY = chartH*Math.abs(maxTemp-i)/totalDivider;
 			lineP.setColor(0x30ffffff);
 			canvas.drawLine(CommonUtil.dip2px(mContext, 25), dividerY, w-rightMargin, dividerY, lineP);
 			textP.setColor(mContext.getResources().getColor(R.color.white));
@@ -257,7 +223,7 @@ public class CubicView extends View{
 			textP.setTextSize(CommonUtil.dip2px(mContext, 10));
 			try {
 				String hourlyTime = sdf1.format(sdf0.parse(dto.hourlyTime));
-				canvas.drawText(hourlyTime, dto.x-CommonUtil.dip2px(mContext, 12.5f), h-bottomMargin, textP);
+				canvas.drawText(hourlyTime, dto.x-CommonUtil.dip2px(mContext, 12.5f), h-CommonUtil.dip2px(mContext, 5f), textP);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} catch (NullPointerException e) {

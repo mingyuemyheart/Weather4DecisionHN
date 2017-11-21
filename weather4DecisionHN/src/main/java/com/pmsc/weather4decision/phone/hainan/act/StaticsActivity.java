@@ -65,7 +65,7 @@ public class StaticsActivity extends BaseActivity implements OnClickListener, On
 	private TextView tvTitle = null;
 	private MapView mMapView = null;
 	private AMap aMap = null;
-	private List<WeatherStaticsDto> mList = new ArrayList<WeatherStaticsDto>();//省级
+	private List<WeatherStaticsDto> mList = new ArrayList<>();//省级
 	private CircularProgressBar mCircularProgressBar1 = null;
 	private CircularProgressBar mCircularProgressBar2 = null;
 	private CircularProgressBar mCircularProgressBar3 = null;
@@ -83,7 +83,7 @@ public class StaticsActivity extends BaseActivity implements OnClickListener, On
 	private ProgressBar progressBar = null;
 	public final static String SANX_DATA_99 = "sanx_data_99";//加密秘钥名称
 	public final static String APPID = "f63d329270a44900";//机密需要用到的AppId
-	private List<Marker> markerList = new ArrayList<Marker>();
+	private List<Marker> markerList = new ArrayList<>();
 	private LatLng leftlatlng = null;
 	private LatLng rightLatlng = null;
 
