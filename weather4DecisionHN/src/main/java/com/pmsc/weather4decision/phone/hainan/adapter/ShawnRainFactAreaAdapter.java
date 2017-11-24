@@ -18,7 +18,7 @@ public class ShawnRainFactAreaAdapter extends BaseAdapter{
 	
 	private Context mContext = null;
 	private LayoutInflater mInflater = null;
-	private List<ShawnRainDto> mArrayList = new ArrayList<ShawnRainDto>();
+	private List<ShawnRainDto> mArrayList = new ArrayList<>();
 	
 	private final class ViewHolder{
 		TextView tvArea;

@@ -61,7 +61,7 @@ public class ShawnRainCheckHourFragment extends Fragment implements OnClickListe
 	private String checkArea = "";
 	private MyListView areaListView = null;
 	private ShawnRainFactAreaAdapter areaAdapter = null;
-	private List<ShawnRainDto> areaList = new ArrayList<ShawnRainDto>();
+	private List<ShawnRainDto> areaList = new ArrayList<>();
 	private LinearLayout ll1, ll2, ll3;
 	private ImageView iv1, iv2, iv3;
 	private TextView tv1, tv2, tv3;
