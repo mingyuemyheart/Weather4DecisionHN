@@ -107,6 +107,7 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener,
 		//获取城市天气信息
 		Bundle bundle = new Bundle();
 		bundle.putString("cityId", marker.getTitle());
+		bundle.putString("cityName", marker.getSnippet());
 		openActivity(ForecastActivity.class, bundle);
 		return true;
 	}
@@ -242,6 +243,7 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener,
     	LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		MarkerOptions options = new MarkerOptions();
 		options.title(dto.cityId);
+		options.snippet(dto.cityName);
 		options.position(new LatLng(dto.lat, dto.lng));
 		View mView = inflater.inflate(R.layout.layout_travel_marker, null);
 		TextView tvName = (TextView) mView.findViewById(R.id.tvName);

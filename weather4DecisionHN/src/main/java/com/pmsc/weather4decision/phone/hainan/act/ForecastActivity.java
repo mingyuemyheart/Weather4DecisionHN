@@ -1,16 +1,5 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,15 +13,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import cn.com.weather.api.WeatherAPI;
-import cn.com.weather.beans.Weather;
-import cn.com.weather.constants.Constants.Language;
-import cn.com.weather.listener.AsyncResponseHandler;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 import com.android.lib.app.BaseActivity;
 import com.android.lib.http.HttpAsyncTask;
 import com.pmsc.weather4decision.phone.hainan.R;
@@ -40,11 +21,25 @@ import com.pmsc.weather4decision.phone.hainan.adapter.WeeklyForecastAdapter;
 import com.pmsc.weather4decision.phone.hainan.dto.WeatherDto;
 import com.pmsc.weather4decision.phone.hainan.util.CodeParse;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
-import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 import com.pmsc.weather4decision.phone.hainan.util.WeatherUtil;
 import com.pmsc.weather4decision.phone.hainan.view.CubicView;
 import com.pmsc.weather4decision.phone.hainan.view.WeeklyView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import cn.com.weather.api.WeatherAPI;
+import cn.com.weather.beans.Weather;
+import cn.com.weather.constants.Constants.Language;
+import cn.com.weather.listener.AsyncResponseHandler;
 
 /**
  * 天气预报
@@ -52,7 +47,7 @@ import com.pmsc.weather4decision.phone.hainan.view.WeeklyView;
  *
  */
 
-public class ForecastActivity extends BaseActivity implements OnClickListener, AMapLocationListener {
+public class ForecastActivity extends BaseActivity implements OnClickListener {
 	
 	private Context mContext = null;
 	private LinearLayout llBack = null;
@@ -76,11 +71,9 @@ public class ForecastActivity extends BaseActivity implements OnClickListener, A
 	private LinearLayout llContainer1, llContainer2;
 	private ListView mListView = null;//一周预报列表listview
 	private WeeklyForecastAdapter mAdapter = null;
-	private List<WeatherDto> weeklyList = new ArrayList<WeatherDto>();
+	private List<WeatherDto> weeklyList = new ArrayList<>();
 	private HorizontalScrollView hScrollView2 = null;
-	private AMapLocationClientOption mLocationOption = null;//声明mLocationOption对象
-	private AMapLocationClient mLocationClient = null;//声明AMapLocationClient类对象
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -119,42 +112,16 @@ public class ForecastActivity extends BaseActivity implements OnClickListener, A
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		width = dm.widthPixels;
 
-		startLocation();
-		
+		String cityName = getIntent().getExtras().getString("cityName");
+		if (!TextUtils.isEmpty(cityName)) {
+			tvLocation.setText(cityName);
+		}
 		String cityId = getIntent().getExtras().getString("cityId");
 		if (!TextUtils.isEmpty(cityId)) {
 			getWeatherInfo(cityId);
 		}
 	}
 
-	/**
-	 * 开始定位
-	 */
-	private void startLocation() {
-		mLocationOption = new AMapLocationClientOption();//初始化定位参数
-		mLocationClient = new AMapLocationClient(getApplicationContext());//初始化定位
-		mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-		mLocationOption.setNeedAddress(true);//设置是否返回地址信息（默认返回地址信息）
-		mLocationOption.setOnceLocation(true);//设置是否只定位一次,默认为false
-		mLocationOption.setWifiActiveScan(true);//设置是否强制刷新WIFI，默认为强制刷新
-		mLocationOption.setMockEnable(true);//设置是否允许模拟位置,默认为false，不允许模拟位置
-		mLocationOption.setInterval(2000);//设置定位间隔,单位毫秒,默认为2000ms
-		mLocationClient.setLocationOption(mLocationOption);//给定位客户端对象设置定位参数
-		mLocationClient.setLocationListener(this);
-		mLocationClient.startLocation();//启动定位
-	}
-
-	@Override
-	public void onLocationChanged(AMapLocation amapLocation) {
-		if (amapLocation != null && amapLocation.getErrorCode() == 0) {
-			if (!TextUtils.isEmpty(amapLocation.getStreet())) {
-				tvLocation.setText(amapLocation.getStreet()+amapLocation.getStreetNum());
-			}else {
-				tvLocation.setText(amapLocation.getDistrict());
-			}
-		}
-	}
-	
 	/**
 	 * 初始化listview
 	 */

@@ -93,8 +93,8 @@ public class CityActivity extends AbsDrawerActivity implements TextWatcher, OnIt
 		if (data != null) {
 			//获取城市天气信息
 			Bundle bundle = new Bundle();
-			bundle.putString("data", data.toString());
 			bundle.putString("cityId", data.getString("city_id"));
+			bundle.putString("cityName", data.getString("district"));
 			openActivity(ForecastActivity.class, bundle);
 		}
 	}

@@ -11,10 +11,10 @@ android {
 
     defaultConfig {
         applicationId "com.pmsc.weather4decision.phone.hainan"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 22
-        versionCode 137
-        versionName "2.1.56"
+        versionCode 138
+        versionName "2.1.57"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //个推
@@ -36,6 +36,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+    }
+
+    //打包，自动追加版本号、名称
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.each {
+                output -> output.outputFile = new File(output.outputFile.parent, "HainanDecision" + "_" + defaultConfig.versionCode + "_V" + defaultConfig.versionName + "_" + buildType.name + ".apk");
+            }
     }
 
     lintOptions {

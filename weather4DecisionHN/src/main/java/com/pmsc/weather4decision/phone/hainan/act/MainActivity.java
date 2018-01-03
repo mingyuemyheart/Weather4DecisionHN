@@ -89,7 +89,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	private TextView        pubTimeView;
 	
 	private int             pubTime;      //七天预报发布时间，最后四位
-	private String cityId;
+	private String cityId, cityName;
 	private RelativeLayout top = null;
 	private int height = 0;
 	private LinearLayout llContainer, llContainer2;
@@ -242,10 +242,8 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		if (v.getId() == R.id.days_tv) {
 			//查看七天天气信息
 			Bundle bundle = new Bundle();
-			bundle.putBoolean("isFromHome", true);
-			bundle.putInt("pub_time", pubTime);
-			bundle.putString("forecast_data", daysView.getTag().toString());
 			bundle.putString("cityId", cityId);
+			bundle.putString("cityName", cityName);
 			openActivity(ForecastActivity.class, bundle);
 		} else if (v.getId() == R.id.pub_time_view) {
 			//刷新当前数据
@@ -280,15 +278,12 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			PreferUtil.saveCurrentDistrict(amapLocation.getDistrict());
 			getWeatherInfo(amapLocation.getLongitude(), amapLocation.getLatitude());
 			
-//			if (!TextUtils.equals(amapLocation.getProvince(), amapLocation.getCity())) {
-//				setTitle(amapLocation.getCity());
-//			}else {
-//				setTitle(amapLocation.getDistrict());
-//			}
 			if (!TextUtils.isEmpty(amapLocation.getStreet())) {
 				setTitle(amapLocation.getStreet()+amapLocation.getStreetNum());
+				cityName = amapLocation.getStreet()+amapLocation.getStreetNum();
 			}else {
 				setTitle(amapLocation.getDistrict());
+				cityName = amapLocation.getDistrict();
 			}
         }
 	}

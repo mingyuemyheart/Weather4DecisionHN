@@ -94,7 +94,7 @@ public class CubicView extends View{
 			}else if (maxTemp >= 0 && minTemp <= 0) {
 				totalDivider = maxTemp-minTemp;
 			}else if (maxTemp < 0 && minTemp < 0) {
-				totalDivider = Math.abs(maxTemp+minTemp);
+				totalDivider = maxTemp-minTemp;
 			}
 			if (totalDivider <= 5) {
 				itemDivider = 1;

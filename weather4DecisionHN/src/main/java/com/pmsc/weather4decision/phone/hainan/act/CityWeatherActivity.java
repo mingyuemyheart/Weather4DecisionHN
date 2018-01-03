@@ -54,17 +54,8 @@ public class CityWeatherActivity extends BaseActivity implements OnLoadDataListe
 		}
 		
 		try {
-			//加载七天预报信息
-			JsonMap forecast = datas.get(1).getMap("f");
-			String time = forecast.getString("f0");
-			
 			//七天预报的发布时间
-			int pubTime = Integer.parseInt(time.substring(8, 12));
-			List<JsonMap> forecastList = forecast.getListMap("f1");
-			String sevenDaysData = forecastList.toString();
 			Bundle bundle = new Bundle();
-			bundle.putInt("pub_time", pubTime);
-			bundle.putString("forecast_data", sevenDaysData);
 			bundle.putString("cityId", cityId);
 			openActivity(ForecastActivity.class, bundle);
 		} catch (Exception e) {
