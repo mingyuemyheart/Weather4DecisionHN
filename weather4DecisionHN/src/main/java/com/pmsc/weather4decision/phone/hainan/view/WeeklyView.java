@@ -183,11 +183,11 @@ public class WeeklyView extends View{
 			Bitmap b = WeatherUtil.getBitmap(mContext, dto.highPheCode);
 			Bitmap newBit = ThumbnailUtils.extractThumbnail(b, (int)(CommonUtil.dip2px(mContext, 20)), (int)(CommonUtil.dip2px(mContext, 20)));
 			canvas.drawBitmap(newBit, dto.highX-newBit.getWidth()/2, CommonUtil.dip2px(mContext, 80), textP);
-			
+
 			Bitmap lb = WeatherUtil.getNightBitmap(mContext, dto.lowPheCode);
 			Bitmap newLbit = ThumbnailUtils.extractThumbnail(lb, (int)(CommonUtil.dip2px(mContext, 20)), (int)(CommonUtil.dip2px(mContext, 20)));
 			canvas.drawBitmap(newLbit, dto.lowX-newLbit.getWidth()/2, h-CommonUtil.dip2px(mContext, 85), textP);
-			
+
 			float lowPheText = textP.measureText(dto.lowPhe);//天气现象字符串占像素宽度
 			canvas.drawText(dto.lowPhe, dto.lowX-lowPheText/2, h-CommonUtil.dip2px(mContext, 45), textP);
 			

@@ -193,6 +193,8 @@
     <string name="weather56">严重霾</string>
     <string name="weather57">大雾</string>
     <string name="weather58">特强浓雾</string>
+    <string name="weather301">小雨</string>
+    <string name="weather302">小雪</string>
     
     <!-- 风向表 -->
     <string name="wind_dir0"></string>
