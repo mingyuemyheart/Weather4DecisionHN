@@ -144,7 +144,7 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 		if (TextUtils.isEmpty(childId)) {
 			childId = "";
 		}
-		asyncTaskRenyi("http://59.50.130.88:8888/decision-admin/dates/newgetrainfall?city=&start=&end=&cid="+childId);
+		asyncTaskRenyi("http://59.50.130.88:8888/decision-admin/dates/newgetrainfall?city=&start=&end=&cid="+childId, childId);
 	}
 	
 	private void initAreaList(View view) {
@@ -180,9 +180,9 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 		});
 	}
 	
-	private void asyncTaskRenyi(String url) {
+	private void asyncTaskRenyi(String url, String childId) {
 		//异步请求数据
-		HttpAsyncTaskRenyi task = new HttpAsyncTaskRenyi();
+		HttpAsyncTaskRenyi task = new HttpAsyncTaskRenyi(childId);
 		task.setMethod("GET");
 		task.setTimeOut(CustomHttpClient.TIME_OUT);
 		task.execute(url);
@@ -196,8 +196,10 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 	private class HttpAsyncTaskRenyi extends AsyncTask<String, Void, String> {
 		private String method = "GET";
 		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
+		private String childId;
 		
-		public HttpAsyncTaskRenyi() {
+		public HttpAsyncTaskRenyi(String childId) {
+			this.childId = childId;
 		}
 
 		@Override
@@ -297,23 +299,45 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 							if (!obj.isNull("list")) {
 								checkList.clear();
 								JSONArray array = obj.getJSONArray("list");
-								for (int i = 0; i < array.length(); i++) {
-									JSONObject itemObj = array.getJSONObject(i);
-									ShawnRainDto dto = new ShawnRainDto();
-									if (!itemObj.isNull("stationCode")) {
-										dto.stationCode = itemObj.getString("stationCode");
+								if (TextUtils.equals(childId, "658")) {//最低温
+									for (int i = array.length()-1; i >= 0; i--) {
+										JSONObject itemObj = array.getJSONObject(i);
+										ShawnRainDto dto = new ShawnRainDto();
+										if (!itemObj.isNull("stationCode")) {
+											dto.stationCode = itemObj.getString("stationCode");
+										}
+										if (!itemObj.isNull("stationName")) {
+											dto.stationName = itemObj.getString("stationName");
+										}
+										if (!itemObj.isNull("area")) {
+											dto.area = itemObj.getString("area");
+										}
+										if (!itemObj.isNull("val")) {
+											dto.val = itemObj.getDouble("val");
+										}
+										if (!TextUtils.isEmpty(dto.area)) {
+											checkList.add(dto);
+										}
 									}
-									if (!itemObj.isNull("stationName")) {
-										dto.stationName = itemObj.getString("stationName");
-									}
-									if (!itemObj.isNull("area")) {
-										dto.area = itemObj.getString("area");
-									}
-									if (!itemObj.isNull("val")) {
-										dto.val = itemObj.getDouble("val");
-									}
-									if (!TextUtils.isEmpty(dto.area)) {
-										checkList.add(dto);
+								}else {
+									for (int i = 0; i < array.length(); i++) {
+										JSONObject itemObj = array.getJSONObject(i);
+										ShawnRainDto dto = new ShawnRainDto();
+										if (!itemObj.isNull("stationCode")) {
+											dto.stationCode = itemObj.getString("stationCode");
+										}
+										if (!itemObj.isNull("stationName")) {
+											dto.stationName = itemObj.getString("stationName");
+										}
+										if (!itemObj.isNull("area")) {
+											dto.area = itemObj.getString("area");
+										}
+										if (!itemObj.isNull("val")) {
+											dto.val = itemObj.getDouble("val");
+										}
+										if (!TextUtils.isEmpty(dto.area)) {
+											checkList.add(dto);
+										}
 									}
 								}
 								if (checkList.size() > 0 && checkAdapter != null) {
@@ -322,10 +346,18 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 								}
 							}
 
-							if (!b3) {//将序
-								iv3.setImageResource(R.drawable.arrow_down);
-							}else {//将序
-								iv3.setImageResource(R.drawable.arrow_up);
+							if (TextUtils.equals(childId, "658")) {//最低温
+								if (!b3) {//将序
+									iv3.setImageResource(R.drawable.arrow_up);
+								}else {//将序
+									iv3.setImageResource(R.drawable.arrow_down);
+								}
+							}else {
+								if (!b3) {//将序
+									iv3.setImageResource(R.drawable.arrow_down);
+								}else {//将序
+									iv3.setImageResource(R.drawable.arrow_up);
+								}
 							}
 							iv3.setVisibility(View.VISIBLE);
 
@@ -686,7 +718,7 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 				checkArea = "";
 			}
 			progressBar.setVisibility(View.VISIBLE);
-			asyncTaskRenyi("http://59.50.130.88:8888/decision-admin/dates/newgetrainfall?city="+checkArea+"&start="+startTimeCheck+"&end="+endTimeCheck+"&cid="+childId);
+			asyncTaskRenyi("http://59.50.130.88:8888/decision-admin/dates/newgetrainfall?city="+checkArea+"&start="+startTimeCheck+"&end="+endTimeCheck+"&cid="+childId, childId);
 			break;
 		case R.id.ll1:
 			if (b1) {//升序

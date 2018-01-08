@@ -864,7 +864,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 							if (!itemObj.isNull("val")) {
 								dto.val = itemObj.getDouble("val");
 							}
-							
+
 							if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
 								realDatas.add(dto);
 							}

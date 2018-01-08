@@ -95,8 +95,16 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 				tv3.setText(val);
 			}
 			
+			List<ShawnRainDto> list = new ArrayList<>();
+			list.addAll(getIntent().getExtras().<ShawnRainDto>getParcelableArrayList("realDatas"));
 			realDatas.clear();
-			realDatas.addAll(getIntent().getExtras().<ShawnRainDto>getParcelableArrayList("realDatas"));
+			if (TextUtils.equals(childId, "638")) {//最低温
+				for (int i = list.size()-1; i >= 0; i--) {
+					realDatas.add(list.get(i));
+				}
+			}else {
+				realDatas.addAll(list);
+			}
 		}else {
 			String area = getIntent().getStringExtra("area");
 			if (TextUtils.isEmpty(area)) {
@@ -115,13 +123,21 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 			if (TextUtils.isEmpty(childId)) {
 				childId = "";
 			}
-			asyncTaskDetail("http://59.50.130.88:8888/decision-admin/dates/getcitid?city="+area+"&start="+startTime+"&end="+endTime+"&cid="+childId);
+			asyncTaskDetail("http://59.50.130.88:8888/decision-admin/dates/getcitid?city="+area+"&start="+startTime+"&end="+endTime+"&cid="+childId, childId);
 		}
-		
-		if (!b3) {//将序
-			iv3.setImageResource(R.drawable.arrow_down);
-		}else {//将序
-			iv3.setImageResource(R.drawable.arrow_up);
+
+		if (TextUtils.equals(childId, "638")) {//最低温
+			if (!b3) {//将序
+				iv3.setImageResource(R.drawable.arrow_up);
+			}else {//将序
+				iv3.setImageResource(R.drawable.arrow_down);
+			}
+		}else {
+			if (!b3) {//将序
+				iv3.setImageResource(R.drawable.arrow_down);
+			}else {//将序
+				iv3.setImageResource(R.drawable.arrow_up);
+			}
 		}
 		iv3.setVisibility(View.VISIBLE);
 	}
@@ -144,9 +160,9 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 		});
 	}
 	
-	private void asyncTaskDetail(String url) {
+	private void asyncTaskDetail(String url, String childId) {
 		//异步请求数据
-		HttpAsyncTaskDetail task = new HttpAsyncTaskDetail();
+		HttpAsyncTaskDetail task = new HttpAsyncTaskDetail(childId);
 		task.setMethod("GET");
 		task.setTimeOut(CustomHttpClient.TIME_OUT);
 		task.execute(url);
@@ -160,8 +176,10 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 	private class HttpAsyncTaskDetail extends AsyncTask<String, Void, String> {
 		private String method = "GET";
 		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
+		private String childId;
 		
-		public HttpAsyncTaskDetail() {
+		public HttpAsyncTaskDetail(String childId) {
+			this.childId = childId;
 		}
 
 		@Override
@@ -214,24 +232,47 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 					if (!obj.isNull("list")) {
 						realDatas.clear();
 						JSONArray array = new JSONArray(obj.getString("list"));
-						for (int i = 0; i < array.length(); i++) {
-							JSONObject itemObj = array.getJSONObject(i);
-							ShawnRainDto dto = new ShawnRainDto();
-							if (!itemObj.isNull("stationCode")) {
-								dto.stationCode = itemObj.getString("stationCode");
+						if (TextUtils.equals(childId, "638")) {//最低温
+							for (int i = array.length()-1; i >= 0; i--) {
+								JSONObject itemObj = array.getJSONObject(i);
+								ShawnRainDto dto = new ShawnRainDto();
+								if (!itemObj.isNull("stationCode")) {
+									dto.stationCode = itemObj.getString("stationCode");
+								}
+								if (!itemObj.isNull("stationName")) {
+									dto.stationName = itemObj.getString("stationName");
+								}
+								if (!itemObj.isNull("area")) {
+									dto.area = itemObj.getString("area");
+								}
+								if (!itemObj.isNull("val")) {
+									dto.val = itemObj.getDouble("val");
+								}
+
+								if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
+									realDatas.add(dto);
+								}
 							}
-							if (!itemObj.isNull("stationName")) {
-								dto.stationName = itemObj.getString("stationName");
-							}
-							if (!itemObj.isNull("area")) {
-								dto.area = itemObj.getString("area");
-							}
-							if (!itemObj.isNull("val")) {
-								dto.val = itemObj.getDouble("val");
-							}
-							
-							if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
-								realDatas.add(dto);
+						}else {
+							for (int i = 0; i < array.length(); i++) {
+								JSONObject itemObj = array.getJSONObject(i);
+								ShawnRainDto dto = new ShawnRainDto();
+								if (!itemObj.isNull("stationCode")) {
+									dto.stationCode = itemObj.getString("stationCode");
+								}
+								if (!itemObj.isNull("stationName")) {
+									dto.stationName = itemObj.getString("stationName");
+								}
+								if (!itemObj.isNull("area")) {
+									dto.area = itemObj.getString("area");
+								}
+								if (!itemObj.isNull("val")) {
+									dto.val = itemObj.getDouble("val");
+								}
+
+								if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
+									realDatas.add(dto);
+								}
 							}
 						}
 						if (realDatas.size() > 0 && mAdapter != null) {
