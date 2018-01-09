@@ -1195,7 +1195,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 					Circle circle = aMap.addCircle(cOptions);
 					circles.add(circle);
 				}
-				
+
 				CommonUtil.drawAllDistrict(mContext, aMap, 0xff72e5f3, polylines);
 				break;
 

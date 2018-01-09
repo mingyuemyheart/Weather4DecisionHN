@@ -99,8 +99,6 @@ public class CommonUtil {
 	
 	/**
 	 * 解决ScrollView与GridView共存的问题
-	 * 
-	 * @param listView
 	 */
 	public static void setGridViewHeightBasedOnChildren(GridView gridView) {
 		ListAdapter listAdapter = gridView.getAdapter();
@@ -376,7 +374,6 @@ public class CommonUtil {
 	
 	/**
 	 * 转换图片成六边形
-	 * @param scaleBitmapImage
 	 * @return
 	 */
 	public static Bitmap getHexagonShape(Bitmap bitmap) {
@@ -588,14 +585,14 @@ public class CommonUtil {
 				JSONArray array = obj.getJSONArray("features");
 				for (int i = 0; i < array.length(); i++) {
 					JSONObject itemObj = array.getJSONObject(i);
-					
+
 //					JSONObject properties = itemObj.getJSONObject("properties");
 //					String name = properties.getString("name");
 //						JSONArray cp = properties.getJSONArray("cp");
 //						for (int m = 0; m < cp.length(); m++) {
 //							double lat = cp.getDouble(1);
 //							double lng = cp.getDouble(0);
-//							
+//
 //							LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //							View view = inflater.inflate(R.layout.rainfall_fact_marker_view2, null);
 //							TextView tvName = (TextView) view.findViewById(R.id.tvName);
@@ -608,13 +605,13 @@ public class CommonUtil {
 //							options.icon(BitmapDescriptorFactory.fromView(view));
 //							aMap.addMarker(options);
 //						}
-						
+
 					JSONObject geometry = itemObj.getJSONObject("geometry");
 					JSONArray coordinates = geometry.getJSONArray("coordinates");
 					for (int m = 0; m < coordinates.length(); m++) {
 						JSONArray array2 = coordinates.getJSONArray(m);
 						PolylineOptions polylineOption = new PolylineOptions();
-						polylineOption.width(1).color(color);	 
+						polylineOption.width(1).color(color);
 						for (int j = 0; j < array2.length(); j++) {
 							JSONArray itemArray = array2.getJSONArray(j);
 							double lng = itemArray.getDouble(0);
@@ -728,8 +725,6 @@ public class CommonUtil {
     
 	/**
      * 截屏,可是区域
-     * @param shotView 截屏view
-     * @param id view id
      * @return
      */
 	public static Bitmap captureView(View view) {
