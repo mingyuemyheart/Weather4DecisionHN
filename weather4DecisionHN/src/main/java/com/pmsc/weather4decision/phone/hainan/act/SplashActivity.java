@@ -7,15 +7,23 @@ import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
 
+import com.android.lib.app.MyApplication;
 import com.android.lib.data.CONST;
 import com.pmsc.weather4decision.phone.hainan.R;
+import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
 import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
 import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
 
@@ -34,19 +42,72 @@ import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
  * @since 1.0
  */
 public class SplashActivity extends AbsLoginActivity {
-	
+
+	private Context mContext;
 	private String server_url = "http://hnjc.tianqi.cn:8080/hnversion/getversion";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
+		mContext = this;
+
+		if (!CommonUtil.isLocationOpen(mContext)) {
+			locationDialog(mContext);
+		}else {
+			commonControl();
+		}
 		
+	}
+
+	private void locationDialog(Context context) {
+		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.dialog_location, null);
+		LinearLayout llNegative = (LinearLayout) view.findViewById(R.id.llNegative);
+		LinearLayout llPositive = (LinearLayout) view.findViewById(R.id.llPositive);
+
+		final Dialog dialog = new Dialog(context, R.style.CustomProgressDialog);
+		dialog.setContentView(view);
+		dialog.setCancelable(false);
+		dialog.show();
+
+		llNegative.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+
+		llPositive.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+				Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+				startActivityForResult(intent, 1);
+			}
+		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == 0) {
+			switch (requestCode) {
+				case 1:
+					commonControl();
+					break;
+
+				default:
+					break;
+			}
+		}
+	}
+
+	private void commonControl() {
 		SharedPreferences sp = getSharedPreferences("CLOUDOR169", Context.MODE_PRIVATE);
 		CONST.SERVER_SWITHER = sp.getString("flag", "0");
-		
+
 		asyncQuery(server_url);
-		
 	}
 	
 	public void onLoginFail() {

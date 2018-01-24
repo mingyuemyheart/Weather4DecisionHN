@@ -277,7 +277,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			PreferUtil.saveCurrentCity(amapLocation.getCity());
 			PreferUtil.saveCurrentDistrict(amapLocation.getDistrict());
 			getWeatherInfo(amapLocation.getLongitude(), amapLocation.getLatitude());
-			
+
 			if (!TextUtils.isEmpty(amapLocation.getStreet())) {
 				setTitle(amapLocation.getStreet()+amapLocation.getStreetNum());
 				cityName = amapLocation.getStreet()+amapLocation.getStreetNum();
