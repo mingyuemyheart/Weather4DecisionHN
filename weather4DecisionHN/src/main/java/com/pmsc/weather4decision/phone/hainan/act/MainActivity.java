@@ -1,19 +1,23 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -45,6 +49,7 @@ import com.pmsc.weather4decision.phone.hainan.http.FetchWeather.OnFetchWeatherLi
 import com.pmsc.weather4decision.phone.hainan.util.AutoUpdateUtil;
 import com.pmsc.weather4decision.phone.hainan.util.CacheData;
 import com.pmsc.weather4decision.phone.hainan.util.CodeParse;
+import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
 import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
 import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
@@ -94,6 +99,8 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	private int height = 0;
 	private LinearLayout llContainer, llContainer2;
 
+	private RelativeLayout reMain;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		new ParseCityTask().run();
@@ -101,6 +108,59 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mContext = this;
+
+		if (!CommonUtil.isLocationOpen(mContext)) {
+			locationDialog(mContext);
+		}else {
+			commonControl();
+		}
+	}
+
+	private void locationDialog(Context context) {
+		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.dialog_location, null);
+		LinearLayout llNegative = (LinearLayout) view.findViewById(R.id.llNegative);
+		LinearLayout llPositive = (LinearLayout) view.findViewById(R.id.llPositive);
+
+		final Dialog dialog = new Dialog(context, R.style.CustomProgressDialog);
+		dialog.setContentView(view);
+		dialog.setCancelable(false);
+		dialog.show();
+
+		llNegative.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+				commonControl();
+			}
+		});
+
+		llPositive.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+				Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+				startActivityForResult(intent, 1);
+			}
+		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == 0) {
+			switch (requestCode) {
+				case 1:
+					commonControl();
+					break;
+
+				default:
+					break;
+			}
+		}
+	}
+
+	private void commonControl() {
 		MyApplication.addDestoryActivity(MainActivity.this, CONST.MainActivity);
 		showLoadingDialog(R.string.loading);
 		initWidget();
@@ -109,6 +169,8 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	private void initWidget() {
         AutoUpdateUtil.checkUpdate(MainActivity.this, "39", getString(R.string.app_name), true);
 
+		reMain = (RelativeLayout) findViewById(R.id.reMain);
+		reMain.setVisibility(View.VISIBLE);
 		rightButton.setBackgroundResource(R.drawable.icon_my);
 		rightButton.setVisibility(View.VISIBLE);
 		setTitle(PreferUtil.getCurrentCity());
@@ -141,28 +203,28 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		}
 
 		asyncNewsCount("http://59.50.130.88:8888/decision-admin/push/getpushcount?type=2&uid="+PreferUtil.getUid());
-		startLocation();
+
+		if (!CommonUtil.isLocationOpen(mContext)) {
+			PreferUtil.saveCurrentProvince("海南省");
+			PreferUtil.saveCurrentCity("海口市");
+			PreferUtil.saveCurrentDistrict("美兰区");
+
+			setTitle("海口");
+			cityName = "海口";
+			cityId = "101310101";
+			if (!TextUtils.isEmpty(cityId)) {
+				PreferUtil.saveCurrentCityId(cityId);
+				getAllWeather();
+				setPushTags();
+			}
+		}else {
+			startLocation();
+		}
+
 		loadGridData();
 	}
 	
-	/** 
-     * 判断GPS是否开启，GPS或者AGPS开启一个就认为是开启的 
-     * @param context 
-     * @return true 表示开启 
-     */  
-	private static final boolean isOPen(final Context context) {
-		LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-		// 通过GPS卫星定位，定位级别可以精确到街（通过24颗卫星定位，在室外和空旷的地方定位准确、速度快）
-		boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		// 通过WLAN或移动网络(3G/2G)确定的位置（也称作AGPS，辅助GPS定位。主要用于在室内或遮盖物（建筑群或茂密的深林等）密集的地方定位）
-		boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-		if (gps || network) {
-			return true;
-		}
-		return false;
-	}
-	
-    /** 
+    /**
      * 强制帮用户打开GPS 
      * @param context 
      */  

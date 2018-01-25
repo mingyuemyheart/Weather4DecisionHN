@@ -75,6 +75,7 @@ public class SplashActivity extends AbsLoginActivity {
 			@Override
 			public void onClick(View arg0) {
 				dialog.dismiss();
+				commonControl();
 			}
 		});
 
