@@ -13,8 +13,8 @@ android {
         applicationId "com.pmsc.weather4decision.phone.hainan"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 141
-        versionName "2.1.61"
+        versionCode 142
+        versionName "2.1.62"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //个推
