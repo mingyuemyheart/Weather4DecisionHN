@@ -168,6 +168,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 
 	private void initWidget() {
         AutoUpdateUtil.checkUpdate(MainActivity.this, "39", getString(R.string.app_name), true);
+        SettingActivity.clearCache(mContext);
 
 		reMain = (RelativeLayout) findViewById(R.id.reMain);
 		reMain.setVisibility(View.VISIBLE);
@@ -351,7 +352,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	}
 	
 	/**
-	 * 获取天气数据d	 */
+	 * 获取天气数据*/
 	private void getWeatherInfo(final double lng, final double lat) {
 		WeatherAPI.getGeo(MainActivity.this, String.valueOf(lng), String.valueOf(lat), new AsyncResponseHandler(){
 			@Override
@@ -418,7 +419,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			String skpt = live.getString("l7");
 			
 			weatherView.setText(CodeParse.parseWeatherCode(dayW));
-			tempView.setText(temp + "°C");
+			tempView.setText(temp+"℃");
 			windView.setText(CodeParse.parseWindfxCode(fx) + " " + windFl);
 			shiduView.setText("相对湿度"+" "+shidu+"%");
 			pubTimeView.setText(getString(R.string.hn_weather_tai, Utils.getDayDate() + skpt));

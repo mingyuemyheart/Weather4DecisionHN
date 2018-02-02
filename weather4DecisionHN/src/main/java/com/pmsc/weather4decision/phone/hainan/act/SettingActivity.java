@@ -2,6 +2,7 @@ package com.pmsc.weather4decision.phone.hainan.act;
 
 import java.io.File;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -97,13 +98,19 @@ public class SettingActivity extends AbsLoginActivity {
 	public void onCleanAction(View v) {
 		//清理缓存
 		showLoadingDialog(R.string.cleaning);
-		String http = ImageCache.getDiskCacheDir(getApplicationContext(), "http").getAbsolutePath();
-		String pdf = ImageCache.getDiskCacheDir(getApplicationContext(), "pdf").getAbsolutePath();
-		String json = ImageCache.getDiskCacheDir(getApplicationContext(), "json").getAbsolutePath();
+		clearCache(getApplicationContext());
+		cancelLoadingDialog();
+		showToast(R.string.clean_ok);
+	}
+
+	public static void clearCache(final Context context) {
+		String http = ImageCache.getDiskCacheDir(context, "http").getAbsolutePath();
+		String pdf = ImageCache.getDiskCacheDir(context, "pdf").getAbsolutePath();
+		String json = ImageCache.getDiskCacheDir(context, "json").getAbsolutePath();
 		final String[] dirs = {
-		        http,
-		        pdf,
-		        json
+				http,
+				pdf,
+				json
 		};
 		new Thread() {
 			@Override
@@ -119,13 +126,6 @@ public class SettingActivity extends AbsLoginActivity {
 						}
 					}
 				}
-				post(new Runnable() {
-					@Override
-					public void run() {
-						cancelLoadingDialog();
-						showToast(R.string.clean_ok);
-					}
-				});
 			}
 		}.start();
 	}

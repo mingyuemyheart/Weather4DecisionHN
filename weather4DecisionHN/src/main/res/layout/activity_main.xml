@@ -1,11 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/reMain"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/main_bg"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
     <RelativeLayout
         android:id="@+id/top"
@@ -37,9 +37,9 @@
                     android:id="@+id/llContainer2"
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
-                    android:visibility="gone"
                     android:gravity="center_vertical|center"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal"
+                    android:visibility="gone"/>
 
             </HorizontalScrollView>
 
@@ -59,59 +59,59 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/biaoshi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="实况"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/level_4"/>
+                        android:textSize="@dimen/level_2"/>
 
-                <TextView
-                    android:id="@+id/temp_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:includeFontPadding="false"
-                    android:textSize="52sp"/>
+                    <TextView
+                        android:layout_marginTop="18dp"
+                        android:id="@+id/temp_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/white"
+                        android:textSize="52sp"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/wind_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
                         android:textSize="14sp"/>
 
                     <TextView
                         android:id="@+id/shidu_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
                         android:textSize="14sp"/>
 
                     <TextView
                         android:id="@+id/aqi_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
                         android:textSize="14sp"/>
