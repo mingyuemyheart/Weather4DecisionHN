@@ -201,13 +201,19 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 								int f0Hour = Integer.valueOf(fObj.getString("f0").substring(8, 10));
 								String f0 = sdf3.format(sdf2.parse(fObj.getString("f0")));
 								long time = sdf3.parse(f0).getTime();
-								
+
+								int index = 0;
+								long currentDate = sdf3.parse(sdf3.format(new Date())).getTime();
+								if (currentDate > time) {
+									index = 1;
+								}
+
 								if (!fObj.isNull("f1")) {
 									weeklyList.clear();
 									String currentTime = sdf1.format(new Date().getTime());
 									int hour = Integer.valueOf(currentTime);
 									JSONArray f1 = fObj.getJSONArray("f1");
-									for (int i = 0; i < f1.length(); i++) {
+									for (int i = index; i < f1.length(); i++) {
 										WeatherDto dto = new WeatherDto();
 										JSONObject weeklyObj = f1.getJSONObject(i);
 										//晚上
@@ -256,7 +262,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 										
 										dto.week = CommonUtil.getWeek(mContext, i);//星期几
 										dto.date = sdf3.format(new Date(time+1000*60*60*24*i));//日期
-										if (i == 0) {
+										if (index == 0 || index == 1) {
 											tvWeek.setText("今天"+" "+dto.week);
 										}
 										
@@ -292,7 +298,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 							//逐小时预报信息
 							JSONObject hour = array.getJSONObject(3);
 							if (!hour.isNull("jh")) {
-								List<WeatherDto> hourlyList = new ArrayList<WeatherDto>();
+								List<WeatherDto> hourlyList = new ArrayList<>();
 								JSONArray jhArray = hour.getJSONArray("jh");
 								for (int i = 0; i < jhArray.length(); i++) {
 									JSONObject itemObj = jhArray.getJSONObject(i);
@@ -385,8 +391,20 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 							
 							//一周预报信息
 							weeklyList.clear();
+							int index = 1;
+							try {
+								String f0 = sdf3.format(sdf2.parse(content.getForecastTime()));
+								long foreTime = sdf3.parse(f0).getTime();
+								long currentDate = sdf3.parse(sdf3.format(new Date())).getTime();
+								if (currentDate > foreTime) {
+									index = 2;
+								}
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+
 							//这里只去一周预报，默认为15天，所以遍历7次
-							for (int i = 1; i <= 15; i++) {
+							for (int i = index; i <= 15; i++) {
 								WeatherDto dto = new WeatherDto();
 								
 								JSONArray weeklyArray = content.getWeatherForecastInfo(i);
@@ -441,7 +459,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 								JSONObject timeObj = timeArray.getJSONObject(0);
 								dto.week = timeObj.getString("t4");//星期几
 								dto.date = timeObj.getString("t1");//日期
-								if (i == 1) {
+								if (index == 1 || index == 2) {
 									tvWeek.setText("今天"+" "+dto.week);
 								}
 								
@@ -461,7 +479,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 							
 							//逐小时预报信息
 							JSONArray hourlyArray = content.getHourlyFineForecast2();
-							List<WeatherDto> hourlyList = new ArrayList<WeatherDto>();
+							List<WeatherDto> hourlyList = new ArrayList<>();
 							for (int i = 0; i < hourlyArray.length(); i++) {
 								JSONObject itemObj = hourlyArray.getJSONObject(i);
 								WeatherDto dto = new WeatherDto();

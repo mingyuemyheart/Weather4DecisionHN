@@ -4,7 +4,6 @@ package com.pmsc.weather4decision.phone.hainan.view;
  * 绘制平滑曲线
  */
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressLint({ "SimpleDateFormat", "DrawAllocation" })
 public class CubicView extends View{
 	
 	private Context mContext = null;
@@ -89,13 +87,7 @@ public class CubicView extends View{
 				}
 			}
 
-			if (maxTemp > 0 && minTemp > 0) {
-				totalDivider = maxTemp-minTemp;
-			}else if (maxTemp >= 0 && minTemp <= 0) {
-				totalDivider = maxTemp-minTemp;
-			}else if (maxTemp < 0 && minTemp < 0) {
-				totalDivider = maxTemp-minTemp;
-			}
+			totalDivider = maxTemp-minTemp;
 			if (totalDivider <= 5) {
 				itemDivider = 1;
 			}else if (totalDivider > 5 && totalDivider <= 15) {
@@ -108,7 +100,7 @@ public class CubicView extends View{
 				itemDivider = 5;
 			}
 			maxTemp = maxTemp+itemDivider*3/2;
-			minTemp = minTemp-itemDivider;
+			minTemp = minTemp-itemDivider*3/2;
 		}
 	}
 	
@@ -123,7 +115,7 @@ public class CubicView extends View{
 		float h = canvas.getHeight();
 		canvas.drawColor(Color.TRANSPARENT);
 		float chartW = w-CommonUtil.dip2px(mContext, 60);
-		float chartH = h-CommonUtil.dip2px(mContext, 150);
+		float chartH = h-CommonUtil.dip2px(mContext, 170);
 		float leftMargin = CommonUtil.dip2px(mContext, 40);
 		float rightMargin = CommonUtil.dip2px(mContext, 20);
 
@@ -194,7 +186,7 @@ public class CubicView extends View{
 				textP.setColor(getResources().getColor(R.color.white));
 				textP.setTextSize(CommonUtil.dip2px(mContext, 10));
 				float tempWidth = textP.measureText(String.valueOf(dto.hourlyTemp)+"℃");
-				canvas.drawText(String.valueOf(dto.hourlyTemp)+"℃", dto.x-tempWidth/2, dto.y+(int)(CommonUtil.dip2px(mContext, 20)), textP);
+				canvas.drawText(String.valueOf(dto.hourlyTemp)+"℃", dto.x-tempWidth/2, dto.y+(int)(CommonUtil.dip2px(mContext, 15)), textP);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -209,6 +201,9 @@ public class CubicView extends View{
 			textP.setColor(getResources().getColor(R.color.white));
 			textP.setTextSize(CommonUtil.dip2px(mContext, 10));
 			String windDir = mContext.getString(WeatherUtil.getWindDirection(dto.hourlyWindDirCode));
+			if (windDir.length() > 2) {
+				textP.setTextSize(CommonUtil.dip2px(mContext, 9));
+			}
 			float hWindDir = textP.measureText(windDir);
 			canvas.drawText(windDir, dto.x-hWindDir/2, windHeight-CommonUtil.dip2px(mContext, 15f), textP);
 			
