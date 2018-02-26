@@ -14,7 +14,7 @@ public class WeatherDto implements Parcelable{
 	public String aqi = null;//空气质量
 	
 	//平滑曲线
-	public int hourlyTemp = 0;//逐小时温度
+	public float hourlyTemp = 0;//逐小时温度
 	public String hourlyTime = null;//逐小时时间
 	public int hourlyCode = 0;//天气现象编号
 	public int hourlyWindDirCode = 0;
@@ -43,6 +43,9 @@ public class WeatherDto implements Parcelable{
 	public int windForce = 0;//风力编号
 	public String windForceString;
 
+	public WeatherDto() {
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -58,7 +61,7 @@ public class WeatherDto implements Parcelable{
 		dest.writeString(this.factPheCode);
 		dest.writeFloat(this.minuteFall);
 		dest.writeString(this.aqi);
-		dest.writeInt(this.hourlyTemp);
+		dest.writeFloat(this.hourlyTemp);
 		dest.writeString(this.hourlyTime);
 		dest.writeInt(this.hourlyCode);
 		dest.writeInt(this.hourlyWindDirCode);
@@ -86,9 +89,6 @@ public class WeatherDto implements Parcelable{
 		dest.writeString(this.windForceString);
 	}
 
-	public WeatherDto() {
-	}
-
 	protected WeatherDto(Parcel in) {
 		this.cityId = in.readString();
 		this.cityName = in.readString();
@@ -98,7 +98,7 @@ public class WeatherDto implements Parcelable{
 		this.factPheCode = in.readString();
 		this.minuteFall = in.readFloat();
 		this.aqi = in.readString();
-		this.hourlyTemp = in.readInt();
+		this.hourlyTemp = in.readFloat();
 		this.hourlyTime = in.readString();
 		this.hourlyCode = in.readInt();
 		this.hourlyWindDirCode = in.readInt();

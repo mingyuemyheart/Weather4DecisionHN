@@ -33,11 +33,11 @@ public class CubicView extends View{
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("HH时");
 	private SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
 	private List<WeatherDto> tempList = new ArrayList<>();
-	private int maxTemp = 0;//最高温度
-	private int minTemp = 0;//最低温度
+	private float maxTemp = 0;//最高温度
+	private float minTemp = 0;//最低温度
 	private Paint lineP = null;//画线画笔
 	private Paint textP = null;//写字画笔
-	private int totalDivider = 0;
+	private float totalDivider = 0;
 	private int itemDivider = 1;
 	
 	public CubicView(Context context) {
@@ -114,9 +114,9 @@ public class CubicView extends View{
 		float w = canvas.getWidth();
 		float h = canvas.getHeight();
 		canvas.drawColor(Color.TRANSPARENT);
-		float chartW = w-CommonUtil.dip2px(mContext, 60);
+		float chartW = w-CommonUtil.dip2px(mContext, 70);
 		float chartH = h-CommonUtil.dip2px(mContext, 170);
-		float leftMargin = CommonUtil.dip2px(mContext, 40);
+		float leftMargin = CommonUtil.dip2px(mContext, 50);
 		float rightMargin = CommonUtil.dip2px(mContext, 20);
 
 		int size = tempList.size();
@@ -132,13 +132,13 @@ public class CubicView extends View{
 		}
 
 		//绘制刻度线
-		for (int i = minTemp; i <= maxTemp; i+=itemDivider) {
+		for (int i = (int)minTemp; i <= maxTemp; i+=itemDivider) {
 			float dividerY = chartH*Math.abs(maxTemp-i)/totalDivider;
 			lineP.setColor(0x30ffffff);
 			canvas.drawLine(CommonUtil.dip2px(mContext, 25), dividerY, w-rightMargin, dividerY, lineP);
 			textP.setColor(mContext.getResources().getColor(R.color.white));
 			textP.setTextSize(CommonUtil.dip2px(mContext, 10));
-			canvas.drawText(String.valueOf(i)+"℃", CommonUtil.dip2px(mContext, 5), dividerY, textP);
+			canvas.drawText(i+"℃", CommonUtil.dip2px(mContext, 5), dividerY, textP);
 		}
 		
 		for (int i = 0; i < size-1; i++) {
@@ -185,8 +185,8 @@ public class CubicView extends View{
 				canvas.drawBitmap(newBit, dto.x-newBit.getWidth()/2, dto.y-CommonUtil.dip2px(mContext, 25f), textP);
 				textP.setColor(getResources().getColor(R.color.white));
 				textP.setTextSize(CommonUtil.dip2px(mContext, 10));
-				float tempWidth = textP.measureText(String.valueOf(dto.hourlyTemp)+"℃");
-				canvas.drawText(String.valueOf(dto.hourlyTemp)+"℃", dto.x-tempWidth/2, dto.y+(int)(CommonUtil.dip2px(mContext, 15)), textP);
+				float tempWidth = textP.measureText(String.valueOf(dto.hourlyTemp));
+				canvas.drawText(String.valueOf(dto.hourlyTemp), dto.x-tempWidth/2, dto.y+(int)(CommonUtil.dip2px(mContext, 15)), textP);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

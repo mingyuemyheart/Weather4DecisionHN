@@ -21,9 +21,10 @@ public class WeeklyForecastAdapter extends BaseAdapter{
 	
 	private Context mContext = null;
 	private LayoutInflater mInflater = null;
-	private List<WeatherDto> mArrayList = new ArrayList<WeatherDto>();
+	private List<WeatherDto> mArrayList = new ArrayList<>();
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
 	private SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd");
+	public long foreTime, currentTime;
 	
 	private final class ViewHolder{
 		TextView tvWeek;
@@ -82,8 +83,31 @@ public class WeeklyForecastAdapter extends BaseAdapter{
 			mHolder.tvWeek.setText("今天");
 		}else {
 			String week = dto.week;
-			mHolder.tvWeek.setText(mContext.getString(R.string.week)+week.substring(week.length()-1, week.length()));
+			mHolder.tvWeek.setText("周"+week.substring(week.length()-1, week.length()));
 		}
+
+		String week = dto.week;
+		if (currentTime > foreTime) {
+			if (position == 0) {
+				week = "昨天";
+			}else if (position == 1) {
+				week = "今天";
+			}else if (position == 2) {
+				week = "明天";
+			}else {
+				week = "周"+week.substring(week.length()-1, week.length());
+			}
+		}else {
+			if (position == 0) {
+				week = "今天";
+			}else if (position == 1) {
+				week = "明天";
+			}else {
+				week = "周"+week.substring(week.length()-1, week.length());
+			}
+		}
+		mHolder.tvWeek.setText(week);
+
 		try {
 			mHolder.tvDate.setText(sdf2.format(sdf1.parse(dto.date)));
 		} catch (ParseException e) {

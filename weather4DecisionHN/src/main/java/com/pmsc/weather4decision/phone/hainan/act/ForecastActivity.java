@@ -201,19 +201,14 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 								int f0Hour = Integer.valueOf(fObj.getString("f0").substring(8, 10));
 								String f0 = sdf3.format(sdf2.parse(fObj.getString("f0")));
 								long time = sdf3.parse(f0).getTime();
-
-								int index = 0;
 								long currentDate = sdf3.parse(sdf3.format(new Date())).getTime();
-								if (currentDate > time) {
-									index = 1;
-								}
 
 								if (!fObj.isNull("f1")) {
 									weeklyList.clear();
 									String currentTime = sdf1.format(new Date().getTime());
 									int hour = Integer.valueOf(currentTime);
 									JSONArray f1 = fObj.getJSONArray("f1");
-									for (int i = index; i < f1.length(); i++) {
+									for (int i = 0; i < f1.length(); i++) {
 										WeatherDto dto = new WeatherDto();
 										JSONObject weeklyObj = f1.getJSONObject(i);
 										//晚上
@@ -260,10 +255,18 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 											}
 										}
 										
-										dto.week = CommonUtil.getWeek(mContext, i);//星期几
 										dto.date = sdf3.format(new Date(time+1000*60*60*24*i));//日期
-										if (index == 0 || index == 1) {
-											tvWeek.setText("今天"+" "+dto.week);
+
+										if (currentDate > time) {
+											dto.week = CommonUtil.getWeek(mContext, i-1);//星期几
+											if (i == 1) {
+												tvWeek.setText("今天"+" "+dto.week);
+											}
+										}else {
+											dto.week = CommonUtil.getWeek(mContext, i);//星期几
+											if (i == 0) {
+												tvWeek.setText("今天"+" "+dto.week);
+											}
 										}
 										
 										weeklyList.add(dto);
@@ -271,11 +274,13 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 									
 									if (weeklyList.size() > 0 && mAdapter != null) {
 										CommonUtil.setListViewHeightBasedOnChildren(mListView);
+										mAdapter.foreTime = time;
+										mAdapter.currentTime = currentDate;
 										mAdapter.notifyDataSetChanged();
 										
 										//一周预报曲线
 										WeeklyView weeklyView = new WeeklyView(mContext);
-										weeklyView.setData(weeklyList);
+										weeklyView.setData(weeklyList, time, currentDate);
 										llContainer2.removeAllViews();
 										llContainer2.addView(weeklyView, width*2, (int)(CommonUtil.dip2px(mContext, 360)));
 									}
@@ -304,7 +309,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 									JSONObject itemObj = jhArray.getJSONObject(i);
 									WeatherDto dto = new WeatherDto();
 									dto.hourlyCode = Integer.valueOf(itemObj.getString("ja"));
-									dto.hourlyTemp = Integer.valueOf(itemObj.getString("jb"));
+									dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
 									dto.hourlyTime = itemObj.getString("jf");
 									dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
 									dto.hourlyWindForceCode = Integer.valueOf(itemObj.getString("jd"));
@@ -329,7 +334,8 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 				}
 			};
 			http.setDebug(false);
-			http.excute("http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+cityId, "");
+//			http.excute("http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+cityId, "");
+			http.excute("http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+cityId, "");
 		}else {
 			WeatherAPI.getWeather2(mContext, cityId, Language.ZH_CN, new AsyncResponseHandler() {
 				@Override
@@ -391,20 +397,18 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 							
 							//一周预报信息
 							weeklyList.clear();
-							int index = 1;
+							long foreTime = 0;
+							long currentDate = 0;
 							try {
 								String f0 = sdf3.format(sdf2.parse(content.getForecastTime()));
-								long foreTime = sdf3.parse(f0).getTime();
-								long currentDate = sdf3.parse(sdf3.format(new Date())).getTime();
-								if (currentDate > foreTime) {
-									index = 2;
-								}
+								foreTime = sdf3.parse(f0).getTime();
+								currentDate = sdf3.parse(sdf3.format(new Date())).getTime();
 							} catch (ParseException e) {
 								e.printStackTrace();
 							}
 
 							//这里只去一周预报，默认为15天，所以遍历7次
-							for (int i = index; i <= 15; i++) {
+							for (int i = 1; i <= 15; i++) {
 								WeatherDto dto = new WeatherDto();
 								
 								JSONArray weeklyArray = content.getWeatherForecastInfo(i);
@@ -415,7 +419,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 								dto.lowPhe = getString(WeatherUtil.getWeatherId(Integer.valueOf(weeklyObj.getString("fb"))));
 								dto.lowTemp = Integer.valueOf(weeklyObj.getString("fd"));
 								
-								//白天数据缺失时，就使用晚上数据
+								//白天数据缺失时，就使用第二天数据
 								if (TextUtils.isEmpty(weeklyObj.getString("fa"))) {
 									JSONObject secondObj = content.getWeatherForecastInfo(2).getJSONObject(0);
 									dto.highPheCode = Integer.valueOf(secondObj.getString("fa"));
@@ -459,8 +463,15 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 								JSONObject timeObj = timeArray.getJSONObject(0);
 								dto.week = timeObj.getString("t4");//星期几
 								dto.date = timeObj.getString("t1");//日期
-								if (index == 1 || index == 2) {
-									tvWeek.setText("今天"+" "+dto.week);
+
+								if (currentDate > foreTime) {
+									if (i == 2) {
+										tvWeek.setText("今天"+" "+dto.week);
+									}
+								}else {
+									if (i == 1) {
+										tvWeek.setText("今天"+" "+dto.week);
+									}
 								}
 								
 								weeklyList.add(dto);
@@ -468,12 +479,14 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 							
 							if (weeklyList.size() > 0 && mAdapter != null) {
 								CommonUtil.setListViewHeightBasedOnChildren(mListView);
+								mAdapter.foreTime = foreTime;
+								mAdapter.currentTime = currentDate;
 								mAdapter.notifyDataSetChanged();
 							}
 							
 							//一周预报曲线
 							WeeklyView weeklyView = new WeeklyView(mContext);
-							weeklyView.setData(weeklyList);
+							weeklyView.setData(weeklyList, foreTime, currentDate);
 							llContainer2.removeAllViews();
 							llContainer2.addView(weeklyView, width*2, (int)(CommonUtil.dip2px(mContext, 360)));
 							
@@ -484,7 +497,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 								JSONObject itemObj = hourlyArray.getJSONObject(i);
 								WeatherDto dto = new WeatherDto();
 								dto.hourlyCode = Integer.valueOf(itemObj.getString("ja"));
-								dto.hourlyTemp = Integer.valueOf(itemObj.getString("jb"));
+								dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
 								dto.hourlyTime = itemObj.getString("jf");
 								dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
 								dto.hourlyWindForceCode = Integer.valueOf(itemObj.getString("jd"));

@@ -1,14 +1,6 @@
 package com.pmsc.weather4decision.phone.hainan.fragment;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,15 +29,26 @@ import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.act.ForecastActivity;
 import com.pmsc.weather4decision.phone.hainan.dto.WeatherDto;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
-import com.pmsc.weather4decision.phone.hainan.util.WeatherUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class ProvinceFragment extends Fragment implements OnMarkerClickListener, OnMapLoadedListener {
 	
 	private TextView      titleTv;
 	private MapView mMapView = null;
 	private AMap aMap = null;
-	private List<WeatherDto> mList = new ArrayList<WeatherDto>();
+	private List<WeatherDto> mList = new ArrayList<>();
 	private SimpleDateFormat sdf1 = new SimpleDateFormat("HH");
+	private SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy年MM月dd日HH时");
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,23 +65,6 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener,
 	
 	private void initWidget(View view){
 		titleTv = (TextView) view.findViewById(R.id.title_tv);
-//		String time_7 = getArguments().getString("time_7");
-//		refreshTitle(time_7);
-	}
-	
-	/**
-	 * @param fTime
-	 *            七天预报的发布时间
-	 */
-	private void refreshTitle(String fTime) {
-		if (TextUtils.isEmpty(fTime)) {
-			return;
-		}
-		String year = fTime.substring(0, 4);
-		String month = fTime.substring(4, 6);
-		String day = fTime.substring(6, 8);
-		String hour = fTime.substring(8, 10);
-		titleTv.setText(getString(R.string.province_time_to, year, month, day, hour));
 	}
 	
 	private void initMap(Bundle bundle, View view) {
@@ -182,38 +167,39 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener,
 				if (!TextUtils.isEmpty(response)) {
 					try {
 						JSONArray array = new JSONArray(response);
-						JSONObject obj = array.getJSONObject(1);
-						if (!obj.isNull("f")) {
-							JSONObject lObj = obj.getJSONObject("f");
 
-							if (!lObj.isNull("f0")) {
-								final String time = lObj.getString("f0");
-								getActivity().runOnUiThread(new Runnable() {
-									@Override
-									public void run() {
-										refreshTitle(time);
+						//实况信息
+						if (TextUtils.equals(dto.cityId, "101310101")) {
+							JSONObject fact = array.getJSONObject(0);
+							if (!fact.isNull("l")) {
+								JSONObject lObj = fact.getJSONObject("l");
+								if (!lObj.isNull("l13")) {
+									String time = lObj.getString("l13");
+									if (time != null) {
+										try {
+											titleTv.setText(sdf3.format(sdf2.parse(time))+"发布的市县未来24小时预报");
+										} catch (ParseException e) {
+											e.printStackTrace();
+										}
 									}
-								});
-							}
-
-							if (!lObj.isNull("f1")) {
-								JSONArray f1 = lObj.getJSONArray("f1");
-								JSONObject weeklyObj = f1.getJSONObject(0);
-
-								if (TextUtils.isEmpty(weeklyObj.getString("fa"))) {
-									dto.factPheCode = weeklyObj.getString("fb");
-									dto.factTemp = weeklyObj.getString("fd");
-								}else {
-									dto.factPheCode = weeklyObj.getString("fa");
-									dto.factTemp = weeklyObj.getString("fc");
 								}
-
-								Message msg = new Message();
-								msg.what = 101;
-								msg.obj = dto;
-								handler.sendMessage(msg);
 							}
 						}
+
+						//逐小时预报信息
+						JSONObject hour = array.getJSONObject(3);
+						if (!hour.isNull("jh")) {
+							JSONArray jhArray = hour.getJSONArray("jh");
+							JSONObject itemObj = jhArray.getJSONObject(0);
+							dto.factPheCode = itemObj.getString("ja");
+							dto.factTemp = itemObj.getString("jb");
+
+							Message msg = new Message();
+							msg.what = 101;
+							msg.obj = dto;
+							handler.sendMessage(msg);
+						}
+
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -222,9 +208,11 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener,
 			}
 		};
 		http.setDebug(false);
-		http.excute("http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+dto.cityId, "");
+//		http.excute("http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+dto.cityId, "");
+		http.excute("http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+dto.cityId, "");
 	}
-	
+
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
     	public void handleMessage(android.os.Message msg) {
     		switch (msg.what) {

@@ -5,10 +5,8 @@ import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -59,7 +57,10 @@ import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.com.weather.api.WeatherAPI;
@@ -93,7 +94,6 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	private TextView        daysView;
 	private TextView        pubTimeView;
 	
-	private int             pubTime;      //七天预报发布时间，最后四位
 	private String cityId, cityName;
 	private RelativeLayout top = null;
 	private int height = 0;
@@ -339,6 +339,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
         	PreferUtil.saveCurrentProvince(amapLocation.getProvince());
 			PreferUtil.saveCurrentCity(amapLocation.getCity());
 			PreferUtil.saveCurrentDistrict(amapLocation.getDistrict());
+//			getWeatherInfo(110.359093,20.023931);
 			getWeatherInfo(amapLocation.getLongitude(), amapLocation.getLatitude());
 
 			if (!TextUtils.isEmpty(amapLocation.getStreet())) {
@@ -348,6 +349,9 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 				setTitle(amapLocation.getDistrict());
 				cityName = amapLocation.getDistrict();
 			}
+
+//			setTitle("海南省气象局");
+//			cityName = "海南省气象局";
         }
 	}
 	
@@ -364,6 +368,9 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 						JSONObject geoObj = content.getJSONObject("geo");
 						if (!geoObj.isNull("id")) {
 							cityId = geoObj.getString("id");
+							if (cityId.length() >= 9) {
+								cityId = cityId.substring(0, 9);
+							}
 							if (!TextUtils.isEmpty(cityId)) {
 								PreferUtil.saveCurrentCityId(cityId);
 								getAllWeather();
@@ -442,8 +449,20 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			
 			//七天预报信息的发布时间
 			time_7 = forecast.getString("f0");
-			pubTime = Integer.parseInt(time_7.substring(8, 12));
-			
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmm");
+			SimpleDateFormat sdf3 = new SimpleDateFormat("yyyyMMdd");
+			int index = 0;
+			try {
+				String f0 = sdf3.format(sdf2.parse(time_7));
+				long time = sdf3.parse(f0).getTime();
+				long currentDate = sdf3.parse(sdf3.format(new Date())).getTime();
+				if (currentDate > time) {
+					index = 1;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
 			List<JsonMap> forecastList = forecast.getListMap("f1");
 			if(forecastList==null){
 				return;
@@ -452,51 +471,21 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			daysView.setTag(forecastList.toString());
 			daysView.setEnabled(true);
 			
-			JsonMap fisrtDay = forecastList.get(0);
-			JsonMap secondDay = forecastList.get(1);
+			JsonMap fisrtDay = forecastList.get(index);
 			String todayW = CodeParse.parseWeatherCode(fisrtDay.getString("fa"));//	今天白天天气
 			String tonightW = CodeParse.parseWeatherCode(fisrtDay.getString("fb"));//今天夜晚天气
 			String todayT = fisrtDay.getString("fc") + "°C";//今天白天温度
 			String tonightT = fisrtDay.getString("fd") + "°C";//今天夜晚温度
-			
-			String tomorrowDayW = CodeParse.parseWeatherCode(secondDay.getString("fa"));//明天白天天气
-//			String tomorrowNightW = CodeParse.parseWeatherCode(secondDay.getString("fb"));//明天夜晚天气
-			String tomorrowDayT = secondDay.getString("fc") + "°C";//明天白天温度
-//			String tomorrowNightT = secondDay.getString("fd") + "°C";//今天夜晚温度
-			
-			if (!TextUtils.isEmpty(cityId)) {
-				if (cityId.startsWith("10131")) {
-					String weather = "";
-					if (TextUtils.equals(todayW, tonightW)) {
-						weather = todayW;
-					}else {
-						weather = todayW+"转"+tonightW;
-					}
-					String temperature = todayT+"~"+tonightT;
-					weatherView.setText(weather + " " + temperature);
-				}else {
-					if (pubTime < 1800) {
-						//晚上十八点之前发布的显示今天白天到夜晚,两则相同则不带转字
-						String weather = "";
-						if (TextUtils.equals(todayW, tonightW)) {
-							weather = todayW;
-						}else {
-							weather = todayW+"转"+tonightW;
-						}
-						String temperature = todayT+"~"+tonightT;
-						weatherView.setText(weather + " " + temperature);
-					} else {
-						//晚上十八点以后,早上六点之前发的显示今晚到明天上午的天气信息,两则相同则不带转字
-//				String weather = tomorrowDayW.equalsIgnoreCase(tomorrowNightW) ? tomorrowDayW : getString(R.string.zhuan, tomorrowDayW, tomorrowNightW);
-//				String temperature = getString(R.string.temperature_to, tomorrowDayT, tomorrowNightT);
-//				weatherView.setText(weather + " " + temperature);
-						String weather = tonightW.equalsIgnoreCase(tomorrowDayW) ? tomorrowDayW : getString(R.string.zhuan, tonightW, tomorrowDayW);
-						String temperature = getString(R.string.temperature_to, tonightT, tomorrowDayT);
-						weatherView.setText(weather + " " + temperature);
-					}
-				}
+
+			String weather = "";
+			if (TextUtils.equals(todayW, tonightW)) {
+				weather = todayW;
+			}else {
+				weather = todayW+"转"+tonightW;
 			}
-			
+			String temperature = todayT+"~"+tonightT;
+			weatherView.setText(weather + " " + temperature);
+
 //			//加载预警信息
 //			List<JsonMap> warnList = datas.get(2).getListMap("w");
 //			if (warnList == null || warnList.size() == 0) {

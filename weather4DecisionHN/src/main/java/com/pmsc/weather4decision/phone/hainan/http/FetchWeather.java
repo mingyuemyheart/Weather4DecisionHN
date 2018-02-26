@@ -56,7 +56,8 @@ public class FetchWeather {
 		
 		String api = "";
 		if (!TextUtils.isEmpty(cityId) && cityId.startsWith("10131")) {//海南
-			api = "http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+cityId;
+//			api = "http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+cityId;
+			api = "http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+cityId;
 			http.excute(api, "");
 		}else {
 			api = "http://hfapi.tianqi.cn/data/?";
