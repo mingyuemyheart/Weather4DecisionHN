@@ -208,8 +208,8 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener,
 			}
 		};
 		http.setDebug(false);
-//		http.excute("http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+dto.cityId, "");
-		http.excute("http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+dto.cityId, "");
+		http.excute("http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+dto.cityId, "");
+//		http.excute("http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+dto.cityId, "");
 	}
 
 	@SuppressLint("HandlerLeak")
