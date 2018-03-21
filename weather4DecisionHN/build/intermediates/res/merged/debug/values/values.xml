@@ -684,6 +684,8 @@
     <string name="weather29">浮尘</string>
     <string name="weather3">阵雨</string>
     <string name="weather30">扬沙</string>
+    <string name="weather301">小雨</string>
+    <string name="weather302">小雪</string>
     <string name="weather31">强沙尘暴</string>
     <string name="weather32">浓雾</string>
     <string name="weather33">雪</string>

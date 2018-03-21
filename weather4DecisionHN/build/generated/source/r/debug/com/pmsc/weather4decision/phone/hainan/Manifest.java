@@ -14,10 +14,16 @@ public final class Manifest {
         /**  魅族辅助 SDK 
          */
         public static final String MESSAGE="com.pmsc.weather4decision.phone.hainan.push.permission.MESSAGE";
-        /**  个推SDK权限配置结束 
+        /**  自定义权限引起与其他应用权限冲突 
+ &lt;!&ndash; 自定义权限 &ndash;&gt; 
+ <uses-permission android:name="getui.permission.GetuiService.${applicationId}" /> 
+ <permission 
+ android:name="getui.permission.GetuiService.${applicationId}" 
+ android:protectionLevel="normal" > 
+ </permission> 
+ 个推SDK权限配置结束 
  小米辅助 SDK 
          */
         public static final String MIPUSH_RECEIVE="com.pmsc.weather4decision.phone.hainan.permission.MIPUSH_RECEIVE";
-        public static final String hainan="getui.permission.GetuiService.com.pmsc.weather4decision.phone.hainan";
     }
 }

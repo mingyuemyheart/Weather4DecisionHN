@@ -80,16 +80,16 @@
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/activity_listview_normal_adapter.xml"
     },
     {
-        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
-        "source": "/Users/shawn/.android/build-cache/c927dcc2c29b04a7382d20241212bdbf42ddbdd0/output/res/layout/abc_list_menu_item_checkbox.xml"
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/adapter_push_news.xml",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/adapter_push_news.xml"
     },
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
         "source": "/Users/shawn/.android/build-cache/c927dcc2c29b04a7382d20241212bdbf42ddbdd0/output/res/layout/abc_search_view.xml"
     },
     {
-        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/adapter_push_news.xml",
-        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/adapter_push_news.xml"
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/Users/shawn/.android/build-cache/c927dcc2c29b04a7382d20241212bdbf42ddbdd0/output/res/layout/abc_list_menu_item_checkbox.xml"
     },
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/abc_popup_menu_header_item_layout.xml",
@@ -138,10 +138,6 @@
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/view_image_play.xml",
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/view_image_play.xml"
-    },
-    {
-        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/notification_template_custom_big.xml",
-        "source": "/Users/shawn/.android/build-cache/c927dcc2c29b04a7382d20241212bdbf42ddbdd0/output/res/layout/notification_template_custom_big.xml"
     },
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/typhoon_marker_view.xml",
@@ -226,6 +222,10 @@
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/activity_city_manager.xml",
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/activity_city_manager.xml"
+    },
+    {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/dialog_location.xml",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/dialog_location.xml"
     },
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/layout/pull_to_refresh_head.xml",

@@ -420,12 +420,12 @@
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/day31_mini.png"
     },
     {
-        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable-hdpi-v4/iv_typhoon_cj_on.png",
-        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/iv_typhoon_cj_on.png"
-    },
-    {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable-hdpi-v4/iv_humidity.png",
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/iv_humidity.png"
+    },
+    {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable-hdpi-v4/iv_typhoon_cj_on.png",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/iv_typhoon_cj_on.png"
     },
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png",

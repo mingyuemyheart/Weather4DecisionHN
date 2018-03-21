@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pmsc.weather4decision.phone.hainan"
-    android:versionCode="137"
-    android:versionName="2.1.56" >
+    android:versionCode="147"
+    android:versionName="2.1.67" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="17"
         android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
@@ -70,13 +70,16 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 浮动通知权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <!-- 自定义权限 -->
-    <uses-permission android:name="getui.permission.GetuiService.com.pmsc.weather4decision.phone.hainan" />
 
-    <permission
-        android:name="getui.permission.GetuiService.com.pmsc.weather4decision.phone.hainan"
-        android:protectionLevel="normal" >
-    </permission>
+    <!-- 自定义权限引起与其他应用权限冲突 -->
+    <!-- &lt;!&ndash; 自定义权限 &ndash;&gt; -->
+    <!-- <uses-permission android:name="getui.permission.GetuiService.${applicationId}" /> -->
+
+
+    <!-- <permission -->
+    <!-- android:name="getui.permission.GetuiService.${applicationId}" -->
+    <!-- android:protectionLevel="normal" > -->
+    <!-- </permission> -->
     <!-- 个推SDK权限配置结束 -->
 
 
@@ -128,7 +131,7 @@
         <receiver android:name="com.pmsc.weather4decision.phone.hainan.util.AutoUpdateBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-                <!-- <action android:name="android.intent.action.PACKAGE_INSTALL" /> -->
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
             </intent-filter>
         </receiver>
 

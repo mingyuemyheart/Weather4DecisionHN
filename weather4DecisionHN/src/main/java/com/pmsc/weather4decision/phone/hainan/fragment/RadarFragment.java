@@ -1,17 +1,5 @@
 package com.pmsc.weather4decision.phone.hainan.fragment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tsz.afinal.FinalBitmap;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,12 +25,23 @@ import com.pmsc.weather4decision.phone.hainan.fragment.RadarManager.RadarListene
 import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
 import com.pmsc.weather4decision.phone.hainan.view.MyDialog;
 import com.pmsc.weather4decision.phone.hainan.view.PhotoView;
-import com.pmsc.weather4decision.phone.hainan.view.TouchImageView;
+
+import net.tsz.afinal.FinalBitmap;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RadarFragment extends BaseFragment implements OnClickListener, RadarListener{
 	
 	private MyDialog mDialog = null;
-	private List<RadarDto> radarList = new ArrayList<RadarDto>();
+	private List<RadarDto> radarList = new ArrayList<>();
 	private PhotoView imageView = null;
 	private RadarManager mRadarManager = null;
 	private RadarThread mRadarThread = null;

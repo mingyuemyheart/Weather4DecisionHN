@@ -1,25 +1,11 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -77,11 +63,22 @@ import com.pmsc.weather4decision.phone.hainan.adapter.TyphoonNameAdapter;
 import com.pmsc.weather4decision.phone.hainan.adapter.TyphoonYearAdapter;
 import com.pmsc.weather4decision.phone.hainan.dto.MinuteFallDto;
 import com.pmsc.weather4decision.phone.hainan.dto.TyphoonDto;
-import com.pmsc.weather4decision.phone.hainan.dto.WeatherDto;
 import com.pmsc.weather4decision.phone.hainan.dto.WindDto;
 import com.pmsc.weather4decision.phone.hainan.util.StatisticUtil;
-import com.pmsc.weather4decision.phone.hainan.util.Utils;
 import com.pmsc.weather4decision.phone.hainan.view.WaitWindView;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @SuppressLint("SimpleDateFormat")
 public class TyphoonRouteActivity extends AbsDrawerActivity implements OnClickListener, OnMapClickListener, 
@@ -2074,7 +2071,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		if (t < 1000) {
 			return;
 		}
-		
+
 		LatLng latLngStart = aMap.getProjection().fromScreenLocation(new Point(0, 0));
 		LatLng latLngEnd = aMap.getProjection().fromScreenLocation(new Point(width, height));
 		CONST.windData.latLngStart = latLngStart;
@@ -2082,48 +2079,22 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		if (waitWindView == null) {
 			waitWindView = new WaitWindView(mContext);
 			waitWindView.init(TyphoonRouteActivity.this);
-			waitWindView.start(CONST.windData);
+			waitWindView.setData(CONST.windData);
+			waitWindView.start();
 			waitWindView.invalidate();
 		}
-		
+
 		container.removeAllViews();
 		container.addView(waitWindView);
 		ivTyphoonWind.setVisibility(View.VISIBLE);
 		tvFileTime.setVisibility(View.VISIBLE);
 		if (!TextUtils.isEmpty(CONST.windData.filetime)) {
 			try {
-				tvFileTime.setText(sdf3.format(sdf2.parse(CONST.windData.filetime))+"风场预报");
+				tvFileTime.setText("GFS "+sdf3.format(sdf2.parse(CONST.windData.filetime))+"风场预报");
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
-		
-//		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//		View view = inflater.inflate(R.layout.welcome, null);
-//		showWind(waitWindView);
-	}
-	
-	private void showWind(View view) {
-		LatLng leftlatlng = aMap.getProjection().fromScreenLocation(new Point(0, height));
-		LatLng rightLatlng = aMap.getProjection().fromScreenLocation(new Point(width, 0));
-		BitmapDescriptor fromView = BitmapDescriptorFactory.fromView(view);
-		LatLngBounds bounds = new LatLngBounds.Builder()
-		.include(leftlatlng)
-		.include(rightLatlng)
-		.build();
-		
-		if (windOverlay == null) {
-			windOverlay = aMap.addGroundOverlay(new GroundOverlayOptions()
-				.anchor(0.5f, 0.5f)
-				.positionFromBounds(bounds)
-				.image(fromView)
-				.transparency(0.5f));
-		} else {
-			windOverlay.setImage(null);
-			windOverlay.setPositionFromBounds(bounds);
-			windOverlay.setImage(fromView);
-		}
-		aMap.runOnDrawFrame();
 	}
 	
 	@Override

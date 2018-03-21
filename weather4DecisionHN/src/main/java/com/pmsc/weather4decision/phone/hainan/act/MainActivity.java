@@ -505,23 +505,23 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	}
 
 	private void setPushTags() {
-//		String user = "decisionUser" + PreferUtil.getUid();
-//		String group = "decisionUser" + PreferUtil.getUserGroup();
-//		String five = "weatherCity" + PreferUtil.getCurrentCityId().substring(0, 5);
-//		String seven = "weatherCity" + PreferUtil.getCurrentCityId().substring(0, 7);
-//		String nine = "weatherCity" + PreferUtil.getCurrentCityId();
+		String user = "decisionUser" + PreferUtil.getUid();
+		String group = "decisionUser" + PreferUtil.getUserGroup();
+		String five = "weatherCity" + PreferUtil.getCurrentCityId().substring(0, 5);
+		String seven = "weatherCity" + PreferUtil.getCurrentCityId().substring(0, 7);
+		String nine = "weatherCity" + PreferUtil.getCurrentCityId();
 
-		String user = PreferUtil.getUid();
-		if (!TextUtils.isEmpty(user) && user.length() > 20) {
-			user = user.substring(user.length()-20, user.length());
-		}
-		String group = PreferUtil.getUserGroup();
-		if (!TextUtils.isEmpty(group) && group.length() > 20) {
-			group = group.substring(group.length()-20, group.length());
-		}
-		String five = PreferUtil.getCurrentCityId().substring(0, 5);
-		String seven = PreferUtil.getCurrentCityId().substring(0, 7);
-		String nine = PreferUtil.getCurrentCityId();
+//		String user = PreferUtil.getUid();
+//		if (!TextUtils.isEmpty(user) && user.length() > 20) {
+//			user = user.substring(user.length()-20, user.length());
+//		}
+//		String group = PreferUtil.getUserGroup();
+//		if (!TextUtils.isEmpty(group) && group.length() > 20) {
+//			group = group.substring(group.length()-20, group.length());
+//		}
+//		String five = PreferUtil.getCurrentCityId().substring(0, 5);
+//		String seven = PreferUtil.getCurrentCityId().substring(0, 7);
+//		String nine = PreferUtil.getCurrentCityId();
 		String[] tags = new String[] {user, group, five, seven, nine};
 		Tag[] tagParam = new Tag[tags.length];
 		for (int i = 0; i < tags.length; i++) {
