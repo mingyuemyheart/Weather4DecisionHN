@@ -100,6 +100,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	private LinearLayout llContainer, llContainer2;
 
 	private RelativeLayout reMain;
+	private double lat = 0, lng = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -307,6 +308,8 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			Bundle bundle = new Bundle();
 			bundle.putString("cityId", cityId);
 			bundle.putString("cityName", cityName);
+			bundle.putDouble("lat", lat);
+			bundle.putDouble("lng", lng);
 			openActivity(ForecastActivity.class, bundle);
 		} else if (v.getId() == R.id.pub_time_view) {
 			//刷新当前数据
@@ -339,8 +342,11 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
         	PreferUtil.saveCurrentProvince(amapLocation.getProvince());
 			PreferUtil.saveCurrentCity(amapLocation.getCity());
 			PreferUtil.saveCurrentDistrict(amapLocation.getDistrict());
-//			getWeatherInfo(110.359093,20.023931);
-			getWeatherInfo(amapLocation.getLongitude(), amapLocation.getLatitude());
+			lat = amapLocation.getLatitude();
+			lng = amapLocation.getLongitude();
+//			lat = 20.023931;
+//			lng = 110.359093;
+			getWeatherInfo(lng, lat);
 
 			if (!TextUtils.isEmpty(amapLocation.getStreet())) {
 				setTitle(amapLocation.getStreet()+amapLocation.getStreetNum());
