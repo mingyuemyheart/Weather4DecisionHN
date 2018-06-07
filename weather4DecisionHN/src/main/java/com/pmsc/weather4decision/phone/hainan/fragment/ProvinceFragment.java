@@ -78,10 +78,11 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener,
 		aMap.getUiSettings().setRotateGesturesEnabled(false);
 		aMap.setOnMarkerClickListener(this);
 		aMap.setOnMapLoadedListener(this);
+
+		TextView tvMapNumber = (TextView) view.findViewById(R.id.tvMapNumber);
+		tvMapNumber.setText(aMap.getMapContentApprovalNumber());
 	}
 
-	Marker m = null;
-	
 	@Override
 	public void onMapLoaded() {
 		asyncPositions();

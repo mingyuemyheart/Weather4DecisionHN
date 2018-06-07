@@ -346,6 +346,9 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 		aMap.getUiSettings().setZoomControlsEnabled(false);
 		aMap.getUiSettings().setRotateGesturesEnabled(false);
 		aMap.setOnMapClickListener(this);
+
+		TextView tvMapNumber = (TextView) view.findViewById(R.id.tvMapNumber);
+		tvMapNumber.setText(aMap.getMapContentApprovalNumber());
 	}
 	
 	private void addMarkerToMap(LatLng latLng) {
@@ -1060,8 +1063,6 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 	
 	/**
 	 * 回执区域
-	 * @param context
-	 * @param aMap
 	 */
 	private void drawDataToMap(String result) {
 		if (TextUtils.isEmpty(result) || aMap == null) {

@@ -141,6 +141,9 @@ public class StaticsActivity extends BaseActivity implements OnClickListener, On
 				asyncQuery();
 			}
 		});
+
+		TextView tvMapNumber = (TextView) findViewById(R.id.tvMapNumber);
+		tvMapNumber.setText(aMap.getMapContentApprovalNumber());
 	}
 
 	/**

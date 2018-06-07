@@ -124,18 +124,26 @@
                     android:gravity="center_horizontal|center"
                     android:orientation="vertical" >
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
                     <ImageView
                         android:id="@+id/ivPhe"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp" />
 
                     <TextView
                         android:id="@+id/tvPhe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="5dp"
                         android:textColor="@color/white"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/level_2" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvTemperature"
@@ -145,12 +153,43 @@
                         android:includeFontPadding="false"
                         android:textColor="@color/white"
                         android:textSize="25dp" />
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_marginTop="3dp"
+                        android:id="@+id/llFactButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvFact1"
+                            android:layout_width="70dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/btn_lb_corner_selected"
+                            android:gravity="center"
+                            android:text="基本站实况"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/level_5" />
+
+                        <TextView
+                            android:id="@+id/tvFact2"
+                            android:layout_width="70dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/btn_rb_corner_unselected"
+                            android:gravity="center"
+                            android:text="最近站实况"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/level_5" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:gravity="center_vertical"
                     android:orientation="vertical" >
 

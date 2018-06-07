@@ -473,6 +473,9 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 		aMap.setOnCameraChangeListener(this);
 		aMap.getUiSettings().setRotateGesturesEnabled(false);
 		aMap.showMapText(false);
+
+		TextView tvMapNumber = (TextView) findViewById(R.id.tvMapNumber);
+		tvMapNumber.setText(aMap.getMapContentApprovalNumber());
 		
 		aMap.setOnMapTouchListener(new OnMapTouchListener() {
 			@Override

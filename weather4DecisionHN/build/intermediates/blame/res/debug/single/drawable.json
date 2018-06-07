@@ -56,6 +56,10 @@
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/tb_munion_icon.xml"
     },
     {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/btn_rb_corner_unselected.xml",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/btn_rb_corner_unselected.xml"
+    },
+    {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/wind_circle10.xml",
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/wind_circle10.xml"
     },
@@ -136,6 +140,10 @@
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/search_bg.xml"
     },
     {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/btn_lb_corner_selected.xml",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/btn_lb_corner_selected.xml"
+    },
+    {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/bg_check.xml",
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/bg_check.xml"
     },
@@ -146,6 +154,10 @@
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/selector_detail.xml",
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/selector_detail.xml"
+    },
+    {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/btn_lb_corner_unselected.xml",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/btn_lb_corner_unselected.xml"
     },
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/abc_ratingbar_material.xml",
@@ -358,5 +370,9 @@
     {
         "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/dialog_right_btn.xml",
         "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/dialog_right_btn.xml"
+    },
+    {
+        "merged": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/debug/drawable/btn_rb_corner_selected.xml",
+        "source": "/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/btn_rb_corner_selected.xml"
     }
 ]

@@ -83,6 +83,7 @@ OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
     private List<JsonMap> dataList = new ArrayList<JsonMap>();
     private Marker selectMarker = null;
     private String channelId = null;//灾害预警的id
+	private TextView tvMapNumber;
 	                                               
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +190,9 @@ OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 		aMap.setOnMapClickListener(this);
 		aMap.setOnMarkerClickListener(this);
 		aMap.setInfoWindowAdapter(this);
+
+		tvMapNumber = (TextView) findViewById(R.id.tvMapNumber);
+		tvMapNumber.setText(aMap.getMapContentApprovalNumber());
 		
 		if (sonChannels.size() > 0) {
 			for (int i = 0; i < sonChannels.size(); i++) {

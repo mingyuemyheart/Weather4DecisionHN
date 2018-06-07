@@ -85,7 +85,7 @@ public class TyphoonRouteActivity extends AbsDrawerActivity implements OnClickLi
 OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener, AMapLocationListener {
 	
 	private Context mContext = null;
-	private TextView tvTyphoonName = null;
+	private TextView tvTyphoonName,tvMapNumber;
 	private MapView mapView = null;
 	private AMap aMap = null;
 	private ImageView ivLegend = null;//台风标注图
@@ -192,6 +192,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		container = (RelativeLayout) findViewById(R.id.container);
 		container2 = (RelativeLayout) findViewById(R.id.container2);
 		tvFileTime = (TextView) findViewById(R.id.tvFileTime);
+		tvMapNumber = (TextView) findViewById(R.id.tvMapNumber);
 		
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -219,6 +220,8 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		aMap.setOnMapClickListener(this);
 		aMap.setInfoWindowAdapter(this);
 		aMap.setOnCameraChangeListener(this);
+
+		tvMapNumber.setText(aMap.getSatelliteImageApprovalNumber());
 
 		startLocation();
 		
