@@ -717,20 +717,17 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 	
 	@Override
 	public void onCameraChange(CameraPosition arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
 	public void onCameraChangeFinish(CameraPosition arg0) {
-		// TODO Auto-generated method stub
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		Point leftPoint = new Point(0, dm.heightPixels);
 		Point rightPoint = new Point(dm.widthPixels, 0);
 		LatLng leftlatlng = aMap.getProjection().fromScreenLocation(leftPoint);
 		LatLng rightLatlng = aMap.getProjection().fromScreenLocation(rightPoint);
-		
+
 		if (listView != null) {
 			if (listView.getVisibility() == View.VISIBLE) {
 				if (leftlatlng.latitude <= 3.9079 || rightLatlng.latitude >= 57.9079 || leftlatlng.longitude <= 71.9282

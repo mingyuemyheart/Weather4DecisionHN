@@ -17,6 +17,10 @@ android {
         versionName "2.1.83"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        ndk {
+            abiFilters 'armeabi-v7a', 'armeabi'
+        }
+
         //个推
         manifestPlaceholders = [
                 GETUI_APP_ID : "XXWnlGGaHg6RjsNz9ClXg",
