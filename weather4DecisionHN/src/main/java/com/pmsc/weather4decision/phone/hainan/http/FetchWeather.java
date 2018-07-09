@@ -61,7 +61,7 @@ public class FetchWeather {
 			http.excute(api, "");
 		}else {
 			api = "http://hfapi.tianqi.cn/data/?";
-			LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+			LinkedHashMap<String, String> map = new LinkedHashMap<>();
 			map.put("areaid", cityId);
 			map.put("type", type);
 			map.put("date", getDateParam());

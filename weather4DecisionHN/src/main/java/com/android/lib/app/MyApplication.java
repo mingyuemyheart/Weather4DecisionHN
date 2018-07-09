@@ -8,8 +8,8 @@ import android.app.Activity;
 import android.app.Application;
 
 public class MyApplication extends Application{
-	
-	private static Map<String,Activity> destoryMap = new HashMap<String, Activity>();
+
+	private static Map<String,Activity> destoryMap = new HashMap<>();
 
     private MyApplication() {
     }

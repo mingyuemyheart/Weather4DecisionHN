@@ -49,7 +49,7 @@ public class BaseActivity extends FragmentActivity {
 	private boolean             isShowDialog = true;
 	private Toast               toast;
 	
-	private Map<String, String> params       = new HashMap<String, String>();
+	private Map<String, String> params       = new HashMap<>();
 	private HttpAsyncTask       http;
 	private OnHttpListener      onHttpListener;
 	private boolean             isPost       = false;

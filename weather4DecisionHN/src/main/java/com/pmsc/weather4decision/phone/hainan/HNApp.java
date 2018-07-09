@@ -28,7 +28,7 @@ public class HNApp extends Application {
 	public static HNApp getInstance() {
 		return appContext;
 	}
-	
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
