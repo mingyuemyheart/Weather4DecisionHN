@@ -64,6 +64,9 @@ public class WaitWindView extends View {
 	public void init(TyphoonRouteActivity activity) {
 		this.activity = activity;
 
+		int statusBarHeight = com.pmsc.weather4decision.phone.hainan.util.CommonUtil.statusBarHeight(activity);
+		int naviBarHeight = com.pmsc.weather4decision.phone.hainan.util.CommonUtil.navigationBarHeight(activity);
+
 		DisplayMetrics dm = new DisplayMetrics();
 		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
 		width = dm.widthPixels;

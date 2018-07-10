@@ -2075,8 +2075,11 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			return;
 		}
 
-		LatLng latLngStart = aMap.getProjection().fromScreenLocation(new Point(0, 0));
-		LatLng latLngEnd = aMap.getProjection().fromScreenLocation(new Point(width, height));
+		int statusBarHeight = com.pmsc.weather4decision.phone.hainan.util.CommonUtil.statusBarHeight(mContext);
+		int naviBarHeight = com.pmsc.weather4decision.phone.hainan.util.CommonUtil.navigationBarHeight(mContext);
+
+		LatLng latLngStart = aMap.getProjection().fromScreenLocation(new Point(0, statusBarHeight));
+		LatLng latLngEnd = aMap.getProjection().fromScreenLocation(new Point(width, height-naviBarHeight-statusBarHeight));
 		CONST.windData.latLngStart = latLngStart;
 		CONST.windData.latLngEnd = latLngEnd;
 		if (waitWindView == null) {
