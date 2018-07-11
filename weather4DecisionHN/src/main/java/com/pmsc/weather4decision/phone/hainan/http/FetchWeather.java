@@ -1,5 +1,11 @@
 package com.pmsc.weather4decision.phone.hainan.http;
 
+import android.text.TextUtils;
+
+import com.android.lib.http.HttpAsyncTask;
+
+import org.apache.commons.codec.binary.Base64;
+
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,12 +16,6 @@ import java.util.Set;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
-
-import android.text.TextUtils;
-
-import com.android.lib.http.HttpAsyncTask;
 
 
 /**
@@ -32,6 +32,7 @@ import com.android.lib.http.HttpAsyncTask;
  * @since 1.0
  */
 public class FetchWeather {
+
 	public final static String APP_ID  = "a1b42a4dccd7493f";
 	public final static String APP_KEY = "chinaweather_jcb_webapi_data";
 	
@@ -40,21 +41,18 @@ public class FetchWeather {
 	
 	public void perform(String cityId, String type) {
 		HttpAsyncTask http = new HttpAsyncTask(type) {
-			
 			@Override
 			public void onStart(String taskId) {
 			}
-			
 			@Override
 			public void onFinish(String taskId, String response) {
-//				LogUtil.e(this, response);
 				if (onFetchWeatherListener != null) {
 					onFetchWeatherListener.onFetchWeather(taskId, response);
 				}
 			}
 		};
-		
-		String api = "";
+
+		String api;
 		if (!TextUtils.isEmpty(cityId) && cityId.startsWith("10131")) {//海南
 //			api = "http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+cityId;
 			api = "http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+cityId;
@@ -69,7 +67,6 @@ public class FetchWeather {
 		}
 	}
 	
-	@SuppressWarnings ("deprecation")
 	public static String getAuthUrl(String url, LinkedHashMap<String, String> map) {
 		String URLpre = url + buildParams(map);
 		String publicKey = URLpre + "&appid=" + APP_ID;
@@ -140,6 +137,6 @@ public class FetchWeather {
 	}
 	
 	public interface OnFetchWeatherListener {
-		public void onFetchWeather(String tag, String response);
+		void onFetchWeather(String tag, String response);
 	}
 }

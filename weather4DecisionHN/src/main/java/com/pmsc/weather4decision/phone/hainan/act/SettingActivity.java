@@ -1,13 +1,10 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import java.io.File;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,72 +15,38 @@ import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.util.AutoUpdateUtil;
 import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
 
+import java.io.File;
 
-/**
- * Depiction:设置界面
- * <p>
- * Modify:
- * <p>
- * Author: Kevin Lynn
- * <p>
- * Create Date：2015年12月3日 下午3:22:38
- * <p>
- * 
- * @version 1.0
- * @since 1.0
- */
-public class SettingActivity extends AbsLoginActivity {
+public class SettingActivity extends AbsLoginActivity implements View.OnClickListener{
 	
-	private RelativeLayout reSwitch = null;
-	private TextView tvSwitch = null;
+	private RelativeLayout reSwitch;
+	private TextView tvUsername,tvVersion,tvSwitch,tvNews;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_setting);
-		getWindow().setBackgroundDrawableResource(R.drawable.white_bg);
-		TextView nameV = (TextView) findViewById(R.id.name_view);
-		nameV.setText(PreferUtil.getUserName());
-		TextView versionV = (TextView) findViewById(R.id.version_view);
-		versionV.setText(getVersionName());
-		
-		
+		initWidget();
+	}
+
+	private void initWidget() {
+		tvUsername = (TextView) findViewById(R.id.name_view);
+		tvVersion = (TextView) findViewById(R.id.version_view);
 		tvSwitch = (TextView) findViewById(R.id.tvSwitch);
+		reSwitch = (RelativeLayout) findViewById(R.id.reSwitch);
+		reSwitch.setOnClickListener(this);
+		tvNews = (TextView) findViewById(R.id.tvNews);
+		tvNews.setOnClickListener(this);
+
+		tvUsername.setText(PreferUtil.getUserName());
+		tvVersion.setText(getVersionName());
+
 		if (TextUtils.equals(CONST.SERVER_SWITHER, "0")) {
 			tvSwitch.setText(getString(R.string.cloud_server));
 		}else {
 			tvSwitch.setText(getString(R.string.local_server));
 		}
-		reSwitch = (RelativeLayout) findViewById(R.id.reSwitch);
-		reSwitch.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				if (TextUtils.equals(CONST.SERVER_SWITHER, "0")) {
-					CONST.SERVER_SWITHER = "1";
-					tvSwitch.setText(R.string.local_server);
-				}else {
-					CONST.SERVER_SWITHER = "0";
-					tvSwitch.setText(R.string.cloud_server);
-				}
-				
-				MyApplication.destoryActivity(CONST.MainActivity);
-				String account = PreferUtil.getUserName();
-				String passwd = PreferUtil.getPassword();
-				if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(passwd)) {
-					login(account, passwd);
-				}
-				finish();
-			}
-		});
 
-		//消息推送
-		TextView tvNews = (TextView) findViewById(R.id.tvNews);
-		tvNews.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(SettingActivity.this, PushNewsActivity.class));
-			}
-		});
 	}
 	
 	public void onLeftButtonAction(View v) {
@@ -139,7 +102,7 @@ public class SettingActivity extends AbsLoginActivity {
 	}
 	
 	public void onUpdateAction(View v) {
-		AutoUpdateUtil.checkUpdate(SettingActivity.this, "39", getString(R.string.app_name), true);
+		AutoUpdateUtil.checkUpdate(SettingActivity.this, SettingActivity.this, "39", getString(R.string.app_name), false);
 		
 //		//启动友盟检查更新
 //		UmengUpdateAgent.forceUpdate(getApplicationContext());
@@ -172,5 +135,31 @@ public class SettingActivity extends AbsLoginActivity {
 		openActivity(LoginActivity.class, null);
 		finish();
 		MyApplication.destoryActivity(CONST.MainActivity);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.reSwitch:
+				if (TextUtils.equals(CONST.SERVER_SWITHER, "0")) {
+					CONST.SERVER_SWITHER = "1";
+					tvSwitch.setText(R.string.local_server);
+				}else {
+					CONST.SERVER_SWITHER = "0";
+					tvSwitch.setText(R.string.cloud_server);
+				}
+
+				MyApplication.destoryActivity(CONST.MainActivity);
+				String account = PreferUtil.getUserName();
+				String passwd = PreferUtil.getPassword();
+				if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(passwd)) {
+					login(account, passwd);
+				}
+				finish();
+				break;
+			case R.id.tvNews:
+				startActivity(new Intent(SettingActivity.this, PushNewsActivity.class));
+				break;
+		}
 	}
 }

@@ -1,17 +1,5 @@
 package com.pmsc.weather4decision.phone.hainan.fragment;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import net.tsz.afinal.FinalBitmap;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.graphics.Bitmap;
@@ -41,6 +29,7 @@ import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.OnMapClickListener;
+import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptor;
@@ -64,6 +53,7 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.android.lib.data.CONST;
 import com.android.lib.util.CaiyunManager;
 import com.android.lib.util.CaiyunManager.RadarListener;
 import com.pmsc.weather4decision.phone.hainan.R;
@@ -71,18 +61,37 @@ import com.pmsc.weather4decision.phone.hainan.dto.MinuteFallDto;
 import com.pmsc.weather4decision.phone.hainan.dto.ShawnRainDto;
 import com.pmsc.weather4decision.phone.hainan.dto.WeatherDto;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
-import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 import com.pmsc.weather4decision.phone.hainan.view.MinuteFallView;
 
+import net.tsz.afinal.FinalBitmap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
+
+/**
+ * 逐小时预报
+ */
 public class MinuteFragment extends Fragment implements OnClickListener, RadarListener,  
 OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 	
 	private MapView mMapView = null;
 	private AMap aMap = null;
-	private List<MinuteFallDto> mList = new ArrayList<MinuteFallDto>();
-	private List<MinuteFallDto> images = new ArrayList<MinuteFallDto>();
-	private String dataUrl = "http://api.tianqi.cn:8070/v1/img.py";//彩云接口数据
+	private List<MinuteFallDto> mList = new ArrayList<>();
+	private List<MinuteFallDto> images = new ArrayList<>();
 	private GroundOverlay mOverlay = null;
 	private CaiyunManager mRadarManager;
 	private RadarThread mRadarThread;
@@ -111,12 +120,12 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
     private ImageView ivSwitch = null;
     private TextView tvLayerName = null;
     private ImageView ivChart = null;
-	private List<ShawnRainDto> nameList = new ArrayList<ShawnRainDto>();
-	private List<Text> texts = new ArrayList<Text>();//等值线
-	private List<Text> cityNames = new ArrayList<Text>();//城市名称
-	private List<Circle> circles = new ArrayList<Circle>();//城市名称下方黑点
-	private List<Polygon> polygons = new ArrayList<Polygon>();//降水图层
-	private List<Polyline> polylines = new ArrayList<Polyline>();//行政区划边界线
+	private List<ShawnRainDto> nameList = new ArrayList<>();
+	private List<Text> texts = new ArrayList<>();//等值线
+	private List<Text> cityNames = new ArrayList<>();//城市名称
+	private List<Circle> circles = new ArrayList<>();//城市名称下方黑点
+	private List<Polygon> polygons = new ArrayList<>();//降水图层
+	private List<Polyline> polylines = new ArrayList<>();//行政区划边界线
 	private String layerResult = null;//降水图层数据
 	
 	@Override
@@ -130,6 +139,21 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 		super.onViewCreated(view, savedInstanceState);
 		initMap(savedInstanceState, view);
 		initWidget(view);
+	}
+
+	private void initMap(Bundle bundle, View view) {
+		mMapView = (MapView) view.findViewById(R.id.map);
+		mMapView.onCreate(bundle);
+		if (aMap == null) {
+			aMap = mMapView.getMap();
+		}
+		aMap.moveCamera(CameraUpdateFactory.zoomTo(8.0f));
+		aMap.getUiSettings().setZoomControlsEnabled(false);
+		aMap.getUiSettings().setRotateGesturesEnabled(false);
+		aMap.setOnMapClickListener(this);
+
+		TextView tvMapNumber = (TextView) view.findViewById(R.id.tvMapNumber);
+		tvMapNumber.setText(aMap.getMapContentApprovalNumber());
 	}
 
 	private void initWidget(View view) {
@@ -183,33 +207,44 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 	@Override
 	public void onLocationChanged(AMapLocation amapLocation) {
         if (amapLocation != null && amapLocation.getErrorCode() == 0) {
-        	if (amapLocation.getLongitude() != 0 && amapLocation.getLatitude() != 0) {
-        		LatLng latLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
-        		aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8.0f));
-        		addMarkerToMap(latLng);
-        		
-        		queryMinute(amapLocation.getLongitude(), amapLocation.getLatitude());
-        		
-        		proName = amapLocation.getProvince();
-        		if (proName.contains("海南")) {//海南境内
-        			ivSwitch.setImageResource(R.drawable.iv_radar_chart);
-    				ivChart.setVisibility(View.VISIBLE);
-    				tvLayerName.setVisibility(View.VISIBLE);
-    				llSeekBar.setVisibility(View.GONE);
-    				llLegend.setVisibility(View.GONE);
-				}else {
-					ivSwitch.setImageResource(R.drawable.iv_hour_rain);
-    				ivChart.setVisibility(View.GONE);
-    				tvLayerName.setVisibility(View.GONE);
-    				llSeekBar.setVisibility(View.VISIBLE);
-    				llLegend.setVisibility(View.VISIBLE);
-				}
-        		
-        		asyncRainFact("http://59.50.130.88:8888/decision-admin/dates/getallid?tim=");
-        		asyncImages(dataUrl);
-        		
-			}
+            LatLng latLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
+            aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8.0f));
+            addMarkerToMap(latLng);
+
+            proName = amapLocation.getProvince();
+            if (proName.contains("海南")) {//海南境内
+                ivSwitch.setImageResource(R.drawable.iv_radar_chart);
+                ivChart.setVisibility(View.VISIBLE);
+                tvLayerName.setVisibility(View.VISIBLE);
+                llSeekBar.setVisibility(View.GONE);
+                llLegend.setVisibility(View.GONE);
+            }else {
+                ivSwitch.setImageResource(R.drawable.iv_hour_rain);
+                ivChart.setVisibility(View.GONE);
+                tvLayerName.setVisibility(View.GONE);
+                llSeekBar.setVisibility(View.VISIBLE);
+                llLegend.setVisibility(View.VISIBLE);
+            }
+
+            OkHttpRainFact();
+            OkHttpCaiyunRain();
         }
+	}
+
+	private void addMarkerToMap(LatLng latLng) {
+		MarkerOptions options = new MarkerOptions();
+		options.position(latLng);
+		options.anchor(0.5f, 0.5f);
+		Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeResource(getResources(), R.drawable.iv_map_location),
+				(int)(CommonUtil.dip2px(getActivity(), 15)), (int)(CommonUtil.dip2px(getActivity(), 15)));
+		if (bitmap != null) {
+			options.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+		}else {
+			options.icon(BitmapDescriptorFactory.fromResource(R.drawable.iv_map_location));
+		}
+		clickMarker = aMap.addMarker(options);
+		OkHttpMinute(latLng.longitude, latLng.latitude);
+		searchAddrByLatLng(latLng.latitude, latLng.longitude);
 	}
 	
 	/**
@@ -217,103 +252,71 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 	 * @param lng
 	 * @param lat
 	 */
-	private void queryMinute(double lng, double lat) {
-		String url = "http://api.caiyunapp.com/v2/HyTVV5YAkoxlQ3Zd/"+lng+","+lat+"/forecast";
-		HttpAsyncTaskMinute task = new HttpAsyncTaskMinute();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTaskMinute extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTaskMinute() {
-		}
+	private void OkHttpMinute(double lng, double lat) {
+		final String url = "http://api.caiyunapp.com/v2/HyTVV5YAkoxlQ3Zd/"+lng+","+lat+"/forecast";
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
+					}
 
-		@Override
-		protected void onPostExecute(String requestResult) {
-			super.onPostExecute(requestResult);
-			if (requestResult != null) {
-				try {
-					JSONObject object = new JSONObject(requestResult);
-					if (object != null) {
-						if (!object.isNull("result")) {
-							JSONObject obj = object.getJSONObject("result");
-							if (!obj.isNull("minutely")) {
-								JSONObject objMin = obj.getJSONObject("minutely");
-								if (!objMin.isNull("description")) {
-									String rain = objMin.getString("description");
-									if (!TextUtils.isEmpty(rain)) {
-										tvRain.setText(rain.replace("小彩云", ""));
-										tvRain.setVisibility(View.VISIBLE);
-									}else {
-										tvRain.setVisibility(View.GONE);
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						getActivity().runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject object = new JSONObject(result);
+										if (object != null) {
+											if (!object.isNull("result")) {
+												JSONObject obj = object.getJSONObject("result");
+												if (!obj.isNull("minutely")) {
+													JSONObject objMin = obj.getJSONObject("minutely");
+													if (!objMin.isNull("description")) {
+														String rain = objMin.getString("description");
+														if (!TextUtils.isEmpty(rain)) {
+															tvRain.setText(rain.replace("小彩云", ""));
+															tvRain.setVisibility(View.VISIBLE);
+														}else {
+															tvRain.setVisibility(View.GONE);
+														}
+													}
+													if (!objMin.isNull("precipitation_2h")) {
+														JSONArray array = objMin.getJSONArray("precipitation_2h");
+														int size = array.length();
+														List<WeatherDto> minuteList = new ArrayList<>();
+														for (int i = 0; i < size; i++) {
+															WeatherDto dto = new WeatherDto();
+															dto.minuteFall = (float) array.getDouble(i);
+															minuteList.add(dto);
+														}
+
+														MinuteFallView minuteFallView = new MinuteFallView(getActivity());
+														minuteFallView.setData(minuteList, tvRain.getText().toString());
+														llContainer3.removeAllViews();
+														llContainer3.addView(minuteFallView, width, (int)(CommonUtil.dip2px(getActivity(), 120)));
+													}
+												}
+											}
+										}
+									} catch (JSONException e1) {
+										e1.printStackTrace();
 									}
-								}
-								if (!objMin.isNull("precipitation_2h")) {
-									JSONArray array = objMin.getJSONArray("precipitation_2h");
-									int size = array.length();
-									List<WeatherDto> minuteList = new ArrayList<WeatherDto>();
-									for (int i = 0; i < size; i++) {
-										WeatherDto dto = new WeatherDto();
-										dto.minuteFall = (float) array.getDouble(i);
-//										dto.minuteFall = new Random().nextFloat();
-										minuteList.add(dto);
-									}
-									
-									MinuteFallView minuteFallView = new MinuteFallView(getActivity());
-									minuteFallView.setData(minuteList, tvRain.getText().toString());
-									llContainer3.removeAllViews();
-									llContainer3.addView(minuteFallView, width, (int)(CommonUtil.dip2px(getActivity(), 120)));
 								}
 							}
-						}
+						});
 					}
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				}
+				});
 			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+		}).start();
 	}
 	
 	private OnSeekBarChangeListener seekbarListener = new OnSeekBarChangeListener() {
@@ -336,37 +339,6 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 		}
 	};
 	
-	private void initMap(Bundle bundle, View view) {
-		mMapView = (MapView) view.findViewById(R.id.map);
-		mMapView.onCreate(bundle);
-		if (aMap == null) {
-			aMap = mMapView.getMap();
-		}
-		aMap.moveCamera(CameraUpdateFactory.zoomTo(8.0f));
-		aMap.getUiSettings().setZoomControlsEnabled(false);
-		aMap.getUiSettings().setRotateGesturesEnabled(false);
-		aMap.setOnMapClickListener(this);
-
-		TextView tvMapNumber = (TextView) view.findViewById(R.id.tvMapNumber);
-		tvMapNumber.setText(aMap.getMapContentApprovalNumber());
-	}
-	
-	private void addMarkerToMap(LatLng latLng) {
-		MarkerOptions options = new MarkerOptions();
-		options.position(latLng);
-		options.anchor(0.5f, 0.5f);
-		Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeResource(getResources(), R.drawable.iv_map_location), 
-				(int)(CommonUtil.dip2px(getActivity(), 15)), (int)(CommonUtil.dip2px(getActivity(), 15)));
-		if (bitmap != null) {
-			options.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-		}else {
-			options.icon(BitmapDescriptorFactory.fromResource(R.drawable.iv_map_location));
-		}
-		clickMarker = aMap.addMarker(options);
-		query(latLng.longitude, latLng.latitude);
-		searchAddrByLatLng(latLng.latitude, latLng.longitude);
-	}
-	
 	@Override
 	public void onMapClick(LatLng arg0) {
 		if (clickMarker != null) {
@@ -375,7 +347,6 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 		tvAddr.setText("");
 		tvRain.setText("");
 		addMarkerToMap(arg0);
-		queryMinute(arg0.longitude, arg0.latitude);
 	}
 	
 	/**
@@ -391,189 +362,76 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 	
 	@Override
 	public void onGeocodeSearched(GeocodeResult arg0, int arg1) {
-		// TODO Auto-generated method stub
 	}
 	@Override
 	public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
-		if (rCode == 0) {
-			if (result != null && result.getRegeocodeAddress() != null && result.getRegeocodeAddress().getFormatAddress() != null) {
-				String addr = result.getRegeocodeAddress().getFormatAddress();
-				if (!TextUtils.isEmpty(addr)) {
-					tvAddr.setText(addr);
-				}
-			} 
-		} 
-	}
-	
-	/**
-	 * 异步加载一小时内降雨、或降雪信息
-	 * @param lng
-	 * @param lat
-	 */
-	private void query(double lng, double lat) {
-		String url = "http://api.caiyunapp.com/v2/HyTVV5YAkoxlQ3Zd/"+lng+","+lat+"/forecast";
-		HttpAsyncRain task = new HttpAsyncRain();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncRain extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncRain() {
-		}
-
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
+		if (result != null && result.getRegeocodeAddress() != null && result.getRegeocodeAddress().getFormatAddress() != null) {
+			String addr = result.getRegeocodeAddress().getFormatAddress();
+			if (!TextUtils.isEmpty(addr)) {
+				tvAddr.setText(addr);
 			}
-			return result;
 		}
+	}
 
-		@Override
-		protected void onPostExecute(String requestResult) {
-			super.onPostExecute(requestResult);
-			if (requestResult != null) {
-				try {
-					JSONObject object = new JSONObject(requestResult);
-					if (object != null) {
-						if (!object.isNull("result")) {
-							JSONObject objResult = object.getJSONObject("result");
-							if (!objResult.isNull("minutely")) {
-								JSONObject objMin = objResult.getJSONObject("minutely");
-								if (!objMin.isNull("description")) {
-									String rain = objMin.getString("description");
-									if (!TextUtils.isEmpty(rain)) {
-										tvRain.setText(rain.replace("小彩云", ""));
-										tvRain.setVisibility(View.VISIBLE);
-									}else {
-										tvRain.setVisibility(View.GONE);
+	/**
+	 * 彩云降水图片集合
+	 */
+	private void OkHttpCaiyunRain() {
+		final String url = "http://api.tianqi.cn:8070/v1/img.py";
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						getActivity().runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+										if (!obj.isNull("status")) {
+											if (obj.getString("status").equals("ok")) {//鎴愬姛
+												if (!obj.isNull("radar_img")) {
+													mList.clear();
+													JSONArray array = new JSONArray(obj.getString("radar_img"));
+													for (int i = 0; i < array.length(); i++) {
+														JSONArray array0 = array.getJSONArray(i);
+														MinuteFallDto dto = new MinuteFallDto();
+														dto.setImgUrl(array0.optString(0));
+														dto.setTime(array0.optLong(1));
+														JSONArray itemArray = array0.getJSONArray(2);
+														dto.setP1(itemArray.optDouble(0));
+														dto.setP2(itemArray.optDouble(1));
+														dto.setP3(itemArray.optDouble(2));
+														dto.setP4(itemArray.optDouble(3));
+														mList.add(dto);
+													}
+													if (mList.size() > 0) {
+														startDownLoadImgs(mList);
+													}
+												}
+											}
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
 									}
 								}
 							}
-						}
+						});
 					}
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				}
+				});
 			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
-	}
-	
-	private void asyncImages(String url) {
-		HttpAsyncTask task = new HttpAsyncTask();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
-	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTask() {
-		}
-
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (result != null) {
-				try {
-					JSONObject obj = new JSONObject(result.toString());
-					if (!obj.isNull("status")) {
-						if (obj.getString("status").equals("ok")) {//鎴愬姛
-							if (!obj.isNull("radar_img")) {
-								mList.clear();
-								JSONArray array = new JSONArray(obj.getString("radar_img"));
-								for (int i = 0; i < array.length(); i++) {
-									JSONArray array0 = array.getJSONArray(i);
-									MinuteFallDto dto = new MinuteFallDto();
-									dto.setImgUrl(array0.optString(0));
-									dto.setTime(array0.optLong(1));
-									JSONArray itemArray = array0.getJSONArray(2);
-									dto.setP1(itemArray.optDouble(0));
-									dto.setP2(itemArray.optDouble(1));
-									dto.setP3(itemArray.optDouble(2));
-									dto.setP4(itemArray.optDouble(3));
-									mList.add(dto);
-								}
-								if (mList.size() > 0) {
-									startDownLoadImgs(mList);
-								}
-							}
-						}
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 鍙栨秷褰撳墠task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+		}).start();
 	}
 	
 	private void startDownLoadImgs(List<MinuteFallDto> list) {
@@ -779,7 +637,6 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 		}
 	}
 	
-	@SuppressLint("SimpleDateFormat")
 	private void changeProgress(long time, int progress, int max) {
 		if (seekBar != null) {
 			seekBar.setMax(max);
@@ -835,6 +692,7 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 				if (layerResult != null) {
 					drawDataToMap(layerResult);
 				}
+				aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(19.211397,109.795324), 7.8f));
 			}else {
 				ivSwitch.setImageResource(R.drawable.iv_hour_rain);
 				ivChart.setVisibility(View.GONE);
@@ -862,80 +720,66 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 	
 	/**
 	 * 请求降水实况
-	 * @param url
 	 */
-	private void asyncRainFact(String url) {
-		HttpAsyncTaskUrl task = new HttpAsyncTaskUrl();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTaskUrl extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTaskUrl() {
-		}
+	private void OkHttpRainFact() {
+		final String url = "http://59.50.130.88:8888/decision-admin/dates/getallid?tim=";
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
+					}
 
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (result != null) {
-				try {
-					JSONObject obj = new JSONObject(result);
-					if (!obj.isNull("times")) {
-						JSONArray array = new JSONArray(obj.getString("times"));
-						for (int i = 0; i < array.length(); i++) {
-							JSONObject itemObj = array.getJSONObject(i);
-							if (!itemObj.isNull("timeString")) {
-								String timeString = itemObj.getString("timeString");
-								if (i == 0 && timeString != null) {
-									tvLayerName.setText(timeString+"降水实况");
-									if (proName.contains("海南")) {
-										tvLayerName.setVisibility(View.VISIBLE);
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						getActivity().runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+										if (!obj.isNull("times")) {
+											JSONArray array = new JSONArray(obj.getString("times"));
+											for (int i = 0; i < array.length(); i++) {
+												JSONObject itemObj = array.getJSONObject(i);
+												if (!itemObj.isNull("timeString")) {
+													String timeString = itemObj.getString("timeString");
+													if (i == 0 && timeString != null) {
+														tvLayerName.setText(timeString+"降水实况");
+														if (proName.contains("海南")) {
+															tvLayerName.setVisibility(View.VISIBLE);
+														}
+													}
+												}
+											}
+										}
+
+										if (!obj.isNull("cutlineUrl")) {
+											FinalBitmap finalBitmap = FinalBitmap.create(getActivity());
+											finalBitmap.display(ivChart, obj.getString("cutlineUrl"), null, 0);
+											if (proName.contains("海南")) {
+												ivChart.setVisibility(View.VISIBLE);
+											}
+										}
+
+										if (!obj.isNull("dataUrl")) {
+											String dataUrl = obj.getString("dataUrl");
+											if (!TextUtils.isEmpty(dataUrl)) {
+												OkHttpLayer(dataUrl);
+											}
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
 									}
-								}
-							}
-						}
-					}
-					
-					if (!obj.isNull("cutlineUrl")) {
-						FinalBitmap finalBitmap = FinalBitmap.create(getActivity());
-						finalBitmap.display(ivChart, obj.getString("cutlineUrl"), null, 0);
-						if (proName.contains("海南")) {
-							ivChart.setVisibility(View.VISIBLE);
-						}
-					}
-					
-					if (!obj.isNull("dataUrl")) {
-						String dataUrl = obj.getString("dataUrl");
-						if (!TextUtils.isEmpty(dataUrl)) {
-							asyncTaskJson(dataUrl);
-						}
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}else {
-				drawCityName();
-				removePolygons();
+								}else {
+									drawCityName();
+									removePolygons();
 //				progressBar.setVisibility(View.GONE);
 //				tvToast.setVisibility(View.VISIBLE);
 //				new Handler().postDelayed(new Runnable() {
@@ -944,72 +788,41 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 //						tvToast.setVisibility(View.GONE);
 //					}
 //				}, 1000);
+								}
+							}
+						});
+					}
+				});
 			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+		}).start();
 	}
 	
-	private void asyncTaskJson(String url) {
-		//异步请求数据
-		HttpAsyncTaskJson task = new HttpAsyncTaskJson();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTaskJson extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTaskJson() {
-		}
+	private void OkHttpLayer(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
+					}
 
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			layerResult = result;
-			if (result != null) {
-				if (proName.contains("海南")) {
-					drawDataToMap(result);
-				}
-			}
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						getActivity().runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									layerResult = result;
+									if (result != null) {
+										if (proName.contains("海南")) {
+											drawDataToMap(result);
+										}
+									}
 //			else {
 //				drawCityName();
 //				removePolygons();
@@ -1022,29 +835,13 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 ////					}
 ////				}, 1000);
 //			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+								}
+							}
+						});
+					}
+				});
+			}
+		}).start();
 	}
 	
 	private void removePolygons() {
@@ -1148,7 +945,8 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 		}
 		polylines.clear();
 	}
-	
+
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {

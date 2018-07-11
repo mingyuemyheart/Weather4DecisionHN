@@ -22,13 +22,14 @@ import com.pmsc.weather4decision.phone.hainan.R;
  * @since 1.0
  */
 public class LoginActivity extends AbsLoginActivity {
-	private EditText accountView;
-	private EditText passwdView;
-	
+
+	private EditText accountView,passwdView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+
 		accountView = (EditText) findViewById(R.id.account_view);
 		passwdView = (EditText) findViewById(R.id.passwd_view);
 	}

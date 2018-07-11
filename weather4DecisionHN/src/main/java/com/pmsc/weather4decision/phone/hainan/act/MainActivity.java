@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -48,58 +47,39 @@ import com.pmsc.weather4decision.phone.hainan.util.AutoUpdateUtil;
 import com.pmsc.weather4decision.phone.hainan.util.CacheData;
 import com.pmsc.weather4decision.phone.hainan.util.CodeParse;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
-import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 import com.pmsc.weather4decision.phone.hainan.util.WeatherUtil;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import cn.com.weather.api.WeatherAPI;
 import cn.com.weather.listener.AsyncResponseHandler;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
-
-/**
- * Depiction: 首页主界面
- * <p>
- * Modify:
- * <p>
- * Author: Kevin Lynn
- * <p>
- * Create Date：2015年11月13日 下午4:33:38
- * <p>
- * 
- * @version 1.0
- * @since 1.0
- */
-public class MainActivity extends AbsDrawerActivity implements AMapLocationListener, OnClickListener, OnFetchWeatherListener {
+public class MainActivity extends AbsDrawerActivity implements AMapLocationListener, OnClickListener, OnFetchWeatherListener, HNApp.NavigationListener {
 
 	private Context mContext = null;
-    private AMapLocationClientOption mLocationOption = null;//声明mLocationOption对象
-    private AMapLocationClient mLocationClient = null;//声明AMapLocationClient类对象
-	private GridView        gridView;
-	private TextView        tempView;
-	private TextView        windView;
-	private TextView        shiduView;
-	private TextView        aqiView;
-	private TextView        weatherView;
-	private TextView        daysView;
-	private TextView        pubTimeView;
-	
+	private AMapLocationClientOption mLocationOption = null;//声明mLocationOption对象
+	private AMapLocationClient mLocationClient = null;//声明AMapLocationClient类对象
+	private GridView gridView;
+	private MainAdapter mainAdapter;
+	private TextView tempView,windView,shiduView,aqiView,weatherView,daysView,pubTimeView;
 	private String cityId, cityName;
-	private RelativeLayout top = null;
-	private int height = 0;
+	private RelativeLayout reFact;
 	private LinearLayout llContainer, llContainer2;
-
-	private RelativeLayout reMain;
+	private int height = 0;
 	private double lat = 0, lng = 0;
 
 	@Override
@@ -110,10 +90,43 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		setContentView(R.layout.activity_main);
 		mContext = this;
 
+		HNApp.setNavigationListener(this);
 		if (!CommonUtil.isLocationOpen(mContext)) {
 			locationDialog(mContext);
 		}else {
 			commonControl();
+		}
+	}
+
+	@Override
+	public void showNavigation(boolean show) {
+		onLayoutMeasure();
+	}
+
+	/**
+	 * 判断navigation是否显示，重新计算页面布局
+	 */
+	private void onLayoutMeasure() {
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		height = dm.heightPixels;
+
+		int statusBarHeight = -1;//状态栏高度
+		//获取status_bar_height资源的ID
+		int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			//根据资源ID获取响应的尺寸值
+			statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+		}
+		titleBar.measure(0, 0);
+		int height1 = titleBar.getMeasuredHeight();
+		reFact.measure(0, 0);
+		int height2 = reFact.getMeasuredHeight();
+		int height3 = 0;
+
+		if (mainAdapter != null) {
+			mainAdapter.height = height-statusBarHeight-height1-height2-height3;
+			mainAdapter.notifyDataSetChanged();
 		}
 	}
 
@@ -168,15 +181,13 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	}
 
 	private void initWidget() {
-        AutoUpdateUtil.checkUpdate(MainActivity.this, "39", getString(R.string.app_name), true);
+        AutoUpdateUtil.checkUpdate(MainActivity.this, MainActivity.this, "39", getString(R.string.app_name), true);
         SettingActivity.clearCache(mContext);
 
-		reMain = (RelativeLayout) findViewById(R.id.reMain);
-		reMain.setVisibility(View.VISIBLE);
 		rightButton.setBackgroundResource(R.drawable.icon_my);
 		rightButton.setVisibility(View.VISIBLE);
 		setTitle(PreferUtil.getCurrentCity());
-		top = (RelativeLayout) findViewById(R.id.top);
+		reFact = (RelativeLayout) findViewById(R.id.reFact);
 		gridView = (GridView) findViewById(R.id.grid_view);
 		tempView = (TextView) findViewById(R.id.temp_tv);
 		windView = (TextView) findViewById(R.id.wind_tv);
@@ -204,7 +215,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			onFetchWeather("cache", homeData);
 		}
 
-		asyncNewsCount("http://59.50.130.88:8888/decision-admin/push/getpushcount?type=2&uid="+PreferUtil.getUid());
+		OkHttpNewsCount("http://59.50.130.88:8888/decision-admin/push/getpushcount?type=2&uid="+PreferUtil.getUid());
 
 		if (!CommonUtil.isLocationOpen(mContext)) {
 			PreferUtil.saveCurrentProvince("海南省");
@@ -223,7 +234,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			startLocation();
 		}
 
-		loadGridData();
+		initGridView();
 	}
 	
     /**
@@ -274,24 +285,10 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	/**
 	 * 加载GridView数据
 	 */
-	private void loadGridData() {
-		titleBar.measure(0, 0);
-		int height1 = titleBar.getMeasuredHeight();
-		top.measure(0, 0);
-		int height2 = top.getMeasuredHeight();
-
-		int statusBarHeight1 = -1;
-		int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-		if (resourceId > 0) {
-			//根据资源ID获取响应的尺寸值
-			statusBarHeight1 = getResources().getDimensionPixelSize(resourceId);
-		}
-
-		final MainAdapter adapter = new MainAdapter(allChannelDataList, height-height1-height2-statusBarHeight1);
-		gridView.setAdapter(adapter);
-//		ViewGroup.LayoutParams params = gridView.getLayoutParams();
-//		params.height = (int) ((height-height1-height2-statusBarHeight1)/3*Math.ceil((double)(allChannelDataList.size()/3.0f)));
-//		gridView.setLayoutParams(params);
+	private void initGridView() {
+		mainAdapter = new MainAdapter(mContext, allChannelDataList);
+		gridView.setAdapter(mainAdapter);
+		onLayoutMeasure();
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -674,78 +671,46 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	 * 获取未读消息数量
 	 * @param url
 	 */
-	private void asyncNewsCount(String url) {
-		//异步请求数据
-		HttpAsyncTaskNewsCount task = new HttpAsyncTaskNewsCount();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
+	private void OkHttpNewsCount(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTaskNewsCount extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-
-		public HttpAsyncTaskNewsCount() {
-		}
-
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (!TextUtils.isEmpty(result)) {
-				try {
-					JSONObject obj = new JSONObject(result);
-					if (!obj.isNull("count")) {
-						int count = obj.getInt("count");
-						if (count > 0) {
-							rightButton.setBackgroundResource(R.drawable.icon_my_news);
-						}else {
-							rightButton.setBackgroundResource(R.drawable.icon_my);
-						}
 					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+										if (!obj.isNull("count")) {
+											int count = obj.getInt("count");
+											if (count > 0) {
+												rightButton.setBackgroundResource(R.drawable.icon_my_news);
+											}else {
+												rightButton.setBackgroundResource(R.drawable.icon_my);
+											}
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						});
+					}
+				});
 			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+		}).start();
 	}
 
 }

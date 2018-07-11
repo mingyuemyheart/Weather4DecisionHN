@@ -97,7 +97,7 @@
     <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/libs/converter-gson-2.1.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/libs/adapter-rxjava-2.1.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/libs/rxjava-1.1.1.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/libs/okio-1.6.0.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/libs/okhttp-3.4.1.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: com.squareup.okio:okio:1.14.1@jar" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: com.squareup.okhttp3:okhttp:3.10.0@jar" level="project" />
   </component>
 </module>

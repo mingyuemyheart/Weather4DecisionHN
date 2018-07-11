@@ -1,9 +1,5 @@
 package com.pmsc.weather4decision.phone.hainan.fragment;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -18,6 +14,9 @@ import com.pmsc.weather4decision.phone.hainan.dto.ShawnRainDto;
 import com.pmsc.weather4decision.phone.hainan.view.RainView;
 import com.pmsc.weather4decision.phone.hainan.view.TemperatureView;
 import com.pmsc.weather4decision.phone.hainan.view.WindView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StationDetailRainFragment extends Fragment{
 	
@@ -36,7 +35,6 @@ public class StationDetailRainFragment extends Fragment{
 		initWidget(view);
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void initWidget(View view) {
 		llContainer1 = (LinearLayout) view.findViewById(R.id.llContainer1);
 		tvPrompt = (TextView) view.findViewById(R.id.tvPrompt);
@@ -46,10 +44,10 @@ public class StationDetailRainFragment extends Fragment{
 		
 		int index = getArguments().getInt("index", 0);
 		
-		List<ShawnRainDto> tempList = new ArrayList<ShawnRainDto>();
+		List<ShawnRainDto> tempList = new ArrayList<>();
 		tempList.clear();
 		tempList.addAll(getArguments().<ShawnRainDto>getParcelableArrayList("dataList"));
-		List<ShawnRainDto> dataList = new ArrayList<ShawnRainDto>();
+		List<ShawnRainDto> dataList = new ArrayList<>();
 		dataList.clear();
 		for (int i = 0; i < tempList.size(); i++) {
 			ShawnRainDto dto = tempList.get(i);

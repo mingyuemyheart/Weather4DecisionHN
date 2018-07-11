@@ -13,8 +13,8 @@ android {
         applicationId "com.pmsc.weather4decision.phone.hainan"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 156
-        versionName "2.1.85"
+        versionCode 157
+        versionName "2.1.86"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -64,7 +64,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.1'
     compile files('libs/bitmcap-cache-1.0.jar')
     compile files('libs/commons-codec-1.7.jar')
-    compile files('libs/httpmime-4.1.3.jar')
     compile files('libs/pinyin4j-2.5.0.jar')
     compile files('libs/scene-final.jar')
     compile files('libs/uk-co-senab-photoview.jar')
@@ -74,4 +73,6 @@ dependencies {
     compile files('libs/GetuiSDK2.11.1.0-support-XMP-1.0.2.jar')
     compile files('libs/ChinaWeatherAPI.jar')
     compile files('libs/AMap3DMap_5.7.0_AMapSearch_5.7.0_AMapLocation_3.7.0_20171229.jar')
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okio:okio:1.14.1'
 }

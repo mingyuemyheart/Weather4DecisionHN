@@ -3,7 +3,6 @@ package com.pmsc.weather4decision.phone.hainan.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -31,22 +30,27 @@ import com.pmsc.weather4decision.phone.hainan.adapter.ShawnRainDetailAdapter;
 import com.pmsc.weather4decision.phone.hainan.adapter.ShawnRainFactAreaAdapter;
 import com.pmsc.weather4decision.phone.hainan.dto.ShawnRainDto;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
-import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.view.MyListView;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * 任意时段查询,小时
@@ -178,208 +182,169 @@ public class ShawnRainCheckHourFragment extends Fragment implements OnClickListe
 		});
 	}
 	
-	private void asyncTaskRenyi(String url, String childId) {
-		//异步请求数据
-		HttpAsyncTaskRenyi task = new HttpAsyncTaskRenyi(childId);
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTaskRenyi extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		private String childId;
-		
-		public HttpAsyncTaskRenyi(String childId) {
-			this.childId = childId;
-		}
+	private void asyncTaskRenyi(final String url, final String childId) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
+					}
 
-		@Override
-		protected void onPostExecute(final String result) {
-			super.onPostExecute(result);
-			getActivity().runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					if (result != null) {
-						try {
-							JSONObject obj = new JSONObject(result);
-							if (TextUtils.isEmpty(startTimeCheck) && TextUtils.isEmpty(endTimeCheck)) {
-								if (!obj.isNull("maxtime")) {
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						getActivity().runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
 									try {
-										minTime = obj.getString("mintime");
-										maxTime = obj.getString("maxtime");
-										endTimeCheck = obj.getString("maxtime");
-										startTimeCheck = sdf3.format(sdf3.parse(endTimeCheck).getTime()-1000*60*60);
-										tvArea.setText(hanNan);
-										checkArea = "";
+										JSONObject obj = new JSONObject(result);
+										if (TextUtils.isEmpty(startTimeCheck) && TextUtils.isEmpty(endTimeCheck)) {
+											if (!obj.isNull("maxtime")) {
+												try {
+													minTime = obj.getString("mintime");
+													maxTime = obj.getString("maxtime");
+													endTimeCheck = obj.getString("maxtime");
+													startTimeCheck = sdf3.format(sdf3.parse(endTimeCheck).getTime()-1000*60*60);
+													tvArea.setText(hanNan);
+													checkArea = "";
 
-										String y = startTimeCheck.substring(0, 4);
-										String m = startTimeCheck.substring(4, 6);
-										String d = startTimeCheck.substring(6, 8);
-										String h = startTimeCheck.substring(8, 10);
-										tvStartDay.setText(y+"-"+m+"-"+d);
-										tvStartHour.setText(h+"时");
+													String y = startTimeCheck.substring(0, 4);
+													String m = startTimeCheck.substring(4, 6);
+													String d = startTimeCheck.substring(6, 8);
+													String h = startTimeCheck.substring(8, 10);
+													tvStartDay.setText(y+"-"+m+"-"+d);
+													tvStartHour.setText(h+"时");
 
-										String y2 = endTimeCheck.substring(0, 4);
-										String m2 = endTimeCheck.substring(4, 6);
-										String d2 = endTimeCheck.substring(6, 8);
-										String h2 = endTimeCheck.substring(8, 10);
-										tvEndDay.setText(y2+"-"+m2+"-"+d2);
-										tvEndHour.setText(h2+"时");
-									} catch (ParseException e) {
+													String y2 = endTimeCheck.substring(0, 4);
+													String m2 = endTimeCheck.substring(4, 6);
+													String d2 = endTimeCheck.substring(6, 8);
+													String h2 = endTimeCheck.substring(8, 10);
+													tvEndDay.setText(y2+"-"+m2+"-"+d2);
+													tvEndHour.setText(h2+"时");
+												} catch (ParseException e) {
+													e.printStackTrace();
+												}
+											}
+										}
+
+										if (!obj.isNull("ciytlist")) {
+											areaList.clear();
+											JSONArray array = obj.getJSONArray("ciytlist");
+											for (int i = 0; i < array.length(); i++) {
+												ShawnRainDto dto = new ShawnRainDto();
+												if (!TextUtils.isEmpty(array.getString(i))) {
+													dto.area = array.getString(i);
+													areaList.add(dto);
+												}
+											}
+
+											ShawnRainDto dto = new ShawnRainDto();
+											dto.area = hanNan;
+											areaList.add(0, dto);
+											if (areaList.size() > 0 && areaAdapter != null) {
+												areaAdapter.notifyDataSetChanged();
+											}
+										}
+
+										if(!obj.isNull("th")) {
+											JSONObject th = obj.getJSONObject("th");
+											if (!th.isNull("stationName")) {
+												tv1.setText(th.getString("stationName"));
+											}
+											if (!th.isNull("area")) {
+												tv2.setText(th.getString("area"));
+											}
+											if (!th.isNull("val")) {
+												tv3.setText(th.getString("val"));
+											}
+										}
+
+										if (!obj.isNull("list")) {
+											checkList.clear();
+											JSONArray array = obj.getJSONArray("list");
+											if (TextUtils.equals(childId, "658")) {//最低温
+												for (int i = array.length()-1; i >= 0; i--) {
+													JSONObject itemObj = array.getJSONObject(i);
+													ShawnRainDto dto = new ShawnRainDto();
+													if (!itemObj.isNull("stationCode")) {
+														dto.stationCode = itemObj.getString("stationCode");
+													}
+													if (!itemObj.isNull("stationName")) {
+														dto.stationName = itemObj.getString("stationName");
+													}
+													if (!itemObj.isNull("area")) {
+														dto.area = itemObj.getString("area");
+													}
+													if (!itemObj.isNull("val")) {
+														dto.val = itemObj.getDouble("val");
+													}
+													if (!TextUtils.isEmpty(dto.area)) {
+														checkList.add(dto);
+													}
+												}
+											}else {
+												for (int i = 0; i < array.length(); i++) {
+													JSONObject itemObj = array.getJSONObject(i);
+													ShawnRainDto dto = new ShawnRainDto();
+													if (!itemObj.isNull("stationCode")) {
+														dto.stationCode = itemObj.getString("stationCode");
+													}
+													if (!itemObj.isNull("stationName")) {
+														dto.stationName = itemObj.getString("stationName");
+													}
+													if (!itemObj.isNull("area")) {
+														dto.area = itemObj.getString("area");
+													}
+													if (!itemObj.isNull("val")) {
+														dto.val = itemObj.getDouble("val");
+													}
+													if (!TextUtils.isEmpty(dto.area)) {
+														checkList.add(dto);
+													}
+												}
+											}
+											if (checkList.size() > 0 && checkAdapter != null) {
+												checkAdapter.notifyDataSetChanged();
+												CommonUtil.setListViewHeightBasedOnChildren(listViewCheck);
+											}
+										}
+
+										if (TextUtils.equals(childId, "658")) {//最低温
+											if (!b3) {//将序
+												iv3.setImageResource(R.drawable.arrow_up);
+											}else {//将序
+												iv3.setImageResource(R.drawable.arrow_down);
+											}
+										}else {
+											if (!b3) {//将序
+												iv3.setImageResource(R.drawable.arrow_down);
+											}else {//将序
+												iv3.setImageResource(R.drawable.arrow_up);
+											}
+										}
+										iv3.setVisibility(View.VISIBLE);
+
+										progressBar.setVisibility(View.GONE);
+										reContent.setVisibility(View.VISIBLE);
+									} catch (JSONException e) {
 										e.printStackTrace();
 									}
 								}
 							}
-
-							if (!obj.isNull("ciytlist")) {
-								areaList.clear();
-								JSONArray array = obj.getJSONArray("ciytlist");
-								for (int i = 0; i < array.length(); i++) {
-									ShawnRainDto dto = new ShawnRainDto();
-									if (!TextUtils.isEmpty(array.getString(i))) {
-										dto.area = array.getString(i);
-										areaList.add(dto);
-									}
-								}
-
-								ShawnRainDto dto = new ShawnRainDto();
-								dto.area = hanNan;
-								areaList.add(0, dto);
-								if (areaList.size() > 0 && areaAdapter != null) {
-									areaAdapter.notifyDataSetChanged();
-								}
-							}
-
-							if(!obj.isNull("th")) {
-								JSONObject th = obj.getJSONObject("th");
-								if (!th.isNull("stationName")) {
-									tv1.setText(th.getString("stationName"));
-								}
-								if (!th.isNull("area")) {
-									tv2.setText(th.getString("area"));
-								}
-								if (!th.isNull("val")) {
-									tv3.setText(th.getString("val"));
-								}
-							}
-
-							if (!obj.isNull("list")) {
-								checkList.clear();
-								JSONArray array = obj.getJSONArray("list");
-								if (TextUtils.equals(childId, "658")) {//最低温
-									for (int i = array.length()-1; i >= 0; i--) {
-										JSONObject itemObj = array.getJSONObject(i);
-										ShawnRainDto dto = new ShawnRainDto();
-										if (!itemObj.isNull("stationCode")) {
-											dto.stationCode = itemObj.getString("stationCode");
-										}
-										if (!itemObj.isNull("stationName")) {
-											dto.stationName = itemObj.getString("stationName");
-										}
-										if (!itemObj.isNull("area")) {
-											dto.area = itemObj.getString("area");
-										}
-										if (!itemObj.isNull("val")) {
-											dto.val = itemObj.getDouble("val");
-										}
-										if (!TextUtils.isEmpty(dto.area)) {
-											checkList.add(dto);
-										}
-									}
-								}else {
-									for (int i = 0; i < array.length(); i++) {
-										JSONObject itemObj = array.getJSONObject(i);
-										ShawnRainDto dto = new ShawnRainDto();
-										if (!itemObj.isNull("stationCode")) {
-											dto.stationCode = itemObj.getString("stationCode");
-										}
-										if (!itemObj.isNull("stationName")) {
-											dto.stationName = itemObj.getString("stationName");
-										}
-										if (!itemObj.isNull("area")) {
-											dto.area = itemObj.getString("area");
-										}
-										if (!itemObj.isNull("val")) {
-											dto.val = itemObj.getDouble("val");
-										}
-										if (!TextUtils.isEmpty(dto.area)) {
-											checkList.add(dto);
-										}
-									}
-								}
-								if (checkList.size() > 0 && checkAdapter != null) {
-									checkAdapter.notifyDataSetChanged();
-									CommonUtil.setListViewHeightBasedOnChildren(listViewCheck);
-								}
-							}
-
-							if (TextUtils.equals(childId, "658")) {//最低温
-								if (!b3) {//将序
-									iv3.setImageResource(R.drawable.arrow_up);
-								}else {//将序
-									iv3.setImageResource(R.drawable.arrow_down);
-								}
-							}else {
-								if (!b3) {//将序
-									iv3.setImageResource(R.drawable.arrow_down);
-								}else {//将序
-									iv3.setImageResource(R.drawable.arrow_up);
-								}
-							}
-							iv3.setVisibility(View.VISIBLE);
-
-							progressBar.setVisibility(View.GONE);
-							reContent.setVisibility(View.VISIBLE);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
+						});
 					}
-				}
-			});
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+				});
+			}
+		}).start();
 	}
 	
-	// 返回中文的首字母  
+	// 返回中文的首字母
     public static String getPinYinHeadChar(String str) {  
         String convert = "";  
         int size = str.length();

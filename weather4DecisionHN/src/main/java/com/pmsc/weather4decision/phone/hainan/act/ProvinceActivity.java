@@ -1,12 +1,5 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -22,25 +15,22 @@ import com.pmsc.weather4decision.phone.hainan.fragment.ProvinceFragment;
 import com.pmsc.weather4decision.phone.hainan.util.StatisticUtil;
 import com.pmsc.weather4decision.phone.hainan.view.MainViewPager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Depiction: 全省预报界面
- * <p>
- * Modify:
- * <p>
- * Author: Kevin Lynn
- * <p>
- * Create Date：2015年11月13日 下午4:33:38
- * <p>
- * 
- * @version 1.0
- * @since 1.0
  */
 public class ProvinceActivity extends AbsDrawerActivity {
 	
 	private MainViewPager viewPager = null;
 	private MyPagerAdapter pagerAdapter = null;
-	private List<Fragment> fragments = new ArrayList<Fragment>();
+	private List<Fragment> fragments = new ArrayList<>();
 	private String time_7 = null;
 	private TextView tab1, tab2;
 	private LinearLayout llTab = null;
@@ -80,7 +70,7 @@ public class ProvinceActivity extends AbsDrawerActivity {
 				for (int i = 0; i < array.length(); i++) {
 					JSONObject itemObj = array.getJSONObject(i);
 					String id = itemObj.getString("id");
-					Fragment fragment = null;
+					Fragment fragment;
 					if (TextUtils.equals(id, "650")) {
 						fragment = new ProvinceFragment();
 						Bundle bundle = new Bundle();

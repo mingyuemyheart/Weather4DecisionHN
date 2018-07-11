@@ -1,5 +1,6 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -59,20 +60,25 @@ import com.pmsc.weather4decision.phone.hainan.dto.ShawnRainDto;
 import com.pmsc.weather4decision.phone.hainan.fragment.ShawnRainCheckHourFragment;
 import com.pmsc.weather4decision.phone.hainan.fragment.ShawnRainCheckMinuteFragment;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
-import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.util.StatisticUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 import com.pmsc.weather4decision.phone.hainan.view.MainViewPager;
 
 import net.tsz.afinal.FinalBitmap;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * 实况资料
@@ -128,7 +134,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 	private ScrollView scrollView = null;
 	private LinearLayout llViewPager = null;
 	private MainViewPager viewPager = null;
-	private List<Fragment> fragments = new ArrayList<Fragment>();
+	private List<Fragment> fragments = new ArrayList<>();
 	private LinearLayout llRainCheck = null;
 	private TextView tv1, tv2, tv3;
 
@@ -199,7 +205,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 							dto.icon2 = itemObj.getString("icon1");
 						}
 						if (!itemObj.isNull("child")) {
-							List<ShawnRainDto> itemList = new ArrayList<ShawnRainDto>();
+							List<ShawnRainDto> itemList = new ArrayList<>();
 							itemList.clear();
 							JSONArray itemArray = itemObj.getJSONArray("child");
 							for (int j = 0; j < itemArray.length(); j++) {
@@ -543,7 +549,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 						if (!TextUtils.isEmpty(itemDto.dataUrl)) {
 							url = itemDto.dataUrl;
 							progressBar.setVisibility(View.VISIBLE);
-							asyncTask(url);
+							OkHttpInfo(url);
 						}
 					}
 					tvName.setTextColor(getResources().getColor(R.color.main_color));
@@ -607,7 +613,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 							
 							if (!TextUtils.isEmpty(url)) {
 								progressBar.setVisibility(View.VISIBLE);
-								asyncTask(url);
+								OkHttpInfo(url);
 							}
 						}
 					}
@@ -747,328 +753,275 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 			}
 		}
 	}
-	
-	private void asyncTask(String url) {
-		//异步请求数据
-		HttpAsyncTaskUrl task = new HttpAsyncTaskUrl();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
+
 	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
+	 * 获取实况数据
+	 * @param url
 	 */
-	private class HttpAsyncTaskUrl extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTaskUrl() {
-		}
+	private void OkHttpInfo(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (result != null) {
-				try {
-					JSONObject obj = new JSONObject(result);
-					
-					if (!obj.isNull("th")) {
-						JSONObject itemObj = obj.getJSONObject("th");
-						if (!itemObj.isNull("stationName")) {
-							stationName = itemObj.getString("stationName");
-						}
-						if (!itemObj.isNull("area")) {
-							area = itemObj.getString("area");
-						}
-						if (!itemObj.isNull("val")) {
-							val = itemObj.getString("val");
-						}
 					}
 
-					if (!obj.isNull("zh")) {
-						JSONObject itemObj = obj.getJSONObject("zh");
-						if (!itemObj.isNull("stationName")) {
-							tv3.setText(itemObj.getString("stationName"));
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
 						}
-						if (!itemObj.isNull("area")) {
-							tv2.setText(itemObj.getString("area"));
-						}
-						if (!itemObj.isNull("val")) {
-							tv1.setText(itemObj.getString("val"));
-						}
-					}
-					
-					if (!obj.isNull("title")) {
-						title = obj.getString("title");
-					}
-					
-					if (!obj.isNull("cutlineUrl")) {
-						FinalBitmap finalBitmap = FinalBitmap.create(mContext);
-						finalBitmap.display(ivChart, obj.getString("cutlineUrl"), null, 0);
-					}
-					
-					if (!obj.isNull("times")) {
-						times.clear();
-						JSONArray array = new JSONArray(obj.getString("times"));
-						for (int i = 0; i < array.length(); i++) {
-							JSONObject itemObj = array.getJSONObject(i);
-							ShawnRainDto dto = new ShawnRainDto();
-							if (!itemObj.isNull("timeString")) {
-								dto.timeString = itemObj.getString("timeString");
-								if (i == selectId) {
-									startTime = itemObj.getString("timestart");
-									endTime = itemObj.getString("timeParams");
-									tvLayerName.setText(dto.timeString);
-									tvLayerName.setVisibility(View.VISIBLE);
-									if (layerName != null) {
-										tvLayerName.setText(dto.timeString+layerName);
+						final String result = response.body().string();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+
+										if (!obj.isNull("th")) {
+											JSONObject itemObj = obj.getJSONObject("th");
+											if (!itemObj.isNull("stationName")) {
+												stationName = itemObj.getString("stationName");
+											}
+											if (!itemObj.isNull("area")) {
+												area = itemObj.getString("area");
+											}
+											if (!itemObj.isNull("val")) {
+												val = itemObj.getString("val");
+											}
+										}
+
+										if (!obj.isNull("zh")) {
+											JSONObject itemObj = obj.getJSONObject("zh");
+											if (!itemObj.isNull("stationName")) {
+												tv3.setText(itemObj.getString("stationName"));
+											}
+											if (!itemObj.isNull("area")) {
+												tv2.setText(itemObj.getString("area"));
+											}
+											if (!itemObj.isNull("val")) {
+												tv1.setText(itemObj.getString("val"));
+											}
+										}
+
+										if (!obj.isNull("title")) {
+											title = obj.getString("title");
+										}
+
+										if (!obj.isNull("cutlineUrl")) {
+											FinalBitmap finalBitmap = FinalBitmap.create(mContext);
+											finalBitmap.display(ivChart, obj.getString("cutlineUrl"), null, 0);
+										}
+
+										if (!obj.isNull("times")) {
+											times.clear();
+											JSONArray array = new JSONArray(obj.getString("times"));
+											for (int i = 0; i < array.length(); i++) {
+												JSONObject itemObj = array.getJSONObject(i);
+												ShawnRainDto dto = new ShawnRainDto();
+												if (!itemObj.isNull("timeString")) {
+													dto.timeString = itemObj.getString("timeString");
+													if (i == selectId) {
+														startTime = itemObj.getString("timestart");
+														endTime = itemObj.getString("timeParams");
+														tvLayerName.setText(dto.timeString);
+														tvLayerName.setVisibility(View.VISIBLE);
+														if (layerName != null) {
+															tvLayerName.setText(dto.timeString+layerName);
+														}
+													}
+												}
+												if (!itemObj.isNull("timeParams")) {
+													dto.timeParams = itemObj.getString("timeParams");
+												}
+												times.add(dto);
+											}
+										}
+
+										if (!obj.isNull("realDatas")) {
+											realDatas.clear();
+											JSONArray array = new JSONArray(obj.getString("realDatas"));
+											for (int i = 0; i < array.length(); i++) {
+												JSONObject itemObj = array.getJSONObject(i);
+												ShawnRainDto dto = new ShawnRainDto();
+												if (!itemObj.isNull("stationCode")) {
+													dto.stationCode = itemObj.getString("stationCode");
+												}
+												if (!itemObj.isNull("stationName")) {
+													dto.stationName = itemObj.getString("stationName");
+												}
+												if (!itemObj.isNull("area")) {
+													dto.area = itemObj.getString("area");
+												}
+												if (!itemObj.isNull("val")) {
+													dto.val = itemObj.getDouble("val");
+												}
+
+												if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
+													realDatas.add(dto);
+												}
+											}
+										}
+
+										if (!obj.isNull("dataUrl")) {
+											String dataUrl = obj.getString("dataUrl");
+											if (!TextUtils.isEmpty(dataUrl)) {
+												OkHttpLayer(dataUrl);
+											}
+										}
+
+										if (!obj.isNull("zx")) {
+											tvIntro.setText(obj.getString("zx"));
+										}
+
+										if (!obj.isNull("jb")) {
+											mList.clear();
+											JSONArray array = obj.getJSONArray("jb");
+											for (int i = 0; i < array.length(); i++) {
+												JSONObject itemObj = array.getJSONObject(i);
+												ShawnRainDto data = new ShawnRainDto();
+												if (!itemObj.isNull("lv")) {
+													data.rainLevel = itemObj.getString("lv");
+												}
+												if (!itemObj.isNull("count")) {
+													data.count = itemObj.getInt("count")+"";
+												}
+												if (!itemObj.isNull("xs")) {
+													JSONArray xsArray = itemObj.getJSONArray("xs");
+													List<ShawnRainDto> list = new ArrayList<>();
+													list.clear();
+													for (int j = 0; j < xsArray.length(); j++) {
+														ShawnRainDto d = new ShawnRainDto();
+														d.area = xsArray.getString(j);
+														list.add(d);
+													}
+													data.areaList.addAll(list);
+												}
+												mList.add(data);
+											}
+											if (mList.size() > 0 && mAdapter != null) {
+												CommonUtil.setListViewHeightBasedOnChildren(listView);
+												mAdapter.startTime = startTime;
+												mAdapter.endTime = endTime;
+												mAdapter.notifyDataSetChanged();
+												tvIntro.setVisibility(View.VISIBLE);
+												listTitle.setVisibility(View.VISIBLE);
+												listView.setVisibility(View.VISIBLE);
+											}
+										}else {
+											tvIntro.setVisibility(View.GONE);
+											listTitle.setVisibility(View.GONE);
+											listView.setVisibility(View.GONE);
+										}
+
+										int statusBarHeight = -1;
+										//获取status_bar_height资源的ID
+										int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+										if (resourceId > 0) {
+											//根据资源ID获取响应的尺寸值
+											statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+										}
+										int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+										int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+										reTitle.measure(w, h);
+										llContainer2.measure(w, h);
+										llContainer.measure(w, h);
+										listTitle.measure(w, h);
+										llBottom.measure(w, h);
+										LayoutParams mapParams = mapView.getLayoutParams();
+										if (listView.getVisibility() == View.VISIBLE) {
+											mapParams.height = height-statusBarHeight-reTitle.getMeasuredHeight()-llContainer2.getMeasuredHeight()
+													-llContainer.getMeasuredHeight()-listTitle.getMeasuredHeight()*8;
+											new Handler().postDelayed(new Runnable() {
+												@Override
+												public void run() {
+													aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(19.211397,109.795324), 7.8f));
+												}
+											}, 500);
+										}else {
+											mapParams.height = height-statusBarHeight-reTitle.getMeasuredHeight()-llContainer2.getMeasuredHeight()
+													-llContainer.getMeasuredHeight()-llBottom.getMeasuredHeight();
+											new Handler().postDelayed(new Runnable() {
+												@Override
+												public void run() {
+													aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(19.211397,109.795324), 8.2f));
+												}
+											}, 500);
+										}
+										mapView.setLayoutParams(mapParams);
+
+									} catch (JSONException e) {
+										e.printStackTrace();
 									}
+								}else {
+									drawCityName();
+									removePolygons();
+									progressBar.setVisibility(View.GONE);
+									tvToast.setVisibility(View.VISIBLE);
+									new Handler().postDelayed(new Runnable() {
+										@Override
+										public void run() {
+											tvToast.setVisibility(View.GONE);
+										}
+									}, 1000);
 								}
 							}
-							if (!itemObj.isNull("timeParams")) {
-								dto.timeParams = itemObj.getString("timeParams");
-							}
-							times.add(dto);
-						}
+						});
 					}
-					
-					if (!obj.isNull("realDatas")) {
-						realDatas.clear();
-						JSONArray array = new JSONArray(obj.getString("realDatas"));
-						for (int i = 0; i < array.length(); i++) {
-							JSONObject itemObj = array.getJSONObject(i);
-							ShawnRainDto dto = new ShawnRainDto();
-							if (!itemObj.isNull("stationCode")) {
-								dto.stationCode = itemObj.getString("stationCode");
-							}
-							if (!itemObj.isNull("stationName")) {
-								dto.stationName = itemObj.getString("stationName");
-							}
-							if (!itemObj.isNull("area")) {
-								dto.area = itemObj.getString("area");
-							}
-							if (!itemObj.isNull("val")) {
-								dto.val = itemObj.getDouble("val");
-							}
-
-							if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
-								realDatas.add(dto);
-							}
-						}
-					}
-					
-					if (!obj.isNull("dataUrl")) {
-						String dataUrl = obj.getString("dataUrl");
-						if (!TextUtils.isEmpty(dataUrl)) {
-							asyncTaskJson(dataUrl);
-						}
-					}
-					
-					if (!obj.isNull("zx")) {
-						tvIntro.setText(obj.getString("zx"));
-					}
-					
-					if (!obj.isNull("jb")) {
-						mList.clear();
-						JSONArray array = obj.getJSONArray("jb");
-						for (int i = 0; i < array.length(); i++) {
-							JSONObject itemObj = array.getJSONObject(i);
-							ShawnRainDto data = new ShawnRainDto();
-							if (!itemObj.isNull("lv")) {
-								data.rainLevel = itemObj.getString("lv");
-							}
-							if (!itemObj.isNull("count")) {
-								data.count = itemObj.getInt("count")+"";
-							}
-							if (!itemObj.isNull("xs")) {
-								JSONArray xsArray = itemObj.getJSONArray("xs");
-								List<ShawnRainDto> list = new ArrayList<ShawnRainDto>();
-								list.clear();
-								for (int j = 0; j < xsArray.length(); j++) {
-									ShawnRainDto d = new ShawnRainDto();
-									d.area = xsArray.getString(j);
-									list.add(d);
-								}
-								data.areaList.addAll(list);
-							}
-							mList.add(data);
-						}
-						if (mList.size() > 0 && mAdapter != null) {
-							CommonUtil.setListViewHeightBasedOnChildren(listView);
-							mAdapter.startTime = startTime;
-							mAdapter.endTime = endTime;
-							mAdapter.notifyDataSetChanged();
-							tvIntro.setVisibility(View.VISIBLE);
-							listTitle.setVisibility(View.VISIBLE);
-							listView.setVisibility(View.VISIBLE);
-						}
-					}else {
-						tvIntro.setVisibility(View.GONE);
-						listTitle.setVisibility(View.GONE);
-						listView.setVisibility(View.GONE);
-					}
-					
-					int statusBarHeight = -1;  
-					//获取status_bar_height资源的ID  
-					int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");  
-					if (resourceId > 0) {  
-					    //根据资源ID获取响应的尺寸值  
-						statusBarHeight = getResources().getDimensionPixelSize(resourceId);  
-					}  
-					int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);  
-			        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);  
-					reTitle.measure(w, h);
-					llContainer2.measure(w, h);
-					llContainer.measure(w, h);
-					listTitle.measure(w, h);
-					llBottom.measure(w, h);
-					LayoutParams mapParams = mapView.getLayoutParams();
-					if (listView.getVisibility() == View.VISIBLE) {
-						mapParams.height = height-statusBarHeight-reTitle.getMeasuredHeight()-llContainer2.getMeasuredHeight()
-								-llContainer.getMeasuredHeight()-listTitle.getMeasuredHeight()*8;
-						new Handler().postDelayed(new Runnable() {
-							@Override
-							public void run() {
-								aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(19.211397,109.795324), 7.8f));
-							}
-						}, 500);
-					}else {
-						mapParams.height = height-statusBarHeight-reTitle.getMeasuredHeight()-llContainer2.getMeasuredHeight()
-								-llContainer.getMeasuredHeight()-llBottom.getMeasuredHeight();
-						new Handler().postDelayed(new Runnable() {
-							@Override
-							public void run() {
-								aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(19.211397,109.795324), 8.2f));
-							}
-						}, 500);
-					}
-					mapView.setLayoutParams(mapParams);
-					
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}else {
-				drawCityName();
-				removePolygons();
-				progressBar.setVisibility(View.GONE);
-				tvToast.setVisibility(View.VISIBLE);
-				new Handler().postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						tvToast.setVisibility(View.GONE);
-					}
-				}, 1000);
+				});
 			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+		}).start();
 	}
-	
-	private void asyncTaskJson(String url) {
-		//异步请求数据
-		HttpAsyncTaskJson task = new HttpAsyncTaskJson();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
+
 	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
+	 * 获取图层数据
+	 * @param url
 	 */
-	private class HttpAsyncTaskJson extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTaskJson() {
-		}
-
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (result != null) {
-				drawDataToMap(result);
-			}else {
-				drawCityName();
-				removePolygons();
-				progressBar.setVisibility(View.GONE);
-				tvToast.setVisibility(View.VISIBLE);
-				new Handler().postDelayed(new Runnable() {
+	private void OkHttpLayer(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
 					@Override
-					public void run() {
-						tvToast.setVisibility(View.GONE);
+					public void onFailure(Call call, IOException e) {
+
 					}
-				}, 1000);
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						if (!TextUtils.isEmpty(result)) {
+							drawDataToMap(result);
+						}else {
+							drawCityName();
+							removePolygons();
+
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									progressBar.setVisibility(View.GONE);
+									tvToast.setVisibility(View.VISIBLE);
+									new Handler().postDelayed(new Runnable() {
+										@Override
+										public void run() {
+											tvToast.setVisibility(View.GONE);
+										}
+									}, 1000);
+								}
+							});
+
+						}
+
+					}
+				});
 			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+		}).start();
 	}
 	
 	private void removePolygons() {
@@ -1165,7 +1118,8 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 		}
 		circles.clear();
 	}
-	
+
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -1224,7 +1178,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 				selectId = arg2;
 				if (!TextUtils.isEmpty(url)) {
 					progressBar.setVisibility(View.VISIBLE);
-					asyncTask(url+dto.timeParams);
+					OkHttpInfo(url+dto.timeParams);
 				}
 				dialog.dismiss();
 			}
@@ -1238,7 +1192,6 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 		});
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -1266,6 +1219,50 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 
 		default:
 			break;
+		}
+	}
+
+	/**
+	 * 方法必须重写
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (mapView != null) {
+			mapView.onResume();
+		}
+	}
+
+	/**
+	 * 方法必须重写
+	 */
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (mapView != null) {
+			mapView.onPause();
+		}
+	}
+
+	/**
+	 * 方法必须重写
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (mapView != null) {
+			mapView.onSaveInstanceState(outState);
+		}
+	}
+
+	/**
+	 * 方法必须重写
+	 */
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (mapView != null) {
+			mapView.onDestroy();
 		}
 	}
 	

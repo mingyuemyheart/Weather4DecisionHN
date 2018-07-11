@@ -1,14 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/reMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/main_bg"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/top"
+        android:id="@+id/reFact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/main_color"
@@ -74,10 +72,10 @@
                         android:textSize="@dimen/level_2"/>
 
                     <TextView
-                        android:layout_marginTop="18dp"
                         android:id="@+id/temp_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
                         android:textColor="@color/white"
@@ -177,30 +175,14 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:paddingBottom="5dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:text="@string/hn_decision_service_support"
-        android:textColor="@color/main_color"
-        android:textSize="12dp"
-        android:visibility="gone"/>
-
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/top"
+        android:layout_below="@+id/reFact"
         android:listSelector="@drawable/transparent"
         android:numColumns="3"
         android:scrollbars="none"
-        android:verticalSpacing="0dp">
-    </GridView>
+        android:verticalSpacing="0dp"/>
 
 </RelativeLayout>

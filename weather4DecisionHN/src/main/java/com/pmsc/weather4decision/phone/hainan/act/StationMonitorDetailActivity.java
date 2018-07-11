@@ -3,7 +3,6 @@ package com.pmsc.weather4decision.phone.hainan.act;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -26,16 +25,21 @@ import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.dto.ShawnRainDto;
 import com.pmsc.weather4decision.phone.hainan.fragment.StationDetailRainFragment;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
-import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.view.MainViewPager;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class StationMonitorDetailActivity extends BaseActivity implements OnClickListener{
 	
@@ -73,7 +77,7 @@ public class StationMonitorDetailActivity extends BaseActivity implements OnClic
 				tvTitle.setText(data.stationName);
 			}
 			if (!TextUtils.isEmpty(data.stationCode)) {
-				asyncTask("http://59.50.130.88:8888/decision-admin/dates/getone48?id="+data.stationCode);
+				OkHttpList("http://59.50.130.88:8888/decision-admin/dates/getone48?id="+data.stationCode);
 			}
 		}
 	}
@@ -81,7 +85,6 @@ public class StationMonitorDetailActivity extends BaseActivity implements OnClic
 	/**
 	 * 初始化viewPager
 	 */
-	@SuppressWarnings("unchecked")
 	private void initViewPager(List<ShawnRainDto> dataList) {
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -285,97 +288,65 @@ public class StationMonitorDetailActivity extends BaseActivity implements OnClic
 	/**
 	 * 获取最近10个站点号
 	 */
-	private void asyncTask(String url) {
-		//异步请求数据
-		HttpAsyncTask2 task = new HttpAsyncTask2();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
+	private void OkHttpList(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+										if (!obj.isNull("list")) {
+											dataList.clear();
+											JSONArray array = obj.getJSONArray("list");
+											for (int i = 0; i < array.length(); i++) {
+												JSONObject itemObj = array.getJSONObject(i);
+												ShawnRainDto dto = new ShawnRainDto();
+												if (!itemObj.isNull("Datetime")) {
+													dto.factTime = itemObj.getString("Datetime");
+												}
+												if (!itemObj.isNull("JS")) {
+													dto.factRain = (float) itemObj.getDouble("JS");
+												}
+												if (!itemObj.isNull("WD")) {
+													dto.factTemp = (float) itemObj.getDouble("WD");
+												}
+												if (!itemObj.isNull("FS")) {
+													dto.factWind = (float) itemObj.getDouble("FS");
+												}
+												dataList.add(dto);
+											}
+											if (dataList.size() > 0) {
+												initViewPager(dataList);
+												progressBar.setVisibility(View.GONE);
+											}
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						});
+					}
+				});
+			}
+		}).start();
 	}
 	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTask2 extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTask2() {
-		}
-
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (result != null) {
-				try {
-					JSONObject obj = new JSONObject(result);
-					if (!obj.isNull("list")) {
-						dataList.clear();
-						JSONArray array = obj.getJSONArray("list");
-						for (int i = 0; i < array.length(); i++) {
-							JSONObject itemObj = array.getJSONObject(i);
-							ShawnRainDto dto = new ShawnRainDto();
-							if (!itemObj.isNull("Datetime")) {
-								dto.factTime = itemObj.getString("Datetime");
-							}
-							if (!itemObj.isNull("JS")) {
-								dto.factRain = (float) itemObj.getDouble("JS");
-							}
-							if (!itemObj.isNull("WD")) {
-								dto.factTemp = (float) itemObj.getDouble("WD");
-							}
-							if (!itemObj.isNull("FS")) {
-								dto.factWind = (float) itemObj.getDouble("FS");
-							}
-							dataList.add(dto);
-						}
-						if (dataList.size() > 0) {
-							initViewPager(dataList);
-							progressBar.setVisibility(View.GONE);
-						}
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
-	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

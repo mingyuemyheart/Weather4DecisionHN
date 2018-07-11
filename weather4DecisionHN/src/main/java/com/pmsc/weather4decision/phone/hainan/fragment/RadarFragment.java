@@ -3,11 +3,10 @@ package com.pmsc.weather4decision.phone.hainan.fragment;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,23 +20,32 @@ import android.widget.TextView;
 import com.android.lib.app.BaseFragment;
 import com.android.lib.data.JsonMap;
 import com.pmsc.weather4decision.phone.hainan.R;
+import com.pmsc.weather4decision.phone.hainan.dto.RadarDto;
 import com.pmsc.weather4decision.phone.hainan.fragment.RadarManager.RadarListener;
-import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.view.MyDialog;
 import com.pmsc.weather4decision.phone.hainan.view.PhotoView;
 
 import net.tsz.afinal.FinalBitmap;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
+
+/**
+ * 雷达图、云图
+ */
 public class RadarFragment extends BaseFragment implements OnClickListener, RadarListener{
 	
 	private MyDialog mDialog = null;
@@ -57,8 +65,7 @@ public class RadarFragment extends BaseFragment implements OnClickListener, Rada
 	private SimpleDateFormat sdf2 = new SimpleDateFormat("MM月dd日HH时mm分");
 	private String id = null;
 	private String baseUrl = null;
-	private int width = 0, height = 0;
-	
+
 	public RadarFragment() {
 
 	}
@@ -80,7 +87,7 @@ public class RadarFragment extends BaseFragment implements OnClickListener, Rada
 		this.id = getArguments().getString("id");
 		this.baseUrl = getArguments().getString("dataUrl");
 
-		View view = inflater.inflate(R.layout.radar, null);
+		View view = inflater.inflate(R.layout.fragment_radar, null);
 		return view;
 	}
 	
@@ -120,11 +127,6 @@ public class RadarFragment extends BaseFragment implements OnClickListener, Rada
 		tvTime = (TextView) view.findViewById(R.id.tvTime);
 		llSeekBar = (LinearLayout) view.findViewById(R.id.llSeekBar);
 		
-		DisplayMetrics dm = new DisplayMetrics();
-		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-		width = dm.widthPixels;
-		height = dm.heightPixels;
-		
 		mRadarManager = new RadarManager(getActivity());
 		
 		getRadarData(baseUrl);
@@ -152,92 +154,61 @@ public class RadarFragment extends BaseFragment implements OnClickListener, Rada
 	/**
 	 * 获取雷达图片集信息
 	 */
-	private void getRadarData(String url) {
-		HttpAsyncTask task = new HttpAsyncTask();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
-	}
-	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTask() {
-		}
+	private void getRadarData(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
+					}
 
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			radarList.clear();
-			if (result != null) {
-				try {
-					JSONObject obj = new JSONObject(result.toString());
-					JSONArray array = new JSONArray(obj.getString("imgs"));
-					for (int i = array.length()-1; i >= 0 ; i--) {
-						JSONObject itemObj = array.getJSONObject(i);
-						RadarDto dto = new RadarDto();
-						dto.url = itemObj.getString("i");
-						dto.time = itemObj.getString("n");
-						dto.id = id;
-						radarList.add(dto);
-						
-						if (i == 0) {
-							FinalBitmap finalBitmap = FinalBitmap.create(getActivity());
-							finalBitmap.display(imageView, dto.url, null, 0);
-							changeProgress(dto.time, array.length(), array.length());
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
 						}
+						final String result = response.body().string();
+						getActivity().runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								radarList.clear();
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+										JSONArray array = new JSONArray(obj.getString("imgs"));
+										for (int i = array.length()-1; i >= 0 ; i--) {
+											JSONObject itemObj = array.getJSONObject(i);
+											RadarDto dto = new RadarDto();
+											dto.url = itemObj.getString("i");
+											dto.time = itemObj.getString("n");
+											dto.id = id;
+											radarList.add(dto);
+
+											if (i == 0) {
+												FinalBitmap finalBitmap = FinalBitmap.create(getActivity());
+												finalBitmap.display(imageView, dto.url, null, 0);
+												changeProgress(dto.time, array.length(), array.length());
+											}
+										}
+
+										if (radarList.size() <= 0) {
+											imageView.setImageResource(R.drawable.iv_no_pic);
+											llSeekBar.setVisibility(View.GONE);
+										}else {
+											startDownLoadImgs(radarList);//开始下载
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						});
 					}
-						
-					if (radarList.size() <= 0) {
-						imageView.setImageResource(R.drawable.iv_no_pic);
-						llSeekBar.setVisibility(View.GONE);
-					}else {
-						startDownLoadImgs(radarList);//开始下载
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+				});
 			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+		}).start();
 	}
 	
 	private void startDownLoadImgs(List<RadarDto> list) {
@@ -441,8 +412,7 @@ public class RadarFragment extends BaseFragment implements OnClickListener, Rada
 
 	@Override
 	public void loadData(Object obj) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

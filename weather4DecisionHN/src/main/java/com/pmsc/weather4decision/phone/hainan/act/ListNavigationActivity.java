@@ -1,23 +1,9 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -45,27 +31,35 @@ import com.android.lib.app.BaseFragment;
 import com.android.lib.data.CONST;
 import com.android.lib.data.JsonMap;
 import com.android.lib.util.AssetFile;
-import com.android.lib.util.CustomHttpClient;
 import com.android.lib.view.PagerSlidingTabStrip;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.adapter.ListNavigationPageAdapter;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.util.StatisticUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 /**
- * Depiction: 带水平导航栏的列表界面,主要用来显示:灾害预警,综合服务,实况资料。
- * <p>
- * Modify:
- * <p>
- * Author: Kevin Lynn
- * <p>
- * Create Date：2015年11月13日 下午4:33:38
- * <p>
- * 
- * @version 1.0
- * @since 1.0
+ * 带水平导航栏的列表界面,主要用来显示:灾害预警,综合服务。
  */
 public class ListNavigationActivity extends AbsDrawerActivity implements OnPageChangeListener, OnMapClickListener,
 OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
@@ -80,7 +74,7 @@ OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 	private boolean isExpand = false;
 	private MapView mapView = null;//高德地图
 	private AMap aMap = null;//高德地图
-    private List<JsonMap> dataList = new ArrayList<JsonMap>();
+    private List<JsonMap> dataList = new ArrayList<>();
     private Marker selectMarker = null;
     private String channelId = null;//灾害预警的id
 	private TextView tvMapNumber;
@@ -201,142 +195,111 @@ OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 				
 				String url = Utils.checkUrl(listUrl, dataUrl);
 				if (!TextUtils.isEmpty(url)) {
-					asyncQuery(url);
+					OkHttpWarning(url);
 				}
 			}
 		}
 	}
 	
 	/**
-	 * 异步请求
+	 * 获取预警信息
 	 */
-	private void asyncQuery(String requestUrl) {
-		HttpAsyncTask task = new HttpAsyncTask();
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(requestUrl);
-	}
-	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		
-		public HttpAsyncTask() {
-		}
+	private void OkHttpWarning(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(String requestResult) {
-			super.onPostExecute(requestResult);
-			if (requestResult != null) {
-				try {
-					JSONObject object = new JSONObject(requestResult);
-					if (object != null) {
-						if (!object.isNull("w")) {
-							JSONArray jsonArray = object.getJSONArray("w");
-							for (int i = 0; i < jsonArray.length(); i++) {
-								JSONObject itemObj = jsonArray.getJSONObject(i);
-								final JsonMap dto = new JsonMap();
-								if (!itemObj.isNull("w1")) {
-									dto.put("w1", itemObj.getString("w1"));
-								}
-								if (!itemObj.isNull("w2")) {
-									dto.put("w2", itemObj.getString("w2"));
-								}
-								if (!itemObj.isNull("w3")) {
-									dto.put("w3", itemObj.getString("w3"));
-								}
-								if (!itemObj.isNull("w4")) {
-									dto.put("w4", itemObj.getString("w4"));
-								}
-								if (!itemObj.isNull("w5")) {
-									dto.put("w5", itemObj.getString("w5"));
-								}
-								if (!itemObj.isNull("w6")) {
-									dto.put("w6", itemObj.getString("w6"));
-								}
-								if (!itemObj.isNull("w7")) {
-									dto.put("w7", itemObj.getString("w7"));
-								}
-								if (!itemObj.isNull("w8")) {
-									dto.put("w8", itemObj.getString("w8"));
-								}
-								if (!itemObj.isNull("w9")) {
-									dto.put("w9", itemObj.getString("w9"));
-								}
-								if (!itemObj.isNull("w10")) {
-									dto.put("w10", itemObj.getString("w10"));
-								}
-								if (!itemObj.isNull("w11")) {
-									dto.put("w11", itemObj.getString("w11"));
-								}
-								
-								String[] names = getResources().getStringArray(R.array.district_name);
-								for (int j = 0; j < names.length; j++) {
-									String[] itemArray = names[j].split(",");
-									String w2 = dto.getString("w2");
-									String w11 = dto.getString("w11");
-									String value = w2;
-									if (!TextUtils.isEmpty(w2)) {
-										value = w2;
-									}else {
-										value = w11;
-									}
-									if (value.contains(itemArray[0]) || itemArray[0].contains(value)) {
-										if (!TextUtils.isEmpty(itemArray[2]) && !TextUtils.isEmpty(itemArray[1])) {
-											dto.put("latLng", new LatLng(Double.valueOf(itemArray[2]), Double.valueOf(itemArray[1])));
-											break;
-										}
-									}
-								}
-								
-								dataList.add(dto);
-							}
-							addMarkerAndDrawDistrict(dataList);
-						}
 					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject object = new JSONObject(result);
+										if (object != null) {
+											if (!object.isNull("w")) {
+												JSONArray jsonArray = object.getJSONArray("w");
+												for (int i = 0; i < jsonArray.length(); i++) {
+													JSONObject itemObj = jsonArray.getJSONObject(i);
+													final JsonMap dto = new JsonMap();
+													if (!itemObj.isNull("w1")) {
+														dto.put("w1", itemObj.getString("w1"));
+													}
+													if (!itemObj.isNull("w2")) {
+														dto.put("w2", itemObj.getString("w2"));
+													}
+													if (!itemObj.isNull("w3")) {
+														dto.put("w3", itemObj.getString("w3"));
+													}
+													if (!itemObj.isNull("w4")) {
+														dto.put("w4", itemObj.getString("w4"));
+													}
+													if (!itemObj.isNull("w5")) {
+														dto.put("w5", itemObj.getString("w5"));
+													}
+													if (!itemObj.isNull("w6")) {
+														dto.put("w6", itemObj.getString("w6"));
+													}
+													if (!itemObj.isNull("w7")) {
+														dto.put("w7", itemObj.getString("w7"));
+													}
+													if (!itemObj.isNull("w8")) {
+														dto.put("w8", itemObj.getString("w8"));
+													}
+													if (!itemObj.isNull("w9")) {
+														dto.put("w9", itemObj.getString("w9"));
+													}
+													if (!itemObj.isNull("w10")) {
+														dto.put("w10", itemObj.getString("w10"));
+													}
+													if (!itemObj.isNull("w11")) {
+														dto.put("w11", itemObj.getString("w11"));
+													}
+
+													String[] names = getResources().getStringArray(R.array.district_name);
+													for (int j = 0; j < names.length; j++) {
+														String[] itemArray = names[j].split(",");
+														String w2 = dto.getString("w2");
+														String w11 = dto.getString("w11");
+														String value = w2;
+														if (!TextUtils.isEmpty(w2)) {
+															value = w2;
+														}else {
+															value = w11;
+														}
+														if (value.contains(itemArray[0]) || itemArray[0].contains(value)) {
+															if (!TextUtils.isEmpty(itemArray[2]) && !TextUtils.isEmpty(itemArray[1])) {
+																dto.put("latLng", new LatLng(Double.valueOf(itemArray[2]), Double.valueOf(itemArray[1])));
+																break;
+															}
+														}
+													}
+
+													dataList.add(dto);
+												}
+												addMarkerAndDrawDistrict(dataList);
+											}
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						});
+					}
+				});
 			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
+		}).start();
 	}
 	
 	private void addMarkerAndDrawDistrict(List<JsonMap> list) {
@@ -381,7 +344,7 @@ OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 			}
 		});
 		
-		Map<String, JsonMap> map = new HashMap<String, JsonMap>();
+		Map<String, JsonMap> map = new HashMap<>();
 		int color = 0;
 		for (int i = 0; i < list.size(); i++) {
 			JsonMap data = list.get(i);
@@ -463,7 +426,7 @@ OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 		
 		LinearLayout llContainer = (LinearLayout) view.findViewById(R.id.llContainer);
 		
-		final List<JsonMap> tempList = new ArrayList<JsonMap>();
+		final List<JsonMap> tempList = new ArrayList<>();
 		for (int i = 0; i < dataList.size(); i++) {
 			JsonMap dto = dataList.get(i);
 			String title = dto.getString("w2");
@@ -509,7 +472,6 @@ OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 	
 	@Override
 	public View getInfoWindow(Marker arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

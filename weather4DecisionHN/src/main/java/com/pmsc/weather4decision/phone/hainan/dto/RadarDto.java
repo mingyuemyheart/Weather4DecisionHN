@@ -1,4 +1,4 @@
-package com.pmsc.weather4decision.phone.hainan.fragment;
+package com.pmsc.weather4decision.phone.hainan.dto;
 
 
 public class RadarDto {

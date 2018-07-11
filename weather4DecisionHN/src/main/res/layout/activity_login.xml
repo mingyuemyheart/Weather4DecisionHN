@@ -1,22 +1,25 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
-    android:scrollbars="none" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_login"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/logo_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/login_view_margin_v"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/logo_blue" />
+            android:src="@drawable/logo_blue"/>
 
         <LinearLayout
             android:id="@+id/input_layout"
@@ -27,19 +30,19 @@
             android:alpha="0.5"
             android:background="@drawable/login_input_layout_bg"
             android:orientation="vertical"
-            android:padding="@dimen/login_view_margin_h" >
+            android:padding="@dimen/login_view_margin_h">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/acount_name"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/login_font_size" />
+                    android:textSize="@dimen/login_font_size"/>
 
                 <EditText
                     android:id="@+id/account_view"
@@ -49,21 +52,21 @@
                     android:hint=""
                     android:inputType="textEmailAddress"
                     android:singleLine="true"
-                    android:textSize="@dimen/login_font_size" />
+                    android:textSize="@dimen/login_font_size"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/acount_passwd"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/login_font_size" />
+                    android:textSize="@dimen/login_font_size"/>
 
                 <EditText
                     android:id="@+id/passwd_view"
@@ -74,7 +77,7 @@
                     android:hint=""
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textSize="@dimen/login_font_size" />
+                    android:textSize="@dimen/login_font_size"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -83,14 +86,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/login_view_margin_h"
-            android:layout_marginTop="@dimen/login_view_margin_v"
             android:background="@drawable/login_btn_bg"
+            android:onClick="onLoginAction"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:text="@string/login"
             android:textColor="@color/white"
-            android:textSize="@dimen/login_font_size"
-            android:onClick="onLoginAction" />
+            android:textSize="@dimen/login_font_size"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,7 +100,7 @@
             android:layout_marginTop="@dimen/login_view_margin_v"
             android:text="@string/hn_decision_service"
             android:textColor="@color/dark_blue"
-            android:textSize="@dimen/login_hn_decision_service_font_size" />
+            android:textSize="@dimen/login_hn_decision_service_font_size"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -106,7 +108,7 @@
             android:layout_marginTop="5dp"
             android:text="@string/hn_weather"
             android:textColor="@color/dark_blue"
-            android:textSize="@dimen/login_hn_weather_font_size" />
+            android:textSize="@dimen/login_hn_weather_font_size"/>
     </LinearLayout>
+</RelativeLayout>
 
-</ScrollView>

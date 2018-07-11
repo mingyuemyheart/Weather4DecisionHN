@@ -1,22 +1,7 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import net.sourceforge.pinyin4j.PinyinHelper;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -32,7 +17,24 @@ import com.android.lib.app.BaseActivity;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.adapter.ShawnRainDetailAdapter;
 import com.pmsc.weather4decision.phone.hainan.dto.ShawnRainDto;
-import com.pmsc.weather4decision.phone.hainan.util.CustomHttpClient;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
+
+import net.sourceforge.pinyin4j.PinyinHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ShawnRainDetailActivity extends BaseActivity implements OnClickListener{
 	
@@ -57,7 +59,6 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 		initListView();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void initWidget() {
 		llBack = (LinearLayout) findViewById(R.id.llBack);
 		llBack.setOnClickListener(this);
@@ -123,7 +124,7 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 			if (TextUtils.isEmpty(childId)) {
 				childId = "";
 			}
-			asyncTaskDetail("http://59.50.130.88:8888/decision-admin/dates/getcitid?city="+area+"&start="+startTime+"&end="+endTime+"&cid="+childId, childId);
+			OkHttpDetail("http://59.50.130.88:8888/decision-admin/dates/getcitid?city="+area+"&start="+startTime+"&end="+endTime+"&cid="+childId, childId);
 		}
 
 		if (TextUtils.equals(childId, "638")) {//最低温
@@ -160,156 +161,122 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 		});
 	}
 	
-	private void asyncTaskDetail(String url, String childId) {
-		//异步请求数据
-		HttpAsyncTaskDetail task = new HttpAsyncTaskDetail(childId);
-		task.setMethod("GET");
-		task.setTimeOut(CustomHttpClient.TIME_OUT);
-		task.execute(url);
+	private void OkHttpDetail(final String url, final String childId) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+
+										if (!obj.isNull("th")) {
+											JSONObject itemObj = obj.getJSONObject("th");
+											if (!itemObj.isNull("stationName")) {
+												String stationName = itemObj.getString("stationName");
+												if (!TextUtils.isEmpty(stationName)) {
+													tv1.setText(stationName);
+												}
+											}
+											if (!itemObj.isNull("area")) {
+												String area = itemObj.getString("area");
+												if (!TextUtils.isEmpty(area)) {
+													tv2.setText(area);
+												}
+											}
+											if (!itemObj.isNull("val")) {
+												String val = itemObj.getString("val");
+												if (!TextUtils.isEmpty(val)) {
+													tv3.setText(val);
+												}
+											}
+										}
+
+										if (!obj.isNull("title")) {
+											String title = obj.getString("title");
+											if (!TextUtils.isEmpty(title)) {
+												tvPrompt.setText(title);
+											}
+										}
+
+										if (!obj.isNull("list")) {
+											realDatas.clear();
+											JSONArray array = new JSONArray(obj.getString("list"));
+											if (TextUtils.equals(childId, "638")) {//最低温
+												for (int i = array.length()-1; i >= 0; i--) {
+													JSONObject itemObj = array.getJSONObject(i);
+													ShawnRainDto dto = new ShawnRainDto();
+													if (!itemObj.isNull("stationCode")) {
+														dto.stationCode = itemObj.getString("stationCode");
+													}
+													if (!itemObj.isNull("stationName")) {
+														dto.stationName = itemObj.getString("stationName");
+													}
+													if (!itemObj.isNull("area")) {
+														dto.area = itemObj.getString("area");
+													}
+													if (!itemObj.isNull("val")) {
+														dto.val = itemObj.getDouble("val");
+													}
+
+													if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
+														realDatas.add(dto);
+													}
+												}
+											}else {
+												for (int i = 0; i < array.length(); i++) {
+													JSONObject itemObj = array.getJSONObject(i);
+													ShawnRainDto dto = new ShawnRainDto();
+													if (!itemObj.isNull("stationCode")) {
+														dto.stationCode = itemObj.getString("stationCode");
+													}
+													if (!itemObj.isNull("stationName")) {
+														dto.stationName = itemObj.getString("stationName");
+													}
+													if (!itemObj.isNull("area")) {
+														dto.area = itemObj.getString("area");
+													}
+													if (!itemObj.isNull("val")) {
+														dto.val = itemObj.getDouble("val");
+													}
+
+													if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
+														realDatas.add(dto);
+													}
+												}
+											}
+											if (realDatas.size() > 0 && mAdapter != null) {
+												mAdapter.notifyDataSetChanged();
+											}
+										}
+
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						});
+					}
+				});
+			}
+		}).start();
 	}
 	
-	/**
-	 * 异步请求方法
-	 * @author dell
-	 *
-	 */
-	private class HttpAsyncTaskDetail extends AsyncTask<String, Void, String> {
-		private String method = "GET";
-		private List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		private String childId;
-		
-		public HttpAsyncTaskDetail(String childId) {
-			this.childId = childId;
-		}
-
-		@Override
-		protected String doInBackground(String... url) {
-			String result = null;
-			if (method.equalsIgnoreCase("POST")) {
-				result = CustomHttpClient.post(url[0], nvpList);
-			} else if (method.equalsIgnoreCase("GET")) {
-				result = CustomHttpClient.get(url[0]);
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (result != null) {
-				try {
-					JSONObject obj = new JSONObject(result);
-					
-					if (!obj.isNull("th")) {
-						JSONObject itemObj = obj.getJSONObject("th");
-						if (!itemObj.isNull("stationName")) {
-							String stationName = itemObj.getString("stationName");
-							if (!TextUtils.isEmpty(stationName)) {
-								tv1.setText(stationName);
-							}
-						}
-						if (!itemObj.isNull("area")) {
-							String area = itemObj.getString("area");
-							if (!TextUtils.isEmpty(area)) {
-								tv2.setText(area);
-							}
-						}
-						if (!itemObj.isNull("val")) {
-							String val = itemObj.getString("val");
-							if (!TextUtils.isEmpty(val)) {
-								tv3.setText(val);
-							}
-						}
-					}
-					
-					if (!obj.isNull("title")) {
-						String title = obj.getString("title");
-						if (!TextUtils.isEmpty(title)) {
-							tvPrompt.setText(title);
-						}
-					}
-					
-					if (!obj.isNull("list")) {
-						realDatas.clear();
-						JSONArray array = new JSONArray(obj.getString("list"));
-						if (TextUtils.equals(childId, "638")) {//最低温
-							for (int i = array.length()-1; i >= 0; i--) {
-								JSONObject itemObj = array.getJSONObject(i);
-								ShawnRainDto dto = new ShawnRainDto();
-								if (!itemObj.isNull("stationCode")) {
-									dto.stationCode = itemObj.getString("stationCode");
-								}
-								if (!itemObj.isNull("stationName")) {
-									dto.stationName = itemObj.getString("stationName");
-								}
-								if (!itemObj.isNull("area")) {
-									dto.area = itemObj.getString("area");
-								}
-								if (!itemObj.isNull("val")) {
-									dto.val = itemObj.getDouble("val");
-								}
-
-								if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
-									realDatas.add(dto);
-								}
-							}
-						}else {
-							for (int i = 0; i < array.length(); i++) {
-								JSONObject itemObj = array.getJSONObject(i);
-								ShawnRainDto dto = new ShawnRainDto();
-								if (!itemObj.isNull("stationCode")) {
-									dto.stationCode = itemObj.getString("stationCode");
-								}
-								if (!itemObj.isNull("stationName")) {
-									dto.stationName = itemObj.getString("stationName");
-								}
-								if (!itemObj.isNull("area")) {
-									dto.area = itemObj.getString("area");
-								}
-								if (!itemObj.isNull("val")) {
-									dto.val = itemObj.getDouble("val");
-								}
-
-								if (!TextUtils.isEmpty(dto.stationName) && !TextUtils.isEmpty(dto.area)) {
-									realDatas.add(dto);
-								}
-							}
-						}
-						if (realDatas.size() > 0 && mAdapter != null) {
-							mAdapter.notifyDataSetChanged();
-						}
-					}
-					
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		@SuppressWarnings("unused")
-		private void setParams(NameValuePair nvp) {
-			nvpList.add(nvp);
-		}
-
-		private void setMethod(String method) {
-			this.method = method;
-		}
-
-		private void setTimeOut(int timeOut) {
-			CustomHttpClient.TIME_OUT = timeOut;
-		}
-
-		/**
-		 * 取消当前task
-		 */
-		@SuppressWarnings("unused")
-		private void cancelTask() {
-			CustomHttpClient.shuttdownRequest();
-			this.cancel(true);
-		}
-	}
-	
-//	public static String getPingYin(String inputString) {  
+//	public static String getPingYin(String inputString) {
 //        HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();  
 //        format.setCaseType(HanyuPinyinCaseType.LOWERCASE);  
 //        format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);  
