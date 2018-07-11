@@ -105,7 +105,7 @@ public class FetchWeather {
 	 * @param type
 	 * @return
 	 */
-	private String weather2Url(String cityId, String type) {
+	public static String weather2Url(String cityId, String type) {
 		LinkedHashMap<String, String> map = new LinkedHashMap<>();
 		map.put("areaid", cityId);
 		map.put("type", type);

@@ -8,6 +8,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.lib.app.BaseActivity;
 import com.pmsc.weather4decision.phone.hainan.R;
@@ -38,6 +39,7 @@ public class PushNewsActivity extends BaseActivity implements View.OnClickListen
 
     private Context mContext = null;
     private LinearLayout llBack = null;
+    private TextView tvTitle;
     private ListView listView = null;
     private PushNewsAdapter mAdapter = null;
     private List<NewsDto> mList = new ArrayList<>();
@@ -70,6 +72,8 @@ public class PushNewsActivity extends BaseActivity implements View.OnClickListen
     private void initWidget() {
         llBack = (LinearLayout) findViewById(R.id.llBack);
         llBack.setOnClickListener(this);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("消息推送");
 
         mList.clear();
         OkHttpNews("http://59.50.130.88:8888/decision-admin/push/getpush?uid="+PreferUtil.getUid()+"&type=2&rows="+page+"&pageCount="+pageSize);

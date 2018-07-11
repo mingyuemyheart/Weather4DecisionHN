@@ -1,12 +1,9 @@
 package com.pmsc.weather4decision.phone.hainan.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +23,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.act.ForecastActivity;
 import com.pmsc.weather4decision.phone.hainan.dto.WeatherDto;
+import com.pmsc.weather4decision.phone.hainan.http.FetchWeather;
 import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 
@@ -157,7 +155,7 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener 
 										if (mList.size() > 0) {
 											for (int i = 0; i < mList.size(); i++) {
 												WeatherDto dto = mList.get(i);
-												getWeatherInfo(dto);
+												getAllWeather(dto);
 											}
 										}
 									} catch (JSONException e) {
@@ -173,95 +171,61 @@ public class ProvinceFragment extends Fragment implements OnMarkerClickListener 
 		}).start();
 
 	}
-	
-	/**
-	 * 获取海南本省数据
-	 */
-	private void getWeatherInfo(final WeatherDto dto) {
-		final String url = "http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+dto.cityId;
-		new Thread(new Runnable() {
+
+	//获取所有天气信息
+	private void getAllWeather(final WeatherDto dto) {
+		FetchWeather fetch = new FetchWeather();
+		fetch.perform(dto.cityId, "all");
+		fetch.setOnFetchWeatherListener(new FetchWeather.OnFetchWeatherListener() {
 			@Override
-			public void run() {
-				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+			public void onFetchWeather(final String result) {
+				getActivity().runOnUiThread(new Runnable() {
 					@Override
-					public void onFailure(Call call, IOException e) {
+					public void run() {
+						if (!TextUtils.isEmpty(result)) {
+							try {
+								JSONArray array = new JSONArray(result);
 
-					}
-
-					@Override
-					public void onResponse(Call call, Response response) throws IOException {
-						if (!response.isSuccessful()) {
-							return;
-						}
-						final String result = response.body().string();
-						getActivity().runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								if (!TextUtils.isEmpty(result)) {
-									try {
-										JSONArray array = new JSONArray(result);
-
-										//实况信息
-										if (TextUtils.equals(dto.cityId, "101310101")) {
-											JSONObject fact = array.getJSONObject(0);
-											if (!fact.isNull("l")) {
-												JSONObject lObj = fact.getJSONObject("l");
-												if (!lObj.isNull("l13")) {
-													String time = lObj.getString("l13");
-													if (time != null) {
-														try {
-															titleTv.setText(sdf3.format(sdf2.parse(time))+"发布的市县未来24小时预报");
-														} catch (ParseException e) {
-															e.printStackTrace();
-														}
-													}
+								//实况信息
+								if (TextUtils.equals(dto.cityId, "101310101")) {
+									JSONObject fact = array.getJSONObject(0);
+									if (!fact.isNull("l")) {
+										JSONObject lObj = fact.getJSONObject("l");
+										if (!lObj.isNull("l13")) {
+											String time = lObj.getString("l13");
+											if (!TextUtils.isEmpty(time)) {
+												try {
+													titleTv.setText(sdf3.format(sdf2.parse(time))+"发布的市县未来24小时预报");
+												} catch (ParseException e) {
+													e.printStackTrace();
 												}
 											}
 										}
-
-										//逐小时预报信息
-										JSONObject hour = array.getJSONObject(3);
-										if (!hour.isNull("jh")) {
-											JSONArray jhArray = hour.getJSONArray("jh");
-											JSONObject itemObj = jhArray.getJSONObject(0);
-											dto.factPheCode = itemObj.getString("ja");
-											dto.factTemp = itemObj.getString("jb");
-
-											Message msg = new Message();
-											msg.what = 101;
-											msg.obj = dto;
-											handler.sendMessage(msg);
-										}
-
-									} catch (JSONException e) {
-										e.printStackTrace();
 									}
-
 								}
+
+								//逐小时预报信息
+								JSONObject hour = array.getJSONObject(3);
+								if (!hour.isNull("jh")) {
+									JSONArray jhArray = hour.getJSONArray("jh");
+									JSONObject itemObj = jhArray.getJSONObject(0);
+									dto.factPheCode = itemObj.getString("ja");
+									dto.factTemp = itemObj.getString("jb");
+
+									addMarkers(dto);
+								}
+
+							} catch (JSONException e) {
+								e.printStackTrace();
 							}
-						});
+
+						}
 					}
 				});
 			}
-		}).start();
-
+		});
 	}
 
-	@SuppressLint("HandlerLeak")
-	private Handler handler = new Handler() {
-    	public void handleMessage(android.os.Message msg) {
-    		switch (msg.what) {
-			case 101:
-				WeatherDto dto = (WeatherDto) msg.obj;
-				addMarkers(dto);
-				break;
-
-			default:
-				break;
-			}
-    	};
-    };
-    
     private void addMarkers(WeatherDto dto) {
     	LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		MarkerOptions options = new MarkerOptions();

@@ -1,20 +1,16 @@
 package com.android.lib.app;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,7 +20,6 @@ import com.android.lib.data.JsonMap;
 import com.android.lib.http.HttpAsyncTask;
 import com.android.lib.http.OnHttpListener;
 import com.android.lib.util.LogUtil;
-import com.pmsc.weather4decision.phone.hainan.util.SystemStatusManager;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.HashMap;
@@ -60,29 +55,11 @@ public class BaseActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
-		setTranslucentStatus();
 		loadingDialog = new Dialog(this);
 		loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		loadingDialog.setCancelable(cancelable);
 	}
 
-	/**
-	 * 设置状态栏背景状态
-	 */
-	@SuppressLint("InlinedApi")
-	private void setTranslucentStatus() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			Window win = getWindow();
-			WindowManager.LayoutParams winParams = win.getAttributes();
-			final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-			winParams.flags |= bits;
-			win.setAttributes(winParams);
-		}
-		SystemStatusManager tintManager = new SystemStatusManager(this);
-		tintManager.setStatusBarTintEnabled(true);
-		tintManager.setStatusBarTintResource(0);// 状态栏无背景
-	}
-	
 	public void onResume() {
 		super.onResume();
 		MobclickAgent.onPageStart(getClass().getSimpleName());

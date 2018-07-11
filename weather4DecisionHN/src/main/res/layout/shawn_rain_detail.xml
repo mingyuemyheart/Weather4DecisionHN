@@ -5,54 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_color" >
-
-        <TextView
-            android:id="@+id/tvBlank"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"/>
-
-    <RelativeLayout
-        android:layout_below="@id/tvBlank"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp" >
-
-        <LinearLayout
-            android:id="@+id/llBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="bottom" >
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/iv_back" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="返回"
-                android:textColor="@color/white"
-                android:textSize="@dimen/level_4" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="详情数据"
-            android:textColor="@color/white"
-            android:textSize="@dimen/level_3" />
-    </RelativeLayout>
-    </RelativeLayout>
+    <include
+        android:id="@+id/reTitle"
+        layout="@layout/layout_title2"/>
     
     <TextView
             android:id="@+id/tvPrompt"

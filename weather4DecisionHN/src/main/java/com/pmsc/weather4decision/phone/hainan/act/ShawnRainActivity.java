@@ -155,6 +155,8 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		tvControl = (TextView) findViewById(R.id.tvControl);
 		tvControl.setOnClickListener(this);
+		tvControl.setText("天气统计");
+		tvControl.setVisibility(View.VISIBLE);
 		llContainer2 = (LinearLayout) findViewById(R.id.llContainer2);
 		llContainer = (LinearLayout) findViewById(R.id.llContainer);
 		llContainer1 = (LinearLayout) findViewById(R.id.llContainer1);

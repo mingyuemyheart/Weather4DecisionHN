@@ -44,6 +44,7 @@ import com.pmsc.weather4decision.phone.hainan.util.CodeParse;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
 import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
+import com.pmsc.weather4decision.phone.hainan.util.SecretUrlUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 import com.pmsc.weather4decision.phone.hainan.util.WeatherUtil;
 
@@ -56,8 +57,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import cn.com.weather.api.WeatherAPI;
-import cn.com.weather.listener.AsyncResponseHandler;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -318,7 +317,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			lng = amapLocation.getLongitude();
 //			lat = 20.023931;
 //			lng = 110.359093;
-			getWeatherInfo(lng, lat);
+			OkHttpGeo(lng, lat);
 
 			if (!TextUtils.isEmpty(amapLocation.getStreet())) {
 				setTitle(amapLocation.getStreet()+amapLocation.getStreetNum());
@@ -332,41 +331,57 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 //			cityName = "海南省气象局";
         }
 	}
-	
+
 	/**
-	 * 获取天气数据*/
-	private void getWeatherInfo(final double lng, final double lat) {
-		WeatherAPI.getGeo(MainActivity.this, String.valueOf(lng), String.valueOf(lat), new AsyncResponseHandler(){
+	 * 获取城市id
+	 * @param lng
+	 * @param lat
+	 */
+	private void OkHttpGeo(final double lng, final double lat) {
+		new Thread(new Runnable() {
 			@Override
-			public void onComplete(JSONObject content) {
-				super.onComplete(content);
-				cancelLoadingDialog();
-				if (!content.isNull("geo")) {
-					try {
-						JSONObject geoObj = content.getJSONObject("geo");
-						if (!geoObj.isNull("id")) {
-							cityId = geoObj.getString("id");
-							if (cityId.length() >= 9) {
-								cityId = cityId.substring(0, 9);
-							}
-							if (!TextUtils.isEmpty(cityId)) {
-								PreferUtil.saveCurrentCityId(cityId);
-								getAllWeather();
-								setPushTags();
-								registerDevice(lat, lng);
-							}
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(SecretUrlUtil.geo(lng, lat)).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
 					}
-				}
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								cancelLoadingDialog();
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+										if (!obj.isNull("geo")) {
+											JSONObject geoObj = obj.getJSONObject("geo");
+											if (!geoObj.isNull("id")) {
+												cityId = geoObj.getString("id");
+												if (!TextUtils.isEmpty(cityId)) {
+													PreferUtil.saveCurrentCityId(cityId);
+													getAllWeather();
+													setPushTags();
+													registerDevice(lat, lng);
+												}
+											}
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						});
+
+					}
+				});
 			}
-			
-			@Override
-			public void onError(Throwable error, String content) {
-				super.onError(error, content);
-			}
-		});
+		}).start();
+
 	}
 	
 	//获取所有天气信息

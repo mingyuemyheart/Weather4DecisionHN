@@ -150,7 +150,7 @@
         <activity
             android:name="com.pmsc.weather4decision.phone.hainan.act.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -193,14 +193,8 @@
             android:exported="true"
             android:screenOrientation="sensor" />
         <activity
-            android:name="com.pmsc.weather4decision.phone.hainan.act.LiveDataDetailsActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.pmsc.weather4decision.phone.hainan.act.WarningDetailsActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.pmsc.weather4decision.phone.hainan.act.SevenDaysActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.pmsc.weather4decision.phone.hainan.act.SettingActivity"
@@ -212,12 +206,6 @@
             android:name="com.pmsc.weather4decision.phone.hainan.act.FeedbackActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.pmsc.weather4decision.phone.hainan.act.CityWeatherActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.pmsc.weather4decision.phone.hainan.act.CustomMessageActivity"
-            android:screenOrientation="portrait" />
-        <activity 
             android:name="com.pmsc.weather4decision.phone.hainan.act.TyphoonRouteActivity"
             android:screenOrientation="portrait" />
         <activity 

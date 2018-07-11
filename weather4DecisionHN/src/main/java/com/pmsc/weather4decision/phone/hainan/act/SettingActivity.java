@@ -18,7 +18,7 @@ import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
 import java.io.File;
 
 public class SettingActivity extends AbsLoginActivity implements View.OnClickListener{
-	
+
 	private RelativeLayout reSwitch;
 	private TextView tvUsername,tvVersion,tvSwitch,tvNews;
 	
@@ -30,6 +30,8 @@ public class SettingActivity extends AbsLoginActivity implements View.OnClickLis
 	}
 
 	private void initWidget() {
+		TextView title_view = (TextView) findViewById(R.id.title_view);
+		title_view.setText("设置");
 		tvUsername = (TextView) findViewById(R.id.name_view);
 		tvVersion = (TextView) findViewById(R.id.version_view);
 		tvSwitch = (TextView) findViewById(R.id.tvSwitch);

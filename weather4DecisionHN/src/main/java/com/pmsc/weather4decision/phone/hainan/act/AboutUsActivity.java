@@ -2,6 +2,7 @@ package com.pmsc.weather4decision.phone.hainan.act;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.lib.app.BaseActivity;
 import com.pmsc.weather4decision.phone.hainan.R;
@@ -26,6 +27,8 @@ public class AboutUsActivity extends BaseActivity {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_about);
+		TextView title_view = (TextView) findViewById(R.id.title_view);
+		title_view.setText("关于我们");
 	}
 	
 	public void onLeftButtonAction(View v) {

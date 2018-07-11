@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="colorPrimary">#2148a8</color>
+    <color name="colorPrimaryDark">#2148a8</color>
+    <color name="colorAccent">#d9d9d9</color>
+
     <drawable name="transparent">@android:color/transparent</drawable>
     <!-- start 下拉刷新所需要的color值 -->
     <color name="pull_refresh_textview">#000000</color>

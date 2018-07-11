@@ -5,64 +5,9 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-    <RelativeLayout
+    <include
         android:id="@+id/reTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_color">
-
-        <TextView
-            android:id="@+id/tvBlank"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvBlank"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:id="@+id/llBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="bottom">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/iv_back"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="返回"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/level_4"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/level_3"/>
-
-            <TextView
-                android:id="@+id/tvControl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="天气统计"
-                android:textColor="@color/white"
-                android:textSize="@dimen/level_4"/>
-        </RelativeLayout>
-    </RelativeLayout>
+        layout="@layout/layout_title2"/>
 
     <HorizontalScrollView
         android:id="@+id/hScrollView1"

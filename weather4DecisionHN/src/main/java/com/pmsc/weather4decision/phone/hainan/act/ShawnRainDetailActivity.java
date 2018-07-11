@@ -40,7 +40,7 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 	
 	private Context mContext = null;
 	private LinearLayout llBack = null;
-	private TextView tvPrompt = null;
+	private TextView tvTitle,tvPrompt;
 	private LinearLayout ll1, ll2, ll3;
 	private TextView tv1, tv2, tv3;
 	private ImageView iv1, iv2, iv3;
@@ -62,6 +62,8 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 	private void initWidget() {
 		llBack = (LinearLayout) findViewById(R.id.llBack);
 		llBack.setOnClickListener(this);
+		tvTitle = (TextView) findViewById(R.id.tvTitle);
+		tvTitle.setText("详情数据");
 		tvPrompt = (TextView) findViewById(R.id.tvPrompt);
 		ll1 = (LinearLayout) findViewById(R.id.ll1);
 		ll1.setOnClickListener(this);

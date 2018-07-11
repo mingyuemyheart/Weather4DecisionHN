@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.lib.app.BaseActivity;
 import com.android.lib.data.CONST;
@@ -36,6 +37,8 @@ public class FeedbackActivity extends BaseActivity {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_feed_back);
+		TextView title_view = (TextView) findViewById(R.id.title_view);
+		title_view.setText("意见反馈");
 	}
 	
 	public void onLeftButtonAction(View v) {
