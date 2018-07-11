@@ -1,8 +1,5 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +12,9 @@ import com.android.lib.http.HttpAsyncTask;
 import com.pmsc.weather4decision.phone.hainan.HNApp;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -36,7 +36,6 @@ public class FeedbackActivity extends BaseActivity {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_feed_back);
-		getWindow().setBackgroundDrawableResource(R.drawable.white_bg);
 	}
 	
 	public void onLeftButtonAction(View v) {
@@ -69,18 +68,18 @@ public class FeedbackActivity extends BaseActivity {
 	}
 	
 	private void commit(String content, String email, String phone) {
-		Map<String, String> param = new HashMap<String, String>();
+		Map<String, String> param = new HashMap<>();
 		param.put("uid", PreferUtil.getUid());
 		param.put("content", content);
 		param.put("email", email);
 		param.put("mobile", phone);
-		
+
 		HttpAsyncTask http = new HttpAsyncTask("feed_back") {
 			@Override
 			public void onStart(String taskId) {
 				showLoadingDialog(R.string.commiting);
 			}
-			
+
 			@Override
 			public void onFinish(String taskId, String response) {
 				cancelLoadingDialog();
@@ -101,4 +100,5 @@ public class FeedbackActivity extends BaseActivity {
 		}
 //		http.excute(HNApp.HOST + "/decision-admin/feedback/send", param);
 	}
+
 }

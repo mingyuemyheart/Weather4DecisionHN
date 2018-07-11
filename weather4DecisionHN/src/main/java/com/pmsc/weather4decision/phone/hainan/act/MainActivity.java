@@ -1,13 +1,10 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
 import android.app.Dialog;
-import android.app.PendingIntent;
-import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -32,7 +29,6 @@ import com.amap.api.location.AMapLocationListener;
 import com.android.lib.app.MyApplication;
 import com.android.lib.data.CONST;
 import com.android.lib.data.JsonMap;
-import com.android.lib.http.HttpAsyncTask;
 import com.android.lib.util.AssetFile;
 import com.android.lib.util.DeviceInfo;
 import com.igexin.sdk.PushManager;
@@ -44,7 +40,6 @@ import com.pmsc.weather4decision.phone.hainan.db.ParseCityTask;
 import com.pmsc.weather4decision.phone.hainan.http.FetchWeather;
 import com.pmsc.weather4decision.phone.hainan.http.FetchWeather.OnFetchWeatherListener;
 import com.pmsc.weather4decision.phone.hainan.util.AutoUpdateUtil;
-import com.pmsc.weather4decision.phone.hainan.util.CacheData;
 import com.pmsc.weather4decision.phone.hainan.util.CodeParse;
 import com.pmsc.weather4decision.phone.hainan.util.CommonUtil;
 import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
@@ -65,7 +60,10 @@ import cn.com.weather.api.WeatherAPI;
 import cn.com.weather.listener.AsyncResponseHandler;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AbsDrawerActivity implements AMapLocationListener, OnClickListener, OnFetchWeatherListener, HNApp.NavigationListener {
@@ -209,14 +207,6 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		height = dm.heightPixels;
 
-		//加载首页天气信息缓存数据
-		String homeData = CacheData.getHomeData();
-		if (!TextUtils.isEmpty(homeData)) {
-			onFetchWeather("cache", homeData);
-		}
-
-		OkHttpNewsCount("http://59.50.130.88:8888/decision-admin/push/getpushcount?type=2&uid="+PreferUtil.getUid());
-
 		if (!CommonUtil.isLocationOpen(mContext)) {
 			PreferUtil.saveCurrentProvince("海南省");
 			PreferUtil.saveCurrentCity("海口市");
@@ -235,22 +225,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		}
 
 		initGridView();
-	}
-	
-    /**
-     * 强制帮用户打开GPS 
-     * @param context 
-     */  
-	private static final void openGPS(Context context) {
-		Intent GPSIntent = new Intent();
-		GPSIntent.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
-		GPSIntent.addCategory("android.intent.category.ALTERNATIVE");
-		GPSIntent.setData(Uri.parse("custom:3"));
-		try {
-			PendingIntent.getBroadcast(context, 0, GPSIntent, 0).send();
-		} catch (CanceledException e) {
-			e.printStackTrace();
-		}
+		OkHttpNewsCount("http://59.50.130.88:8888/decision-admin/push/getpushcount?type=2&uid="+PreferUtil.getUid());
 	}
 	
 	private void initChannelData() {
@@ -403,91 +378,87 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 	}
 	
 	@Override
-	public void onFetchWeather(String tag, String response) {
-		if (tag.equalsIgnoreCase("all")) {
-			cancelLoadingDialog();
-		}
-		
-		List<JsonMap> datas = JsonMap.parseJsonArray(response);
-		if (datas != null && datas.size() > 0) {
-			//缓存数据
-			if (tag.equalsIgnoreCase("all")) {
-				CacheData.cacheHome(response);
-			}
-			
-			//显示实况数据
-			JsonMap live = datas.get(0).getMap("l");
-			if (live == null) {
-				return;
-			}
-			String temp = live.getString("l1");
-			String shidu = live.getString("l2");
-			String fl = live.getString("l3");
-			String windFl = (TextUtils.isEmpty(fl) || fl.equalsIgnoreCase("0") ? getString(R.string.micro_wind) : fl + getString(R.string.fl));
-			String fx = live.getString("l4");
-			String dayW = live.getString("l5");
-			String skpt = live.getString("l7");
-			
-			weatherView.setText(CodeParse.parseWeatherCode(dayW));
-			tempView.setText(temp+"℃");
-			windView.setText(CodeParse.parseWindfxCode(fx) + " " + windFl);
-			shiduView.setText("相对湿度"+" "+shidu+"%");
-			pubTimeView.setText(getString(R.string.hn_weather_tai, Utils.getDayDate() + skpt));
-			
-			//显示空气数据
-			if (datas.get(4).containsKey("p")) {
-				JsonMap air = datas.get(4).getMap("p");
-				if (air != null) {
-					String aqi = air.getString("p2");
-					aqiView.setText("空气质量" + " "+ WeatherUtil.getAqi(this, Integer.valueOf(aqi)) + " " + aqi);
-				}
-			}
-			
-			//加载七天预报信息
-			JsonMap forecast = datas.get(1).getMap("f");
-			
-			if(forecast==null){
-				return;
-			}
-			
-			//七天预报信息的发布时间
-			time_7 = forecast.getString("f0");
-			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmm");
-			SimpleDateFormat sdf3 = new SimpleDateFormat("yyyyMMdd");
-			int index = 0;
-			try {
-				String f0 = sdf3.format(sdf2.parse(time_7));
-				long time = sdf3.parse(f0).getTime();
-				long currentDate = sdf3.parse(sdf3.format(new Date())).getTime();
-				if (currentDate > time) {
-					index = 1;
-				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+	public void onFetchWeather(final String result) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				cancelLoadingDialog();
 
-			List<JsonMap> forecastList = forecast.getListMap("f1");
-			if(forecastList==null){
-				return;
-			}
-			
-			daysView.setTag(forecastList.toString());
-			daysView.setEnabled(true);
-			
-			JsonMap fisrtDay = forecastList.get(index);
-			String todayW = CodeParse.parseWeatherCode(fisrtDay.getString("fa"));//	今天白天天气
-			String tonightW = CodeParse.parseWeatherCode(fisrtDay.getString("fb"));//今天夜晚天气
-			String todayT = fisrtDay.getString("fc") + "°C";//今天白天温度
-			String tonightT = fisrtDay.getString("fd") + "°C";//今天夜晚温度
+				List<JsonMap> datas = JsonMap.parseJsonArray(result);
+				if (datas != null && datas.size() > 0) {
+					//显示实况数据
+					JsonMap live = datas.get(0).getMap("l");
+					if (live == null) {
+						return;
+					}
+					String temp = live.getString("l1");
+					String shidu = live.getString("l2");
+					String fl = live.getString("l3");
+					String windFl = (TextUtils.isEmpty(fl) || fl.equalsIgnoreCase("0") ? getString(R.string.micro_wind) : fl + getString(R.string.fl));
+					String fx = live.getString("l4");
+					String dayW = live.getString("l5");
+					String skpt = live.getString("l7");
 
-			String weather = "";
-			if (TextUtils.equals(todayW, tonightW)) {
-				weather = todayW;
-			}else {
-				weather = todayW+"转"+tonightW;
-			}
-			String temperature = todayT+"~"+tonightT;
-			weatherView.setText(weather + " " + temperature);
+					weatherView.setText(CodeParse.parseWeatherCode(dayW));
+					tempView.setText(temp+"℃");
+					windView.setText(CodeParse.parseWindfxCode(fx) + " " + windFl);
+					shiduView.setText("相对湿度"+" "+shidu+"%");
+					pubTimeView.setText(getString(R.string.hn_weather_tai, Utils.getDayDate() + skpt));
+
+					//显示空气数据
+					if (datas.get(4).containsKey("p")) {
+						JsonMap air = datas.get(4).getMap("p");
+						if (air != null) {
+							String aqi = air.getString("p2");
+							aqiView.setText("空气质量" + " "+ WeatherUtil.getAqi(mContext, Integer.valueOf(aqi)) + " " + aqi);
+						}
+					}
+
+					//加载七天预报信息
+					JsonMap forecast = datas.get(1).getMap("f");
+
+					if(forecast==null){
+						return;
+					}
+
+					//七天预报信息的发布时间
+					time_7 = forecast.getString("f0");
+					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmm");
+					SimpleDateFormat sdf3 = new SimpleDateFormat("yyyyMMdd");
+					int index = 0;
+					try {
+						String f0 = sdf3.format(sdf2.parse(time_7));
+						long time = sdf3.parse(f0).getTime();
+						long currentDate = sdf3.parse(sdf3.format(new Date())).getTime();
+						if (currentDate > time) {
+							index = 1;
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+
+					List<JsonMap> forecastList = forecast.getListMap("f1");
+					if(forecastList==null){
+						return;
+					}
+
+					daysView.setTag(forecastList.toString());
+					daysView.setEnabled(true);
+
+					JsonMap fisrtDay = forecastList.get(index);
+					String todayW = CodeParse.parseWeatherCode(fisrtDay.getString("fa"));//	今天白天天气
+					String tonightW = CodeParse.parseWeatherCode(fisrtDay.getString("fb"));//今天夜晚天气
+					String todayT = fisrtDay.getString("fc") + "°C";//今天白天温度
+					String tonightT = fisrtDay.getString("fd") + "°C";//今天夜晚温度
+
+					String weather = "";
+					if (TextUtils.equals(todayW, tonightW)) {
+						weather = todayW;
+					}else {
+						weather = todayW+"转"+tonightW;
+					}
+					String temperature = todayT+"~"+tonightT;
+					weatherView.setText(weather + " " + temperature);
 
 //			//加载预警信息
 //			List<JsonMap> warnList = datas.get(2).getListMap("w");
@@ -498,13 +469,11 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 //			}
 //			//加载预警信息
 //			loadWarningData(warnList);
-		} else {
-			if (tag.equalsIgnoreCase("all")) {
-				showToast(R.string.loading_fail);
-			}
-		}
+				}
 
-		getHNWarning();
+				getHNWarning();
+			}
+		});
 	}
 
 	private void setPushTags() {
@@ -555,36 +524,48 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		object.put("lat", lat+"");
 		object.put("lon", lng+"");
 		param.put("object", object);
-		
-		final HttpAsyncTask http = new HttpAsyncTask("register_device") {
+		String json = param.toString();
+
+		final RequestBody body = FormBody.create(MediaType.parse("application/json; charset=utf-8"), json);
+		new Thread(new Runnable() {
 			@Override
-			public void onStart(String taskId) {
-			}
-			
-			@Override
-			public void onFinish(String taskId, String response) {
-				JsonMap data = JsonMap.parseJson(response);
-				if (data != null) {
-					if (!data.getBoolean("status")) {
-						//失败，重试
-						return;
-					}
-				} else {
-					//失败，重试
+			public void run() {
+				String url;
+				if (TextUtils.equals(CONST.SERVER_SWITHER, "0")) {
+					url = HNApp.HOST_CLOUD;
+				}else {
+					url = HNApp.HOST_LOCAL;
 				}
+				OkHttpUtil.enqueue(new Request.Builder().post(body).url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						String result = response.body().string();
+						if (!TextUtils.isEmpty(result)) {
+							JsonMap data = JsonMap.parseJson(result);
+							if (data != null) {
+								if (!data.getBoolean("status")) {
+									//失败，重试
+									return;
+								}
+							} else {
+								//失败，重试
+							}
+						}
+					}
+				});
 			}
-		};
-		http.setDebug(false);
-		
-		if (TextUtils.equals(CONST.SERVER_SWITHER, "0")) {
-			http.excute(HNApp.HOST_CLOUD, param.toString(), "POST");
-		}else {
-			http.excute(HNApp.HOST_LOCAL, param.toString(), "POST");
-		}
+		}).start();
 	}
 	
 	private void getHNWarning() {
-//		String cityId = PreferUtil.getCurrentCity();
 		String cityId = PreferUtil.getCurrentCityId();
 		if (!cityId.startsWith("10131")) {
 			//不是海南的城市，直接返回
@@ -592,23 +573,37 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			llContainer2.setVisibility(View.GONE);
 			return;
 		}
-		String url = "http://59.50.130.88:8888/decision-admin/alarm/cityAlarm/";
-		
-		final HttpAsyncTask http = new HttpAsyncTask("get_hn_warning") {
+		final String url = "http://59.50.130.88:8888/decision-admin/alarm/cityAlarm/"+cityId;
+		new Thread(new Runnable() {
 			@Override
-			public void onStart(String taskId) {
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						if (!TextUtils.isEmpty(result)) {
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									JsonMap data = JsonMap.parseJson(result);
+									if (data != null && data.containsKey("w") && data.getListMap("w") != null && data.getListMap("w").size() > 0) {
+										loadWarningData(data.getListMap("w"));
+									}
+								}
+							});
+						}
+					}
+				});
 			}
-			
-			@Override
-			public void onFinish(String taskId, String response) {
-				JsonMap data = JsonMap.parseJson(response);
-				if (data != null && data.containsKey("w") && data.getListMap("w") != null && data.getListMap("w").size() > 0) {
-					loadWarningData(data.getListMap("w"));
-				}
-			}
-		};
-		http.setDebug(false);
-		http.excute(url + cityId, "");
+		}).start();
 	}
 	
 	private void loadWarningData(List<JsonMap> warnList) {

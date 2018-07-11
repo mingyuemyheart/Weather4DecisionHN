@@ -2,10 +2,13 @@ package com.pmsc.weather4decision.phone.hainan.http;
 
 import android.text.TextUtils;
 
-import com.android.lib.http.HttpAsyncTask;
+import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 
 import org.apache.commons.codec.binary.Base64;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +19,11 @@ import java.util.Set;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /**
@@ -40,31 +48,101 @@ public class FetchWeather {
 	}
 	
 	public void perform(String cityId, String type) {
-		HttpAsyncTask http = new HttpAsyncTask(type) {
-			@Override
-			public void onStart(String taskId) {
-			}
-			@Override
-			public void onFinish(String taskId, String response) {
-				if (onFetchWeatherListener != null) {
-					onFetchWeatherListener.onFetchWeather(taskId, response);
-				}
-			}
-		};
-
-		String api;
+		this.cityId = cityId;
+		this.type = type;
 		if (!TextUtils.isEmpty(cityId) && cityId.startsWith("10131")) {//海南
-//			api = "http://data-fusion.tianqi.cn/datafusion/GetDate?type=HN&ID="+cityId;
-			api = "http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+cityId;
-			http.excute(api, "");
+			String url = "http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+cityId;
+			OkHttpHannan(url);
 		}else {
-			api = "http://hfapi.tianqi.cn/data/?";
-			LinkedHashMap<String, String> map = new LinkedHashMap<>();
-			map.put("areaid", cityId);
-			map.put("type", type);
-			map.put("date", getDateParam());
-			http.excute(getAuthUrl(api, map), "");
+			OkHttpWeather2(weather2Url(cityId, type));
 		}
+	}
+
+	private String cityId, type;
+
+	/**
+	 * 请求海南本地数据
+	 * @param url
+	 */
+	private void OkHttpHannan(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+						OkHttpWeather2(weather2Url(cityId, type));
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+
+						String result = response.body().string();
+						if (!TextUtils.isEmpty(result)) {
+							try {
+								JSONObject obj = new JSONObject(result);
+								if (onFetchWeatherListener != null) {
+									onFetchWeatherListener.onFetchWeather(result);
+								}
+							} catch (JSONException e) {
+								e.printStackTrace();
+								OkHttpWeather2(weather2Url(cityId, type));
+							}
+						}
+
+					}
+				});
+			}
+		}).start();
+	}
+
+	/**
+	 * 获取国家站数据接口地址
+	 * @param cityId
+	 * @param type
+	 * @return
+	 */
+	private String weather2Url(String cityId, String type) {
+		LinkedHashMap<String, String> map = new LinkedHashMap<>();
+		map.put("areaid", cityId);
+		map.put("type", type);
+		map.put("date", getDateParam());
+		String url = getAuthUrl("http://hfapi.tianqi.cn/data/?", map);
+		return url;
+	}
+
+	/**
+	 * 请求国家站数据
+	 * @param url
+	 */
+	private void OkHttpWeather2(final String url) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						String result = response.body().string();
+						if (!TextUtils.isEmpty(result)) {
+							if (onFetchWeatherListener != null) {
+								onFetchWeatherListener.onFetchWeather(result);
+							}
+						}
+					}
+				});
+			}
+		}).start();
 	}
 	
 	public static String getAuthUrl(String url, LinkedHashMap<String, String> map) {
@@ -137,6 +215,6 @@ public class FetchWeather {
 	}
 	
 	public interface OnFetchWeatherListener {
-		void onFetchWeather(String tag, String response);
+		void onFetchWeather(String response);
 	}
 }
