@@ -12,8 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CalendarView;
-import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -395,71 +393,70 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		String y,m,d = null,h,mm;
-		if (!TextUtils.isEmpty(startTimeCheck)) {
-			y = startTimeCheck.substring(0, 4);
-			m = startTimeCheck.substring(4, 6);
-			d = startTimeCheck.substring(6, 8);
-			h = startTimeCheck.substring(8, 10);
-			mm = startTimeCheck.substring(10, 12);
-			datePickr.init(Integer.valueOf(y), Integer.valueOf(m)-1, Integer.valueOf(d), null);
-			timePicker.setCurrentHour(Integer.valueOf(h));
-			timePicker.setCurrentMinute(Integer.valueOf(mm));
-		}
-		
+
 		try {
-			startCurrentDay = Integer.valueOf(d);
-			final int minDay = Integer.valueOf(sdf5.format(sdf3.parse(minDate)));
-			final int maxDay = Integer.valueOf(sdf5.format(sdf3.parse(maxDate)));
-			final int minHour = Integer.valueOf(sdf4.format(sdf3.parse(minDate)));
-			final int maxHour = Integer.valueOf(sdf4.format(sdf3.parse(maxDate)));
-			
-			datePickr.getCalendarView().setOnDateChangeListener(new OnDateChangeListener() {
-				@Override
-				public void onSelectedDayChange(CalendarView arg0, int arg1, int arg2, int arg3) {
-					startCurrentDay = arg3;
-					if (startCurrentDay == minDay) {
-						if (timePicker.getCurrentHour() < minHour) {
-							timePicker.setCurrentHour(minHour);
-						}
-						if (timePicker.getCurrentHour() == minHour) {
-							timePicker.setCurrentMinute(0);
-						}
-					}else if (startCurrentDay == maxDay) {
-						if (timePicker.getCurrentHour() > maxHour) {
-							timePicker.setCurrentHour(maxHour);
-						}
-						if (timePicker.getCurrentHour() == maxHour) {
-							timePicker.setCurrentMinute(0);
-						}
-					}
-				}
-			});
-			
-			timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
-				@Override
-				public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
-					if (startCurrentDay == minDay) {
-						if (arg0.getCurrentHour() < minHour) {
-							arg0.setCurrentHour(minHour);
-						}
-					}else if (startCurrentDay == maxDay) {
-						if (arg0.getCurrentHour() > maxHour) {
-							arg0.setCurrentHour(maxHour);
-						}
-						if (arg0.getCurrentHour() == maxHour) {
-							arg0.setCurrentMinute(0);
+			String y,m,d,h,mm;
+			if (!TextUtils.isEmpty(startTimeCheck)) {
+				y = startTimeCheck.substring(0, 4);
+				m = startTimeCheck.substring(4, 6);
+				d = startTimeCheck.substring(6, 8);
+				h = startTimeCheck.substring(8, 10);
+				mm = startTimeCheck.substring(10, 12);
+
+				startCurrentDay = Integer.valueOf(d);
+				final int minDay = Integer.valueOf(sdf5.format(sdf3.parse(minDate)));
+				final int maxDay = Integer.valueOf(sdf5.format(sdf3.parse(maxDate)));
+				final int minHour = Integer.valueOf(sdf4.format(sdf3.parse(minDate)));
+				final int maxHour = Integer.valueOf(sdf4.format(sdf3.parse(maxDate)));
+
+				datePickr.init(Integer.valueOf(y), Integer.valueOf(m) - 1, Integer.valueOf(d), new DatePicker.OnDateChangedListener() {
+					@Override
+					public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+						startCurrentDay = dayOfMonth;
+						if (startCurrentDay == minDay) {
+							if (timePicker.getCurrentHour() < minHour) {
+								timePicker.setCurrentHour(minHour);
+							}
+							if (timePicker.getCurrentHour() == minHour) {
+								timePicker.setCurrentMinute(0);
+							}
+						}else if (startCurrentDay == maxDay) {
+							if (timePicker.getCurrentHour() > maxHour) {
+								timePicker.setCurrentHour(maxHour);
+							}
+							if (timePicker.getCurrentHour() == maxHour) {
+								timePicker.setCurrentMinute(0);
+							}
 						}
 					}
-				}
-			});
+				});
+				timePicker.setCurrentHour(Integer.valueOf(h));
+				timePicker.setCurrentMinute(Integer.valueOf(mm));
+
+				timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
+					@Override
+					public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
+						if (startCurrentDay == minDay) {
+							if (arg0.getCurrentHour() < minHour) {
+								arg0.setCurrentHour(minHour);
+							}
+						}else if (startCurrentDay == maxDay) {
+							if (arg0.getCurrentHour() > maxHour) {
+								arg0.setCurrentHour(maxHour);
+							}
+							if (arg0.getCurrentHour() == maxHour) {
+								arg0.setCurrentMinute(0);
+							}
+						}
+					}
+				});
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		final Dialog dialog = new Dialog(getActivity(), R.style.CustomProgressDialog);
 		dialog.setContentView(view);
 		dialog.show();
@@ -527,64 +524,63 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 			e.printStackTrace();
 		}
 		
-		String y,m,d = null,h,mm;
-		if (!TextUtils.isEmpty(endTimeCheck)) {
-			y = endTimeCheck.substring(0, 4);
-			m = endTimeCheck.substring(4, 6);
-			d = endTimeCheck.substring(6, 8);
-			h = endTimeCheck.substring(8, 10);
-			mm = endTimeCheck.substring(10, 12);
-			datePickr.init(Integer.valueOf(y), Integer.valueOf(m)-1, Integer.valueOf(d), null);
-			timePicker.setCurrentHour(Integer.valueOf(h));
-			timePicker.setCurrentMinute(Integer.valueOf(mm));
-		}
-		
 		try {
-			endCurrentDay = Integer.valueOf(d);
-			final int minDay = Integer.valueOf(sdf5.format(sdf3.parse(minDate)));
-			final int maxDay = Integer.valueOf(sdf5.format(sdf3.parse(maxDate)));
-			final int minHour = Integer.valueOf(sdf4.format(sdf3.parse(minDate)));
-			final int maxHour = Integer.valueOf(sdf4.format(sdf3.parse(maxDate)));
-			
-			datePickr.getCalendarView().setOnDateChangeListener(new OnDateChangeListener() {
-				@Override
-				public void onSelectedDayChange(CalendarView arg0, int arg1, int arg2, int arg3) {
-					endCurrentDay = arg3;
-					if (endCurrentDay == minDay) {
-						if (timePicker.getCurrentHour() < minHour) {
-							timePicker.setCurrentHour(minHour);
-						}
-					}else if (endCurrentDay == maxDay) {
-						if (timePicker.getCurrentHour() > maxHour) {
-							timePicker.setCurrentHour(maxHour);
-						}
-						if (timePicker.getCurrentHour() == maxHour) {
-							timePicker.setCurrentMinute(0);
-						}
-					}
-				}
-			});
-			
-			timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
-				@Override
-				public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
-					if (endCurrentDay == minDay) {
-						if (arg0.getCurrentHour() < minHour) {
-							arg0.setCurrentHour(minHour);
-						}
-						if (arg0.getCurrentHour() == minHour) {
-							arg0.setCurrentMinute(0);
-						}
-					}else if (endCurrentDay == maxDay) {
-						if (arg0.getCurrentHour() > maxHour) {
-							arg0.setCurrentHour(maxHour);
-						}
-						if (arg0.getCurrentHour() == maxHour) {
-							arg0.setCurrentMinute(0);
+			String y,m,d,h,mm;
+			if (!TextUtils.isEmpty(endTimeCheck)) {
+				y = endTimeCheck.substring(0, 4);
+				m = endTimeCheck.substring(4, 6);
+				d = endTimeCheck.substring(6, 8);
+				h = endTimeCheck.substring(8, 10);
+				mm = endTimeCheck.substring(10, 12);
+
+				endCurrentDay = Integer.valueOf(d);
+				final int minDay = Integer.valueOf(sdf5.format(sdf3.parse(minDate)));
+				final int maxDay = Integer.valueOf(sdf5.format(sdf3.parse(maxDate)));
+				final int minHour = Integer.valueOf(sdf4.format(sdf3.parse(minDate)));
+				final int maxHour = Integer.valueOf(sdf4.format(sdf3.parse(maxDate)));
+
+				datePickr.init(Integer.valueOf(y), Integer.valueOf(m) - 1, Integer.valueOf(d), new DatePicker.OnDateChangedListener() {
+					@Override
+					public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+						endCurrentDay = dayOfMonth;
+						if (endCurrentDay == minDay) {
+							if (timePicker.getCurrentHour() < minHour) {
+								timePicker.setCurrentHour(minHour);
+							}
+						}else if (endCurrentDay == maxDay) {
+							if (timePicker.getCurrentHour() > maxHour) {
+								timePicker.setCurrentHour(maxHour);
+							}
+							if (timePicker.getCurrentHour() == maxHour) {
+								timePicker.setCurrentMinute(0);
+							}
 						}
 					}
-				}
-			});
+				});
+				timePicker.setCurrentHour(Integer.valueOf(h));
+				timePicker.setCurrentMinute(Integer.valueOf(mm));
+
+				timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
+					@Override
+					public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
+						if (endCurrentDay == minDay) {
+							if (arg0.getCurrentHour() < minHour) {
+								arg0.setCurrentHour(minHour);
+							}
+							if (arg0.getCurrentHour() == minHour) {
+								arg0.setCurrentMinute(0);
+							}
+						}else if (endCurrentDay == maxDay) {
+							if (arg0.getCurrentHour() > maxHour) {
+								arg0.setCurrentHour(maxHour);
+							}
+							if (arg0.getCurrentHour() == maxHour) {
+								arg0.setCurrentMinute(0);
+							}
+						}
+					}
+				});
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
