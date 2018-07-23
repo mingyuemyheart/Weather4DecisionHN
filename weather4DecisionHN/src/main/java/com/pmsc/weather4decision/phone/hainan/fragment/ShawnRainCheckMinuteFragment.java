@@ -412,22 +412,22 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 				datePickr.init(Integer.valueOf(y), Integer.valueOf(m) - 1, Integer.valueOf(d), new DatePicker.OnDateChangedListener() {
 					@Override
 					public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-						startCurrentDay = dayOfMonth;
-						if (startCurrentDay == minDay) {
-							if (timePicker.getCurrentHour() < minHour) {
-								timePicker.setCurrentHour(minHour);
-							}
-							if (timePicker.getCurrentHour() == minHour) {
-								timePicker.setCurrentMinute(0);
-							}
-						}else if (startCurrentDay == maxDay) {
-							if (timePicker.getCurrentHour() > maxHour) {
-								timePicker.setCurrentHour(maxHour);
-							}
-							if (timePicker.getCurrentHour() == maxHour) {
-								timePicker.setCurrentMinute(0);
-							}
-						}
+//						startCurrentDay = dayOfMonth;
+//						if (startCurrentDay == minDay) {
+//							if (timePicker.getCurrentHour() < minHour) {
+//								timePicker.setCurrentHour(minHour);
+//							}
+//							if (timePicker.getCurrentHour() == minHour) {
+//								timePicker.setCurrentMinute(0);
+//							}
+//						}else if (startCurrentDay == maxDay) {
+//							if (timePicker.getCurrentHour() > maxHour) {
+//								timePicker.setCurrentHour(maxHour);
+//							}
+//							if (timePicker.getCurrentHour() == maxHour) {
+//								timePicker.setCurrentMinute(0);
+//							}
+//						}
 					}
 				});
 				timePicker.setCurrentHour(Integer.valueOf(h));
@@ -436,18 +436,18 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 				timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
 					@Override
 					public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
-						if (startCurrentDay == minDay) {
-							if (arg0.getCurrentHour() < minHour) {
-								arg0.setCurrentHour(minHour);
-							}
-						}else if (startCurrentDay == maxDay) {
-							if (arg0.getCurrentHour() > maxHour) {
-								arg0.setCurrentHour(maxHour);
-							}
-							if (arg0.getCurrentHour() == maxHour) {
-								arg0.setCurrentMinute(0);
-							}
-						}
+//						if (startCurrentDay == minDay) {
+//							if (arg0.getCurrentHour() < minHour) {
+//								arg0.setCurrentHour(minHour);
+//							}
+//						}else if (startCurrentDay == maxDay) {
+//							if (arg0.getCurrentHour() > maxHour) {
+//								arg0.setCurrentHour(maxHour);
+//							}
+//							if (arg0.getCurrentHour() == maxHour) {
+//								arg0.setCurrentMinute(0);
+//							}
+//						}
 					}
 				});
 			}
@@ -542,19 +542,19 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 				datePickr.init(Integer.valueOf(y), Integer.valueOf(m) - 1, Integer.valueOf(d), new DatePicker.OnDateChangedListener() {
 					@Override
 					public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-						endCurrentDay = dayOfMonth;
-						if (endCurrentDay == minDay) {
-							if (timePicker.getCurrentHour() < minHour) {
-								timePicker.setCurrentHour(minHour);
-							}
-						}else if (endCurrentDay == maxDay) {
-							if (timePicker.getCurrentHour() > maxHour) {
-								timePicker.setCurrentHour(maxHour);
-							}
-							if (timePicker.getCurrentHour() == maxHour) {
-								timePicker.setCurrentMinute(0);
-							}
-						}
+//						endCurrentDay = dayOfMonth;
+//						if (endCurrentDay == minDay) {
+//							if (timePicker.getCurrentHour() < minHour) {
+//								timePicker.setCurrentHour(minHour);
+//							}
+//						}else if (endCurrentDay == maxDay) {
+//							if (timePicker.getCurrentHour() > maxHour) {
+//								timePicker.setCurrentHour(maxHour);
+//							}
+//							if (timePicker.getCurrentHour() == maxHour) {
+//								timePicker.setCurrentMinute(0);
+//							}
+//						}
 					}
 				});
 				timePicker.setCurrentHour(Integer.valueOf(h));
@@ -563,21 +563,21 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 				timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
 					@Override
 					public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
-						if (endCurrentDay == minDay) {
-							if (arg0.getCurrentHour() < minHour) {
-								arg0.setCurrentHour(minHour);
-							}
-							if (arg0.getCurrentHour() == minHour) {
-								arg0.setCurrentMinute(0);
-							}
-						}else if (endCurrentDay == maxDay) {
-							if (arg0.getCurrentHour() > maxHour) {
-								arg0.setCurrentHour(maxHour);
-							}
-							if (arg0.getCurrentHour() == maxHour) {
-								arg0.setCurrentMinute(0);
-							}
-						}
+//						if (endCurrentDay == minDay) {
+//							if (arg0.getCurrentHour() < minHour) {
+//								arg0.setCurrentHour(minHour);
+//							}
+//							if (arg0.getCurrentHour() == minHour) {
+//								arg0.setCurrentMinute(0);
+//							}
+//						}else if (endCurrentDay == maxDay) {
+//							if (arg0.getCurrentHour() > maxHour) {
+//								arg0.setCurrentHour(maxHour);
+//							}
+//							if (arg0.getCurrentHour() == maxHour) {
+//								arg0.setCurrentMinute(0);
+//							}
+//						}
 					}
 				});
 			}

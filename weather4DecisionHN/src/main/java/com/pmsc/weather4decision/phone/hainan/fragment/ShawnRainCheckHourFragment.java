@@ -415,15 +415,15 @@ public class ShawnRainCheckHourFragment extends Fragment implements OnClickListe
 			timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
 				@Override
 				public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
-					if (startOrEnd) {
-						if (arg0.getCurrentHour() < minHour) {
-							arg0.setCurrentHour(minHour);
-						}
-					}else {
-						if (arg0.getCurrentHour() > maxHour) {
-							arg0.setCurrentHour(maxHour);
-						}
-					}
+//					if (startOrEnd) {
+//						if (arg0.getCurrentHour() < minHour) {
+//							arg0.setCurrentHour(minHour);
+//						}
+//					}else {
+//						if (arg0.getCurrentHour() > maxHour) {
+//							arg0.setCurrentHour(maxHour);
+//						}
+//					}
 				}
 			});
 		} catch (NumberFormatException e) {
