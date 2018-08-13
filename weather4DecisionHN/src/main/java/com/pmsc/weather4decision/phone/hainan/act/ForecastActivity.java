@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.HorizontalScrollView;
@@ -153,10 +154,11 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 		if (cityId.startsWith("10131")) {
 			llFactButton.setVisibility(View.VISIBLE);
 			if (lat != 0 && lng != 0) {
-				url = "http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+cityId+"&lonlat="+lng+","+lat;
+				url = String.format("http://hainan.welife100.com/Public/hnfusion?areaid=%s&lon=%s&lat=%s", cityId, lng, lat);
 			}else {
-				url = "http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+cityId;
+				url = "http://hainan.welife100.com/Public/hnfusion?areaid="+cityId;
 			}
+			Log.e("url", url);
 		}else {
 			llFactButton.setVisibility(View.GONE);
 			url = FetchWeather.weather2Url(cityId, "all");
@@ -168,7 +170,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
 					@Override
 					public void onFailure(Call call, IOException e) {
-						if (url.startsWith("http://data-fusion.tianqi.cn/datafusion/")) {
+						if (url.startsWith("http://hainan.welife100.com/Public/hnfusion")) {
 							OkHttpWeatherInfo(FetchWeather.weather2Url(cityId, "all"));
 						}
 					}

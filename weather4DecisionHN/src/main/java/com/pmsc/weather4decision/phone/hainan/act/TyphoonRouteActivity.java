@@ -56,7 +56,6 @@ import com.android.lib.data.CONST;
 import com.android.lib.util.CaiyunManager;
 import com.android.lib.util.CaiyunManager.RadarListener;
 import com.android.lib.util.CommonUtil;
-import com.android.lib.util.CustomHttpClient;
 import com.android.lib.util.RainManager;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.adapter.TyphoonNameAdapter;
@@ -68,7 +67,6 @@ import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.util.StatisticUtil;
 import com.pmsc.weather4decision.phone.hainan.view.WaitWindView;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,7 +78,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -156,11 +156,11 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	private AMapLocationClient mLocationClient = null;//声明AMapLocationClient类对象
 	private ImageView ivTyphoonRange = null;//台风测距
 	private Marker locationMarker = null;
-	private List<Polyline> rangeLines = new ArrayList<Polyline>();//测距虚线数据
-	private List<Marker> rangeMarkers = new ArrayList<>();
-	private boolean isRanging = true;//是否允许测距
+	private Map<String, List<Polyline>> rangeLinesMap = new HashMap<>();//测距虚线数据
+	private Map<String, Marker> rangeMarkersMap = new HashMap<>();//测距中点距离marker
+	private Map<String, TyphoonDto> lastFactPointMap = new HashMap<>();//最后一个实况点数据集合
+	private boolean isRanging = false;//是否允许测距
 	private LatLng locationLatLng = null;
-	private List<LatLng> lastFactLatLngList = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -434,7 +434,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 																typhoonName = data.enName;
 															}
 															String detailUrl = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/view/" + data.id;
-															OkHttpTyphoonDetail(detailUrl, data.code + " " + data.enName);
+															OkHttpTyphoonDetail(data.id, detailUrl, data.code + " " + data.enName);
 														}else {
 															if (!TextUtils.isEmpty(typhoonName)) {
 																typhoonName = data.code + " " + data.name + " " + data.enName+"\n"+typhoonName;;
@@ -442,7 +442,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 																typhoonName = data.code + " " + data.name + " " + data.enName;
 															}
 															String detailUrl = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/view/" + data.id;
-															OkHttpTyphoonDetail(detailUrl, data.code + " " + data.name + " " + data.enName);
+															OkHttpTyphoonDetail(data.id, detailUrl, data.code + " " + data.name + " " + data.enName);
 														}
 													}
 													tvTyphoonName.setText(typhoonName);
@@ -492,6 +492,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		}).start();
 	}
 
+	private String typhoonId;
 	private void initNameListView() {
 		nameListView = (ListView) findViewById(R.id.nameListView);
 		nameAdapter = new TyphoonNameAdapter(mContext, nameList);
@@ -542,14 +543,15 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 					ivTyphoonList.setClickable(true);
 				}
 
+				typhoonId = dto.id;
 				String detailUrl = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/view/" + dto.id;
-				OkHttpTyphoonDetail(detailUrl, tvTyphoonName.getText().toString());
+				OkHttpTyphoonDetail(dto.id, detailUrl, tvTyphoonName.getText().toString());
 				
 			}
 		});
 	}
 	
-	private void OkHttpTyphoonDetail(final String url, final String name) {
+	private void OkHttpTyphoonDetail(final String typhoonId, final String url, final String name) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -731,16 +733,14 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 
 												points.addAll(forePoints);
 												pointsList.add(points);
-
-												if (startList.size() <= 1) {
-													drawTyphoon(false, pointsList.get(0));
-												}else {
-													for (int i = 0; i < pointsList.size(); i++) {
-														drawTyphoon(false, pointsList.get(i));
-													}
-												}
-
+												drawTyphoon(typhoonId, false, points);
 												progressBar.setVisibility(View.GONE);
+
+												try {
+													Thread.sleep(300);
+												} catch (InterruptedException e) {
+													e.printStackTrace();
+												}
 											}
 										} catch (JSONException e) {
 											e.printStackTrace();
@@ -774,6 +774,60 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			}
 		};
 	};
+
+	/**
+	 * 清除测距markers
+	 */
+	private void removeRange(String tid) {
+		if (!TextUtils.isEmpty(tid)) {
+			//清除测距虚线
+			if (rangeLinesMap.containsKey(tid)) {
+				List<Polyline> polylines = rangeLinesMap.get(tid);
+				for (Polyline polyline : polylines) {
+					if (polyline != null) {
+						polyline.remove();
+					}
+				}
+				polylines.clear();
+				rangeLinesMap.remove(tid);
+			}
+
+			//清除测距marker
+			if (rangeMarkersMap.containsKey(tid)) {
+				Marker marker = rangeMarkersMap.get(tid);
+				if (marker != null) {
+					marker.remove();
+				}
+				rangeMarkersMap.remove(tid);
+			}
+		}else {
+			//清除测距虚线
+			for (String typhoonId : rangeLinesMap.keySet()) {
+				if (rangeLinesMap.containsKey(typhoonId)) {
+					List<Polyline> polylines = rangeLinesMap.get(typhoonId);
+					for (Polyline polyline : polylines) {
+						if (polyline != null) {
+							polyline.remove();
+						}
+					}
+					polylines.clear();
+				}
+			}
+			rangeLinesMap.clear();
+
+			//清除测距marker
+			for (String typhoonId : rangeMarkersMap.keySet()) {
+				if (rangeMarkersMap.containsKey(typhoonId)) {
+					Marker marker = rangeMarkersMap.get(typhoonId);
+					if (marker != null) {
+						marker.remove();
+					}
+				}
+			}
+			rangeMarkersMap.clear();
+		}
+
+	}
 	
 	/**
 	 * 清除一个台风
@@ -786,9 +840,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			for (int i = 0; i < dashLines.size(); i++) {//清除虚线
 				dashLines.get(i).remove();
 			}
-			for (int i = 0; i < rangeLines.size(); i++) {//清除测距虚线
-				rangeLines.get(i).remove();
-			}
+
 			for (int i = 0; i < markerPoints.size(); i++) {//清除台风点
 				markerPoints.get(i).remove();
 			}
@@ -815,10 +867,12 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 				timeMarkers.get(i).remove();
 			}
 			timeMarkers.clear();
-			for (int i = 0; i < rangeMarkers.size(); i++) {
-				rangeMarkers.get(i).remove();
-			}
-			rangeMarkers.clear();
+
+			removeRange(null);
+
+			//清除实况最后一个点
+			lastFactPointMap.clear();
+
 		}
 		
 	}
@@ -832,9 +886,6 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		}
 		for (int i = 0; i < dashLines.size(); i++) {//清除虚线
 			dashLines.get(i).remove();
-		}
-		for (int i = 0; i < rangeLines.size(); i++) {//清除测距虚线
-			rangeLines.get(i).remove();
 		}
 		for (int i = 0; i < markerPoints.size(); i++) {//清除台风点
 			markerPoints.get(i).remove();
@@ -863,17 +914,19 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			infoMarkers.get(i).remove();
 		}
 		infoMarkers.clear();
-		for (int i = 0; i < rangeMarkers.size(); i++) {
-			rangeMarkers.get(i).remove();
-		}
-		rangeMarkers.clear();
+
+		removeRange(null);
+
+		//清除实况最后一个点
+		lastFactPointMap.clear();
+
 	}
 	
 	/**
 	 * 绘制台风
 	 * @param isAnimate
 	 */
-	private void drawTyphoon(boolean isAnimate, List<TyphoonDto> list) {
+	private void drawTyphoon(String typhoonId, boolean isAnimate, List<TyphoonDto> list) {
 		if (list.isEmpty()) {
 			return;
 		}
@@ -884,7 +937,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			mRoadThread.cancel();
 			mRoadThread = null;
 		}
-		mRoadThread = new RoadThread(list, isAnimate);
+		mRoadThread = new RoadThread(typhoonId, list, isAnimate);
 		mRoadThread.start();
 	}
 	
@@ -899,8 +952,10 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		private int i = 0;
 		private TyphoonDto lastShikuangPoint;
 		private TyphoonDto prevShikuangPoint;
+		private String typhoonId;
 
-		public RoadThread(List<TyphoonDto> points, boolean isAnimate) {
+		public RoadThread(String typhoonId, List<TyphoonDto> points, boolean isAnimate) {
+			this.typhoonId = typhoonId;
 			mPoints = points;
 			this.isAnimate = isAnimate;
 		}
@@ -945,7 +1000,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						drawRoute(start, end, factPointList.get(factPointList.size()-1));
+						drawRoute(typhoonId, start, end, factPointList.get(factPointList.size()-1));
 //						if (isAnimate || null != lastShikuangPoint) {
 //						if (null != lastShikuangPoint) {
 //							TyphoonDto point = lastShikuangPoint == null ? lastPoint : lastShikuangPoint;
@@ -963,7 +1018,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		}
 	}
 	
-	private void drawRoute(TyphoonDto start, TyphoonDto end, TyphoonDto lastFactPoint) {
+	private void drawRoute(String typhoonId, TyphoonDto start, TyphoonDto end, TyphoonDto lastFactPoint) {
 		if (end == null) {//最后一个点
 			return;
 		}
@@ -1034,7 +1089,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 					break;
 				}
 			}
-			if (isAdd == false) {
+			if (!isAdd) {
 				View textView = inflater.inflate(R.layout.warning_line_markview, null);
 				TextView tvLine = (TextView) textView.findViewById(R.id.tvLine);
 				if (time != null) {
@@ -1136,23 +1191,9 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 				}
 
 				//多个台风最后实况点合在一起
-				boolean isContain = false;
-				LatLng end_latlng = new LatLng(lastFactPoint.lat, lastFactPoint.lng);
-				for (int i = 0; i < lastFactLatLngList.size(); i++) {
-					LatLng latLng = lastFactLatLngList.get(i);
-					if (latLng.latitude == end_latlng.latitude && latLng.longitude == end_latlng.longitude) {
-						isContain = true;
-						break;
-					}
-				}
-				if (isContain == false) {
-					if (startList.size() <= 1) {
-						lastFactLatLngList.clear();
-					}
-					lastFactLatLngList.add(end_latlng);
-				}
+				lastFactPointMap.put(typhoonId, lastFactPoint);
 
-				ranging();
+				ranging(typhoonId);
 			}
 		}else {
 			View timeView = inflater.inflate(R.layout.layout_marker_time, null);
@@ -1176,44 +1217,60 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	/**
 	 * 测距
 	 */
-	private void ranging() {
-		if (locationLatLng == null) {
+	private void ranging(String tid) {
+		if (locationLatLng == null || !isRanging) {
 			return;
 		}
-		for (int j = 0; j < lastFactLatLngList.size(); j++) {
-			double lng_start = locationLatLng.longitude;
-			double lat_start = locationLatLng.latitude;
-			LatLng end_latlng = new LatLng(lastFactLatLngList.get(j).latitude, lastFactLatLngList.get(j).longitude);
-			double lng_end = end_latlng.longitude;
-			double lat_end = end_latlng.latitude;
-			double dis = Math.sqrt(Math.pow(lat_start - lat_end, 2)+ Math.pow(lng_start - lng_end, 2));
-			int numPoint = (int) Math.floor(dis / 0.2);
-			double lng_per = (lng_end - lng_start) / numPoint;
-			double lat_per = (lat_end - lat_start) / numPoint;
+
+		if (!TextUtils.isEmpty(tid)) {
+			rangingSingle(tid);
+		}else {
+			for (String typhoonId : lastFactPointMap.keySet()) {
+				rangingSingle(typhoonId);
+			}
+		}
+	}
+
+	/**
+	 * 单个点测距
+	 * @param typhoonId
+	 */
+	private void rangingSingle(String typhoonId) {
+		double locationLat = locationLatLng.latitude;
+		double locationLng = locationLatLng.longitude;
+		if (lastFactPointMap.containsKey(typhoonId)) {
+			TyphoonDto dto = lastFactPointMap.get(typhoonId);
+			double lat = dto.lat;
+			double lng = dto.lng;
+			double dis = Math.sqrt(Math.pow(locationLat-lat, 2)+ Math.pow(locationLng-lng, 2));
+			int numPoint = (int) Math.floor(dis/0.2);
+			double lng_per = (lng-locationLng)/numPoint;
+			double lat_per = (lat-locationLat)/numPoint;
+			List<Polyline> polylines = new ArrayList<>();
 			List<LatLng> ranges = new ArrayList<>();
 			for (int i = 0; i < numPoint; i++) {
 				PolylineOptions line = new PolylineOptions();
 				line.color(0xff6291E1);
 				line.width(CommonUtil.dip2px(mContext, 2));
-				ranges.add(new LatLng(lat_start + i * lat_per, lng_start + i * lng_per));
+				ranges.add(new LatLng(locationLat+i*lat_per, locationLng+i*lng_per));
 				if (i % 2 == 1) {
 					line.addAll(ranges);
-					Polyline dashLine = aMap.addPolyline(line);
-					rangeLines.add(dashLine);
+					Polyline polyline = aMap.addPolyline(line);
+					polylines.add(polyline);
 					ranges.clear();
 				}
 			}
+			rangeLinesMap.put(typhoonId, polylines);
 
-			LatLng centerLatLng = new LatLng((lat_start + lat_end)/2, (lng_start + lng_end)/2);
-			addRangeMarker(centerLatLng, lng_start, lat_start, lng_end, lat_end);
+			LatLng centerLatLng = new LatLng((locationLat+lat)/2, (locationLng+lng)/2);
+			addRangeMarker(typhoonId, centerLatLng, locationLng, locationLat, lng, lat);
 		}
-
 	}
 
 	/**
 	 * 添加每个台风的测距距离
 	 */
-	private void addRangeMarker(LatLng latLng, double longitude1, double latitude1, double longitude2, double latitude2) {
+	private void addRangeMarker(String typhoonId, LatLng latLng, double longitude1, double latitude1, double longitude2, double latitude2) {
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		MarkerOptions options = new MarkerOptions();
 		options.position(latLng);
@@ -1223,7 +1280,8 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 
 		options.icon(BitmapDescriptorFactory.fromView(mView));
 		Marker marker = aMap.addMarker(options);
-		rangeMarkers.add(marker);
+		marker.setClickable(false);
+		rangeMarkersMap.put(typhoonId, marker);
 	}
 
 	/**
@@ -1311,15 +1369,9 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	public void onMapClick(LatLng arg0) {
 		//测距状态下
 		if (isRanging) {
-			for (int i = 0; i < rangeMarkers.size(); i++) {
-				rangeMarkers.get(i).remove();
-			}
-			rangeMarkers.clear();
-			for (int i = 0; i < rangeLines.size(); i++) {//清除测距虚线
-				rangeLines.get(i).remove();
-			}
+			removeRange(null);
 			locationLatLng = arg0;
-			ranging();
+			ranging(null);
 			addLocationMarker(arg0);
 		}
 		mapClick();
@@ -2088,7 +2140,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 				container2.removeAllViews();
 				tvFileTime.setVisibility(View.GONE);
 				if (!pointsList.isEmpty() && pointsList.get(0) != null) {
-					drawTyphoon(false, pointsList.get(0));
+					drawTyphoon(typhoonId, false, pointsList.get(0));
 				}
 				break;
 			case R.id.ivTyphoonRange:
@@ -2096,18 +2148,12 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 					isRanging = false;
 					ivTyphoonRange.setImageResource(R.drawable.iv_typhoon_cj_off);
 
-					for (int i = 0; i < rangeMarkers.size(); i++) {
-						rangeMarkers.get(i).remove();
-					}
-					rangeMarkers.clear();
-					for (int i = 0; i < rangeLines.size(); i++) {//清除测距虚线
-						rangeLines.get(i).remove();
-					}
+					removeRange(null);
 				}else {
 					isRanging = true;
 					ivTyphoonRange.setImageResource(R.drawable.iv_typhoon_cj_on);
 
-					ranging();
+					ranging(null);
 
 					addLocationMarker(locationLatLng);
 				}

@@ -113,7 +113,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/iv_typhoon_cj_on"
+                android:src="@drawable/iv_typhoon_cj_off"
                 android:visibility="gone" />
 
             <ImageView

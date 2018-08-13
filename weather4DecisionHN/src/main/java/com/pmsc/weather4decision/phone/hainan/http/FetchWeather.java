@@ -41,8 +41,8 @@ import okhttp3.Response;
  */
 public class FetchWeather {
 
-	public final static String APP_ID  = "a1b42a4dccd7493f";
-	public final static String APP_KEY = "chinaweather_jcb_webapi_data";
+	private final static String APP_ID  = "a1b42a4dccd7493f";
+	private final static String APP_KEY = "chinaweather_jcb_webapi_data";
 	
 	public FetchWeather() {
 	}
@@ -51,7 +51,7 @@ public class FetchWeather {
 		this.cityId = cityId;
 		this.type = type;
 		if (!TextUtils.isEmpty(cityId) && cityId.startsWith("10131")) {//海南
-			String url = "http://data-fusion.tianqi.cn/datafusion/test?type=HN&ID="+cityId;
+			String url = "http://hainan.welife100.com/Public/hnfusion?areaid="+cityId;
 			OkHttpHannan(url);
 		}else {
 			OkHttpWeather2(weather2Url(cityId, type));
