@@ -82,14 +82,8 @@ public class FetchWeather {
 
 						String result = response.body().string();
 						if (!TextUtils.isEmpty(result)) {
-							try {
-								JSONObject obj = new JSONObject(result);
-								if (onFetchWeatherListener != null) {
-									onFetchWeatherListener.onFetchWeather(result);
-								}
-							} catch (JSONException e) {
-								e.printStackTrace();
-								OkHttpWeather2(weather2Url(cityId, type));
+							if (onFetchWeatherListener != null) {
+								onFetchWeatherListener.onFetchWeather(result);
 							}
 						}
 
