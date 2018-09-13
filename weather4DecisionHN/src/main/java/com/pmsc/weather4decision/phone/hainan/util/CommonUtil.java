@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -55,6 +56,12 @@ import com.amap.api.maps.model.PolygonOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.pmsc.weather4decision.phone.hainan.R;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 
 public class CommonUtil {
 
@@ -795,6 +802,54 @@ public class CommonUtil {
 			canvas = null;
 		}
     }
+
+	/**
+	 * 分享功能
+	 * @param activity
+	 */
+	public static void share(final Activity activity, final Bitmap bitmap) {
+		ShareAction panelAction = new ShareAction(activity);
+		panelAction.setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE);
+		panelAction.setShareboardclickCallback(new ShareBoardlistener() {
+			@Override
+			public void onclick(SnsPlatform arg0, SHARE_MEDIA arg1) {
+				ShareAction shareAction = new ShareAction(activity);
+				shareAction.setPlatform(arg1);
+				if (bitmap != null) {
+					shareAction.withMedia(new UMImage(activity, bitmap));
+				}
+				shareAction.share();
+			}
+		});
+		panelAction.open();
+	}
+
+	/**
+	 * 分享功能
+	 * @param activity
+	 */
+	public static void share(final Activity activity, final String title, final String content, final String imgUrl, final String url) {
+		ShareAction panelAction = new ShareAction(activity);
+		panelAction.setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE);
+		panelAction.setShareboardclickCallback(new ShareBoardlistener() {
+			@Override
+			public void onclick(SnsPlatform arg0, SHARE_MEDIA arg1) {
+				ShareAction sAction = new ShareAction(activity);
+				sAction.setPlatform(arg1);
+				UMWeb web = new UMWeb(url);
+				web.setTitle(title);//标题
+				if (!TextUtils.isEmpty(imgUrl)) {
+					web.setThumb(new UMImage(activity, imgUrl));  //缩略图
+				}else {
+					web.setThumb(new UMImage(activity, R.drawable.icon));
+				}
+				web.setDescription(content);
+				sAction.withMedia(web);
+				sAction.share();
+			}
+		});
+		panelAction.open();
+	}
 
 	/**
 	 * 判断GPS是否开启，GPS或者AGPS开启一个就认为是开启的

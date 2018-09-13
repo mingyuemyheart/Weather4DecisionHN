@@ -14,4 +14,8 @@ public class CONST {
 	public static WindData windData = new WindData();//存放数据对象
 	
 	public static String userGroup = "a418f91fc0ac4b9ca6329806f6b7f8d3";
+
+
+	public static final String WEB_URL = "web_Url";//网页地址的标示
+
 }

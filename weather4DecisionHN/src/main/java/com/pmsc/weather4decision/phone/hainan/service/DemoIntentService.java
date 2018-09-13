@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Message;
-import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -20,7 +19,7 @@ import com.igexin.sdk.message.GTTransmitMessage;
 import com.igexin.sdk.message.SetTagCmdMessage;
 import com.igexin.sdk.message.UnBindAliasCmdMessage;
 import com.pmsc.weather4decision.phone.hainan.R;
-import com.pmsc.weather4decision.phone.hainan.act.PdfActivity;
+import com.pmsc.weather4decision.phone.hainan.act.ShawnPDFActivity;
 import com.pmsc.weather4decision.phone.hainan.act.WarningDetailsActivity;
 
 import org.json.JSONException;
@@ -83,46 +82,46 @@ public class DemoIntentService extends GTIntentService {
 //        Log.d(TAG, "----------------------------------------------------------------------------------------------");
 
         //处理消息
-        if (payload != null) {
-            String result = new String(payload);
-            if (TextUtils.isEmpty(result)) {
-                return;
-            }
-            try {
-                JSONObject obj = new JSONObject(result);
-                if (!obj.isNull("msgType")) {
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-                    builder.setContentTitle(obj.getString("title"));
-                    builder.setContentText(obj.getString("content"));
-                    builder.setSmallIcon(R.drawable.icon);
-                    builder.setDefaults(Notification.DEFAULT_ALL);
-                    builder.setAutoCancel(true);
-                    String msgType = obj.getString("msgType");
-                    Intent intent = null;
-                    if (TextUtils.equals(msgType, "custom")) {//custom普通通知类
-                        intent = new Intent();
-                    }else {
-                        if (TextUtils.equals(msgType, "document")) {//pdf文档类
-                            intent = new Intent(this, PdfActivity.class);
-                        }else if (TextUtils.equals(msgType, "warning")) {//预警类
-                            intent = new Intent(this, WarningDetailsActivity.class);
-                        }
-                    }
-                    if (intent != null) {
-                        intent.putExtra("parm1", result);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-                        builder.setContentIntent(pendingIntent);
-                    }
-
-                    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    int ID = getNotifyID()+1;
-                    manager.notify(ID, builder.build());
-                    saveNofityID(ID);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (payload != null) {
+//            String result = new String(payload);
+//            if (TextUtils.isEmpty(result)) {
+//                return;
+//            }
+//            try {
+//                JSONObject obj = new JSONObject(result);
+//                if (!obj.isNull("msgType")) {
+//                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+//                    builder.setContentTitle(obj.getString("title"));
+//                    builder.setContentText(obj.getString("content"));
+//                    builder.setSmallIcon(R.drawable.icon);
+//                    builder.setDefaults(Notification.DEFAULT_ALL);
+//                    builder.setAutoCancel(true);
+//                    String msgType = obj.getString("msgType");
+//                    Intent intent = null;
+//                    if (TextUtils.equals(msgType, "custom")) {//custom普通通知类
+//                        intent = new Intent();
+//                    }else {
+//                        if (TextUtils.equals(msgType, "document")) {//pdf文档类
+//                            intent = new Intent(this, ShawnPDFActivity.class);
+//                        }else if (TextUtils.equals(msgType, "warning")) {//预警类
+//                            intent = new Intent(this, WarningDetailsActivity.class);
+//                        }
+//                    }
+//                    if (intent != null) {
+//                        intent.putExtra("parm1", result);
+//                        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+//                        builder.setContentIntent(pendingIntent);
+//                    }
+//
+//                    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//                    int ID = getNotifyID()+1;
+//                    manager.notify(ID, builder.build());
+//                    saveNofityID(ID);
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
     }
 

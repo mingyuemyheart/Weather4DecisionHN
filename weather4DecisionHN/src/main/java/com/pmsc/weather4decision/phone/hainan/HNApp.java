@@ -9,6 +9,8 @@ import android.provider.Settings;
 import com.igexin.sdk.PushManager;
 import com.pmsc.weather4decision.phone.hainan.service.DemoIntentService;
 import com.pmsc.weather4decision.phone.hainan.service.DemoPushService;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import java.lang.reflect.Method;
 
@@ -32,6 +34,12 @@ public class HNApp extends Application {
 		if (checkDeviceHasNavigationBar(this)) {
 			registerNavigationBar();
 		}
+
+		//umeng分享的平台注册
+		UMConfigure.init(this, "58aba143677baa01fe0003ab", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+		PlatformConfig.setWeixin("wx1fa67f698f7053ad", "f3fc51dcb4518eb80bff808acb10c409");
+		PlatformConfig.setQQZone("1107769691", "VU9E4fgQfDGcRorR");
+		UMConfigure.setLogEnabled(false);
 
 		//初始化个推
 		PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);

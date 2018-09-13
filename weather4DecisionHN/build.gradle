@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
     //png图片命名带有数字则编译不通过使用一下声明
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -38,15 +37,31 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('/Users/shawn/Desktop/打包/海南气象/weatherdecision.keystore')
+            storePassword "123456"
+            keyAlias "platomix"
+            keyPassword "123456"
         }
     }
 
     //打包，自动追加版本号、名称
     android.applicationVariants.all {
         variant ->
-            variant.outputs.each {
-                output -> output.outputFile = new File(output.outputFile.parent, "HainanDecision" + "_" + defaultConfig.versionCode + "_V" + defaultConfig.versionName + "_" + buildType.name + ".apk");
+            variant.outputs.all {
+                outputFileName = "HainanDecision" + "_" + "${defaultConfig.versionCode}" + "_V" + "${defaultConfig.versionName}" + "_" + buildType.name + ".apk"
             }
     }
 
@@ -58,21 +73,32 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile project(':pdfViewerLibrary')
-    compile 'com.google.code.gson:gson:2.2.1'
-    compile files('libs/bitmcap-cache-1.0.jar')
-    compile files('libs/commons-codec-1.7.jar')
-    compile files('libs/pinyin4j-2.5.0.jar')
-    compile files('libs/scene-final.jar')
-    compile files('libs/uk-co-senab-photoview.jar')
-    compile files('libs/GetuiSDK2.11.1.0.jar')
-    compile files('libs/GetuiSDK2.11.1.0-support-HWP-1.0.2.jar')
-    compile files('libs/GetuiSDK2.11.1.0-support-MZP-1.0.4.jar')
-    compile files('libs/GetuiSDK2.11.1.0-support-XMP-1.0.2.jar')
-    compile files('libs/ChinaWeatherAPI.jar')
-    compile files('libs/AMap3DMap_5.7.0_AMapSearch_5.7.0_AMapLocation_3.7.0_20171229.jar')
-    compile 'com.squareup.okhttp3:okhttp:3.10.0'
-    compile 'com.squareup.okio:okio:1.14.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.google.code.gson:gson:2.2.1'
+    implementation files('libs/bitmcap-cache-1.0.jar')
+    implementation files('libs/commons-codec-1.7.jar')
+    implementation files('libs/pinyin4j-2.5.0.jar')
+    implementation files('libs/scene-final.jar')
+    implementation files('libs/uk-co-senab-photoview.jar')
+    implementation files('libs/GetuiSDK2.11.1.0.jar')
+    implementation files('libs/GetuiSDK2.11.1.0-support-HWP-1.0.2.jar')
+    implementation files('libs/GetuiSDK2.11.1.0-support-MZP-1.0.4.jar')
+    implementation files('libs/GetuiSDK2.11.1.0-support-XMP-1.0.2.jar')
+    implementation files('libs/ChinaWeatherAPI.jar')
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okio:okio:1.14.1'
+    implementation 'com.amap.api:3dmap:5.7.0'
+    implementation 'com.amap.api:search:5.7.0'
+    implementation 'com.amap.api:location:3.7.0'
+    implementation 'com.umeng.sdk:analytics:7.5.3'
+    implementation project(':android-pdf-viewer')
+
+    implementation files('libs/umeng-common-1.5.3.jar')
+    implementation files('libs/umeng-share-core-6.9.3.jar')
+    implementation files('libs/umeng-sharetool-6.9.3.jar')
+    implementation files('libs/umeng-shareboard-widget-6.9.3.jar')
+    implementation files('libs/umeng-share-QQ-simplify-6.9.3.jar')
+    implementation files('libs/umeng-share-wechat-simplify-6.9.3.jar')
 }

@@ -1,2 +1,1 @@
-include ':pdfViewerLibrary'
-include ':weather4DecisionHN'
+include ':weather4DecisionHN', ':android-pdf-viewer'

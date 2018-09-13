@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.lib.app.BaseActivity;
+import com.android.lib.data.CONST;
 import com.android.lib.data.JsonMap;
 import com.android.lib.util.LogUtil;
 import com.pmsc.weather4decision.phone.hainan.R;
@@ -228,8 +229,8 @@ public class AbsDrawerActivity extends BaseActivity implements OnGroupClickListe
 	
 	public void enterPdfActivity(String pdfUrl) {
 		Bundle bundle = new Bundle();
-		bundle.putString(PdfActivity.PDF_URL, pdfUrl);
-		openActivity(PdfActivity.class, bundle);
+		bundle.putString(CONST.WEB_URL, pdfUrl);
+		openActivity(ShawnPDFActivity.class, bundle);
 	}
 	
 	@Override
