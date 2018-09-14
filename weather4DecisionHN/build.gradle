@@ -12,8 +12,8 @@ android {
         applicationId "com.pmsc.weather4decision.phone.hainan"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 162
-        versionName "2.1.91"
+        versionCode 163
+        versionName "2.1.92"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -94,7 +94,6 @@ dependencies {
     implementation 'com.amap.api:location:3.7.0'
     implementation 'com.umeng.sdk:analytics:7.5.3'
     implementation project(':android-pdf-viewer')
-
     implementation files('libs/umeng-common-1.5.3.jar')
     implementation files('libs/umeng-share-core-6.9.3.jar')
     implementation files('libs/umeng-sharetool-6.9.3.jar')

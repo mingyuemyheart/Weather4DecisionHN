@@ -37,9 +37,9 @@ public class HNApp extends Application {
 
 		//umeng分享的平台注册
 		UMConfigure.init(this, "58aba143677baa01fe0003ab", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-		PlatformConfig.setWeixin("wx1fa67f698f7053ad", "f3fc51dcb4518eb80bff808acb10c409");
+		PlatformConfig.setWeixin("wx326e03490187f8db", "faf3d4de00910be263a6eb4ed223d3d0");
 		PlatformConfig.setQQZone("1107769691", "VU9E4fgQfDGcRorR");
-		UMConfigure.setLogEnabled(false);
+		UMConfigure.setLogEnabled(true);
 
 		//初始化个推
 		PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);

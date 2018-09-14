@@ -50,6 +50,8 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.Polygon;
+import com.amap.api.maps.model.PolygonOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.android.lib.data.CONST;
@@ -102,19 +104,19 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	private ImageView ivCancelList = null;
 	private ListView yearListView = null;
 	private TyphoonYearAdapter yearAdapter = null;
-	private List<TyphoonDto> yearList = new ArrayList<TyphoonDto>();
+	private List<TyphoonDto> yearList = new ArrayList<>();
 	private ListView nameListView = null;
 	private TyphoonNameAdapter nameAdapter = null;
-	private List<TyphoonDto> nameList = new ArrayList<TyphoonDto>();//某一年所有台风
-	private List<TyphoonDto> startList = new ArrayList<TyphoonDto>();//某一年活跃台风
-	private List<ArrayList<TyphoonDto>> pointsList = new ArrayList<ArrayList<TyphoonDto>>();//存放某一年所有活跃台风
+	private List<TyphoonDto> nameList = new ArrayList<>();//某一年所有台风
+	private List<TyphoonDto> startList = new ArrayList<>();//某一年活跃台风
+	private List<ArrayList<TyphoonDto>> pointsList = new ArrayList<>();//存放某一年所有活跃台风
 //	private List<TyphoonDto> points = new ArrayList<TyphoonDto>();//某个台风的数据点
 //	private List<TyphoonDto> forePoints = new ArrayList<TyphoonDto>();//预报的点数据
 	private RoadThread mRoadThread = null;//绘制台风点的线程
 //	private Marker rotateMarker = null;//台风旋转marker
 	private Marker clickMarker = null;//被点击的marker
-	private Circle circle, circle2;//七级风圈和十级风圈
 	private float zoom = 5.0f;
+	private List<Polygon> windCirclePolygons = new ArrayList<>();//风圈
 	private List<Polyline> fullLines = new ArrayList<Polyline>();//实线数据
 	private List<Polyline> dashLines = new ArrayList<Polyline>();//虚线数据
 	private List<Marker> markerPoints = new ArrayList<Marker>();//台风点数据
@@ -401,79 +403,77 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 										String result = requestResult.substring(requestResult.indexOf(c)+c.length(), requestResult.indexOf(c2)+1);
 										if (!TextUtils.isEmpty(result)) {
 											JSONObject obj = new JSONObject(result);
-											if (obj != null) {
-												if (!obj.isNull("typhoonList")) {
-													JSONArray array = obj.getJSONArray("typhoonList");
-													for (int i = 0; i < array.length(); i++) {
-														JSONArray itemArray = array.getJSONArray(i);
-														TyphoonDto dto = new TyphoonDto();
-														dto.id = itemArray.getString(0);
-														dto.enName = itemArray.getString(1);
-														if (TextUtils.equals(dto.enName, "nameless")) {
-															dto.code = "";
-														}else {
-															dto.code = itemArray.getString(4);
-														}
-														dto.name = itemArray.getString(2);
-														dto.status = itemArray.getString(7);
-														nameList.add(dto);
-
-														//把活跃台风过滤出来存放
-														if (TextUtils.equals(dto.status, "start")) {
-															startList.add(dto);
-														}
+											if (!obj.isNull("typhoonList")) {
+												JSONArray array = obj.getJSONArray("typhoonList");
+												for (int i = 0; i < array.length(); i++) {
+													JSONArray itemArray = array.getJSONArray(i);
+													TyphoonDto dto = new TyphoonDto();
+													dto.id = itemArray.getString(0);
+													dto.enName = itemArray.getString(1);
+													if (TextUtils.equals(dto.enName, "nameless")) {
+														dto.code = "";
+													}else {
+														dto.code = itemArray.getString(4);
 													}
+													dto.name = itemArray.getString(2);
+													dto.status = itemArray.getString(7);
+													nameList.add(dto);
 
-													String typhoonName = "";
-													for (int i = startList.size()-1; i >= 0; i--) {
-														TyphoonDto data = startList.get(i);
-														if (TextUtils.equals(data.enName, "nameless")) {
-															if (!TextUtils.isEmpty(typhoonName)) {
-																typhoonName = data.enName+"\n"+typhoonName;
-															}else {
-																typhoonName = data.enName;
-															}
-															String detailUrl = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/view/" + data.id;
-															OkHttpTyphoonDetail(data.id, detailUrl, data.code + " " + data.enName);
-														}else {
-															if (!TextUtils.isEmpty(typhoonName)) {
-																typhoonName = data.code + " " + data.name + " " + data.enName+"\n"+typhoonName;;
-															}else {
-																typhoonName = data.code + " " + data.name + " " + data.enName;
-															}
-															String detailUrl = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/view/" + data.id;
-															OkHttpTyphoonDetail(data.id, detailUrl, data.code + " " + data.name + " " + data.enName);
-														}
+													//把活跃台风过滤出来存放
+													if (TextUtils.equals(dto.status, "start")) {
+														startList.add(dto);
 													}
-													tvTyphoonName.setText(typhoonName);
-
-													if (startList.size() == 0) {// 没有生效台风
-														if (currentYear == selectYear) {// 判断选中年数==当前年数
-															tvTyphoonName.setText(getString(R.string.no_typhoon));
-														}else {
-															tvTyphoonName.setText(selectYear+"年");
-														}
-														ivTyphoonPlay.setVisibility(View.GONE);
-														ivTyphoonRange.setVisibility(View.GONE);
-														progressBar.setVisibility(View.GONE);
-													} else if (startList.size() == 1) {// 1个生效台风
-														ivTyphoonPlay.setVisibility(View.VISIBLE);
-														ivTyphoonRange.setVisibility(View.VISIBLE);
-														mRadarManager = new CaiyunManager(getApplicationContext());
-														OkHttpMinute("http://api.tianqi.cn:8070/v1/img.py");
-														OkHttpCloud("http://decision-admin.tianqi.cn/Home/other/getDecisionCloudImages");
-													} else {// 2个以上生效台风
-														ivTyphoonPlay.setVisibility(View.GONE);
-														ivTyphoonRange.setVisibility(View.VISIBLE);
-														mRadarManager = new CaiyunManager(getApplicationContext());
-														OkHttpMinute("http://api.tianqi.cn:8070/v1/img.py");
-														OkHttpCloud("http://decision-admin.tianqi.cn/Home/other/getDecisionCloudImages");
-													}
-													tvTyphoonName.setVisibility(View.VISIBLE);
 												}
 
-												initNameListView();
+												String typhoonName = "";
+												for (int i = startList.size()-1; i >= 0; i--) {
+													TyphoonDto data = startList.get(i);
+													if (TextUtils.equals(data.enName, "nameless")) {
+														if (!TextUtils.isEmpty(typhoonName)) {
+															typhoonName = data.enName+"\n"+typhoonName;
+														}else {
+															typhoonName = data.enName;
+														}
+														String detailUrl = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/view/" + data.id;
+														OkHttpTyphoonDetail(data.id, detailUrl, data.code + " " + data.enName);
+													}else {
+														if (!TextUtils.isEmpty(typhoonName)) {
+															typhoonName = data.code + " " + data.name + " " + data.enName+"\n"+typhoonName;;
+														}else {
+															typhoonName = data.code + " " + data.name + " " + data.enName;
+														}
+														String detailUrl = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/view/" + data.id;
+														OkHttpTyphoonDetail(data.id, detailUrl, data.code + " " + data.name + " " + data.enName);
+													}
+												}
+												tvTyphoonName.setText(typhoonName);
+
+												if (startList.size() == 0) {// 没有生效台风
+													if (currentYear == selectYear) {// 判断选中年数==当前年数
+														tvTyphoonName.setText(getString(R.string.no_typhoon));
+													}else {
+														tvTyphoonName.setText(selectYear+"年");
+													}
+													ivTyphoonPlay.setVisibility(View.GONE);
+													ivTyphoonRange.setVisibility(View.GONE);
+													progressBar.setVisibility(View.GONE);
+												} else if (startList.size() == 1) {// 1个生效台风
+													ivTyphoonPlay.setVisibility(View.VISIBLE);
+													ivTyphoonRange.setVisibility(View.VISIBLE);
+													mRadarManager = new CaiyunManager(getApplicationContext());
+													OkHttpMinute("http://api.tianqi.cn:8070/v1/img.py");
+													OkHttpCloud("http://decision-admin.tianqi.cn/Home/other/getDecisionCloudImages");
+												} else {// 2个以上生效台风
+													ivTyphoonPlay.setVisibility(View.GONE);
+													ivTyphoonRange.setVisibility(View.VISIBLE);
+													mRadarManager = new CaiyunManager(getApplicationContext());
+													OkHttpMinute("http://api.tianqi.cn:8070/v1/img.py");
+													OkHttpCloud("http://decision-admin.tianqi.cn/Home/other/getDecisionCloudImages");
+												}
+												tvTyphoonName.setVisibility(View.VISIBLE);
 											}
+
+											initNameListView();
 										}
 									}else {
 										tvTyphoonName.setText(getString(R.string.no_typhoon));
@@ -653,17 +653,9 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 													for (int m = 0; m < array10.length(); m++) {
 														JSONArray itemArray10 = array10.getJSONArray(m);
 														if (m == 0) {
-															dto.radius_7 = itemArray10.getString(1);
-															dto.en_radius_7 = itemArray10.getString(1);
-															dto.es_radius_7 = itemArray10.getString(2);
-															dto.wn_radius_7 = itemArray10.getString(3);
-															dto.ws_radius_7 = itemArray10.getString(4);
+															dto.radius_7 = itemArray10.getString(1)+","+itemArray10.getString(2)+","+itemArray10.getString(3)+","+itemArray10.getString(4);
 														}else if (m == 1) {
-															dto.radius_10 = itemArray10.getString(1);
-															dto.en_radius_10 = itemArray10.getString(1);
-															dto.es_radius_10 = itemArray10.getString(2);
-															dto.wn_radius_10 = itemArray10.getString(3);
-															dto.ws_radius_10 = itemArray10.getString(4);
+															dto.radius_10 = itemArray10.getString(1)+","+itemArray10.getString(2)+","+itemArray10.getString(3)+","+itemArray10.getString(4);
 														}
 													}
 													points.add(dto);
@@ -847,14 +839,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			for (int i = 0; i < markerTimes.size(); i++) {//清除预报点时间
 				markerTimes.get(i).remove();
 			}
-			if (circle != null) {//清除七级风圈
-				circle.remove();
-				circle = null;
-			}
-			if (circle2 != null) {//清除十级风圈
-				circle2.remove();
-				circle2 = null;
-			}
+			removeWindCircle();
 			for (int i = 0; i < rotateMarkers.size(); i++) {
 				rotateMarkers.get(i).remove();
 			}
@@ -890,14 +875,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		for (int i = 0; i < markerPoints.size(); i++) {//清除台风点
 			markerPoints.get(i).remove();
 		}
-		if (circle != null) {//清除七级风圈
-			circle.remove();
-			circle = null;
-		}
-		if (circle2 != null) {//清除十级风圈
-			circle2.remove();
-			circle2 = null;
-		}
+		removeWindCircle();
 		for (int i = 0; i < rotateMarkers.size(); i++) {
 			rotateMarkers.get(i).remove();
 		}
@@ -1059,7 +1037,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		}
 		
 		MarkerOptions options = new MarkerOptions();
-		options.title(start.name+"|"+start.content(mContext));
+		options.title(start.name+"|"+start.content(mContext)+"|"+start.radius_7+"|"+start.radius_10);
 		options.snippet(start.radius_7+","+start.radius_10);
 		options.anchor(0.5f, 0.5f);
 		options.position(new LatLng(start.lat, start.lng));
@@ -1123,26 +1101,9 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			tOption.icons(iconList);
 			tOption.period(2);
 
-			
-			if (circle != null) {
-				circle.remove();
-				circle = null;
-			}
-			if (!TextUtils.isEmpty(start.radius_7)) {
-				circle = aMap.addCircle(new CircleOptions().center(new LatLng(start.lat, start.lng))
-						.radius(Double.valueOf(start.radius_7)*1000).strokeColor(Color.YELLOW)
-						.fillColor(0x30000000).strokeWidth(5));
-			}
-			
-			if (circle2 != null) {
-				circle2.remove();
-				circle2 = null;
-			}
-			if (!TextUtils.isEmpty(start.radius_10)) {
-				circle2 = aMap.addCircle(new CircleOptions().center(new LatLng(start.lat, start.lng))
-						.radius(Double.valueOf(start.radius_10)*1000).strokeColor(Color.RED)
-						.fillColor(0x30ffffff).strokeWidth(5));
-			}
+
+			//绘制最后一个实况点对应的七级、十级风圈
+			drawWindCircle(start.radius_7, start.radius_10, new LatLng(start.lat, start.lng));
 			
 			View timeView = inflater.inflate(R.layout.layout_marker_time, null);
 			TextView tvTime = (TextView) timeView.findViewById(R.id.tvTime);
@@ -1211,6 +1172,86 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			mo.icon(BitmapDescriptorFactory.fromView(timeView));
 			Marker m = aMap.addMarker(mo);
 			timeMarkers.add(m);
+		}
+	}
+
+	/**
+	 * 清除七级、十级风圈
+	 */
+	private void removeWindCircle() {
+		for (Polygon polygon : windCirclePolygons) {
+			polygon.remove();
+		}
+		windCirclePolygons.clear();
+	}
+
+	/**
+	 * 绘制七级、十级风圈
+	 */
+	private void drawWindCircle(String radius_7, String radius_10, LatLng center) {
+		removeWindCircle();
+
+		//七级风圈
+		if (!TextUtils.isEmpty(radius_7) && !TextUtils.equals(radius_7, "null") && radius_7.contains(",")) {
+			String[] radiuss = radius_7.split(",");
+			List<LatLng> wind7Points = new ArrayList<>();
+			getWindCirclePoints(center, radiuss[0], 0, wind7Points);
+			getWindCirclePoints(center, radiuss[3], 90, wind7Points);
+			getWindCirclePoints(center, radiuss[2], 180, wind7Points);
+			getWindCirclePoints(center, radiuss[1], 270, wind7Points);
+			if (wind7Points.size() > 0) {
+				PolygonOptions polygonOptions = new PolygonOptions();
+				polygonOptions.strokeWidth(3).strokeColor(Color.YELLOW).fillColor(0x20FFFF00);
+				for (LatLng latLng : wind7Points) {
+					polygonOptions.add(latLng);
+				}
+				Polygon polygon = aMap.addPolygon(polygonOptions);
+				windCirclePolygons.add(polygon);
+			}
+		}
+
+		//十级风圈
+		if (!TextUtils.isEmpty(radius_10) && !TextUtils.equals(radius_10, "null") && radius_10.contains(",")) {
+			String[] radiuss = radius_10.split(",");
+			List<LatLng> wind10Points = new ArrayList<>();
+			getWindCirclePoints(center, radiuss[0], 0, wind10Points);
+			getWindCirclePoints(center, radiuss[3], 90, wind10Points);
+			getWindCirclePoints(center, radiuss[2], 180, wind10Points);
+			getWindCirclePoints(center, radiuss[1], 270, wind10Points);
+			if (wind10Points.size() > 0) {
+				PolygonOptions polygonOptions = new PolygonOptions();
+				polygonOptions.strokeWidth(3).strokeColor(Color.RED).fillColor(0x20FF0000);
+				for (LatLng latLng : wind10Points) {
+					polygonOptions.add(latLng);
+				}
+				Polygon polygon = aMap.addPolygon(polygonOptions);
+				windCirclePolygons.add(polygon);
+			}
+		}
+
+	}
+
+	/**
+	 * 获取风圈经纬度点集合
+	 * @param center
+	 * @param radius
+	 * @param startAngle
+	 * @return
+	 */
+	private void getWindCirclePoints(LatLng center, String radius, double startAngle, List<LatLng> points) {
+		if (!TextUtils.isEmpty(radius) && !TextUtils.equals(radius, "null")) {
+			double r = 6371000.79;
+			int numpoints = 90;
+			double phase = Math.PI/2 / numpoints;
+
+			for (int i = 0; i <= numpoints; i++) {
+				double dx = (Integer.valueOf(radius)*1000 * Math.cos((i+startAngle) * phase));
+				double dy = (Integer.valueOf(radius)*1000 * Math.sin((i+startAngle) * phase));//乘以1.6 椭圆比例
+				double lng = center.longitude + dx / (r * Math.cos(center.latitude * Math.PI / 180) * Math.PI / 180);
+				double lat = center.latitude + dy / (r * Math.PI / 180);
+				points.add(new LatLng(lat, lng));
+			}
+
 		}
 	}
 
@@ -1329,37 +1370,24 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	}
 	
 	@Override
-	public boolean onMarkerClick(Marker arg0) {
+	public boolean onMarkerClick(Marker marker) {
 		for (int i = 0; i < infoMarkers.size(); i++) {
 			infoMarkers.get(i).remove();
 		}
 		infoMarkers.clear();
-		
-		clickMarker = arg0;
-		if (arg0 == null) {
-			return false;
-		}
-		arg0.showInfoWindow();
-		
-		String[] snippet = arg0.getSnippet().split(",");
-		if (circle != null) {
-			circle.remove();
-			circle = null;
-		}
-		if (!TextUtils.isEmpty(snippet[0]) && !TextUtils.equals(snippet[0], "null")) {
-			circle = aMap.addCircle(new CircleOptions().center(arg0.getPosition())
-					.radius(Double.valueOf(snippet[0])*1000).strokeColor(Color.RED)
-					.fillColor(0x30000000).strokeWidth(5));
-		}
-		
-		if (circle2 != null) {
-			circle2.remove();
-			circle2 = null;
-		}
-		if (!TextUtils.isEmpty(snippet[1]) && !TextUtils.equals(snippet[1], "null")) {
-			circle2 = aMap.addCircle(new CircleOptions().center(arg0.getPosition())
-					.radius(Double.valueOf(snippet[1])*1000).strokeColor(Color.YELLOW)
-					.fillColor(0x30ffffff).strokeWidth(5));
+
+		if (marker != null && marker != locationMarker) {
+			if (!TextUtils.isEmpty(marker.getTitle())) {
+				String[] title = marker.getTitle().split("\\|");
+				drawWindCircle(title[2], title[3], marker.getPosition());
+			}
+
+			clickMarker = marker;
+			if (clickMarker.isInfoWindowShown()) {
+				clickMarker.hideInfoWindow();
+			}else {
+				marker.showInfoWindow();
+			}
 		}
 		
 		return true;
@@ -1383,31 +1411,9 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		}
 		infoMarkers.clear();
 
-		if (clickMarker != null) {
+		if (clickMarker != null && clickMarker.isInfoWindowShown()) {
 			clickMarker.hideInfoWindow();
-			if (circle != null) {//清除七级风圈
-				circle.remove();
-				circle = null;
-			}
-			if (circle2 != null) {//清除十级风圈
-				circle2.remove();
-				circle2 = null;
-			}
 		}
-
-//		if (reLegend.getVisibility() == View.VISIBLE) {
-//			legendAnimation(true, reLegend);
-//			reLegend.setVisibility(View.GONE);
-//			ivLegend.setClickable(true);
-//			ivTyphoonList.setClickable(true);
-//		}
-//
-//		if (reTyphoonList.getVisibility() == View.VISIBLE) {
-//			legendAnimation(true, reTyphoonList);
-//			reTyphoonList.setVisibility(View.GONE);
-//			ivLegend.setClickable(true);
-//			ivTyphoonList.setClickable(true);
-//		}
 	}
 	
 	@Override
