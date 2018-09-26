@@ -582,48 +582,24 @@ public class CommonUtil {
 	 * @param context
 	 * @param aMap
 	 */
-	public static void drawAllDistrict(Context context, AMap aMap, int color, List<Polyline> polyLineList) {
+	public static void drawAllDistrict(Context context, AMap aMap, List<Polyline> polyLineList) {
 		if (aMap == null) {
 			return;
 		}
-		String result = CommonUtil.getFromAssets(context, "hai_nan.geo.json");
+		String result = CommonUtil.getFromAssets(context, "hnGeo.json");
 		if (!TextUtils.isEmpty(result)) {
 			try {
 				JSONObject obj = new JSONObject(result);
-				JSONArray array = obj.getJSONArray("features");
-				for (int i = 0; i < array.length(); i++) {
-					JSONObject itemObj = array.getJSONObject(i);
-
-//					JSONObject properties = itemObj.getJSONObject("properties");
-//					String name = properties.getString("name");
-//						JSONArray cp = properties.getJSONArray("cp");
-//						for (int m = 0; m < cp.length(); m++) {
-//							double lat = cp.getDouble(1);
-//							double lng = cp.getDouble(0);
-//
-//							LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//							View view = inflater.inflate(R.layout.rainfall_fact_marker_view2, null);
-//							TextView tvName = (TextView) view.findViewById(R.id.tvName);
-//							if (!TextUtils.isEmpty(name)) {
-//								tvName.setText(name);
-//							}
-//							MarkerOptions options = new MarkerOptions();
-//							options.anchor(0.5f, 0.5f);
-//							options.position(new LatLng(lat, lng));
-//							options.icon(BitmapDescriptorFactory.fromView(view));
-//							aMap.addMarker(options);
-//						}
-
-					JSONObject geometry = itemObj.getJSONObject("geometry");
-					JSONArray coordinates = geometry.getJSONArray("coordinates");
-					for (int m = 0; m < coordinates.length(); m++) {
-						JSONArray array2 = coordinates.getJSONArray(m);
+				if (!obj.isNull("polyline")) {
+					String[] polylines = obj.getString("polyline").split("\\|");
+					for (int i = 0; i < polylines.length; i++) {
 						PolylineOptions polylineOption = new PolylineOptions();
-						polylineOption.width(1).color(color);
-						for (int j = 0; j < array2.length(); j++) {
-							JSONArray itemArray = array2.getJSONArray(j);
-							double lng = itemArray.getDouble(0);
-							double lat = itemArray.getDouble(1);
+						polylineOption.width(2).color(0xff999999);
+						String[] array = polylines[i].split(";");
+						for (int j = 0; j < array.length; j++) {
+							String[] latLng = array[j].split(",");
+							double lng = Double.valueOf(latLng[0]);
+							double lat = Double.valueOf(latLng[1]);
 							polylineOption.add(new LatLng(lat, lng));
 						}
 						Polyline polyLine = aMap.addPolyline(polylineOption);

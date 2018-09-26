@@ -135,7 +135,6 @@
     <orderEntry type="library" name="Gradle: com.android.support:support-core-utils-27.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-ui-27.1.0" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/umeng-share-QQ-simplify-6.9.3.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/utdid4all-1.1.5.3_proguard.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.amap.api:3dmap:5.7.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-fragment-27.1.0" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.core:runtime-1.1.0" level="project" />

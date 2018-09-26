@@ -29,7 +29,6 @@ import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.OnMapClickListener;
-import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptor;
@@ -53,7 +52,6 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
-import com.android.lib.data.CONST;
 import com.android.lib.util.CaiyunManager;
 import com.android.lib.util.CaiyunManager.RadarListener;
 import com.pmsc.weather4decision.phone.hainan.R;
@@ -978,7 +976,7 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 				}
 				
 				removePolylines();
-				CommonUtil.drawAllDistrict(getActivity(), aMap, 0xff72e5f3, polylines);
+				CommonUtil.drawAllDistrict(getActivity(), aMap, polylines);
 				break;
 
 			default:
@@ -995,7 +993,7 @@ OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 		if (aMap == null) {
 			return;
 		}
-		String result = Utils.getFromAssets(getActivity(), "hnGeo2.json");
+		String result = Utils.getFromAssets(getActivity(), "all_citys.json");
 		if (!TextUtils.isEmpty(result)) {
 			AsynLoadTaskDistrict task = new AsynLoadTaskDistrict(result);  
 			task.execute();

@@ -638,7 +638,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 		if (aMap == null) {
 			return;
 		}
-		String result = Utils.getFromAssets(mContext, "hnGeo2.json");
+		String result = Utils.getFromAssets(mContext, "all_citys.json");
 		if (!TextUtils.isEmpty(result)) {
 			AsynLoadTaskDistrict task = new AsynLoadTaskDistrict(result);  
 			task.execute();
@@ -1064,41 +1064,44 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 				int g = c.getInt(1);
 				int b = c.getInt(2);
 				int a = (int) (c.getInt(3)*255*1.0);
-				
-				double centerLat = 0;
-				double centerLng = 0;
-				String p = itemObj.getString("p");
-				if (!TextUtils.isEmpty(p)) {
-					String[] points = p.split(";");
-					PolygonOptions polygonOption = new PolygonOptions();
-					polygonOption.fillColor(Color.argb(a, r, g, b));
-					polygonOption.strokeColor(Color.BLACK);
-					polygonOption.strokeWidth(1);
-					for (int j = 0; j < points.length; j++) {
-						String[] value = points[j].split(",");
-						double lat = Double.valueOf(value[1]);
-						double lng = Double.valueOf(value[0]);
-						polygonOption.add(new LatLng(lat, lng));
-						if (j == points.length/2) {
-							centerLat = lat;
-							centerLng = lng;
+
+				if (a != 0) {
+					double centerLat = 0;
+					double centerLng = 0;
+					String p = itemObj.getString("p");
+					if (!TextUtils.isEmpty(p)) {
+						String[] points = p.split(";");
+						PolygonOptions polygonOption = new PolygonOptions();
+						polygonOption.fillColor(Color.argb(a, r, g, b));
+						polygonOption.strokeColor(Color.BLACK);
+						polygonOption.strokeWidth(1);
+						for (int j = 0; j < points.length; j++) {
+							String[] value = points[j].split(",");
+							double lat = Double.valueOf(value[1]);
+							double lng = Double.valueOf(value[0]);
+							polygonOption.add(new LatLng(lat, lng));
+							if (j == points.length/2) {
+								centerLat = lat;
+								centerLng = lng;
+							}
 						}
+						Polygon polygon = aMap.addPolygon(polygonOption);
+						polygons.add(polygon);
 					}
-					Polygon polygon = aMap.addPolygon(polygonOption);
-					polygons.add(polygon);
+
+					if (!itemObj.isNull("v")) {
+						int v = itemObj.getInt("v");
+						TextOptions options = new TextOptions();
+						options.position(new LatLng(centerLat, centerLng));
+						options.fontColor(Color.BLACK);
+						options.fontSize(20);
+						options.text(v+"");
+						options.backgroundColor(Color.TRANSPARENT);
+						Text text = aMap.addText(options);
+						texts.add(text);
+					}
 				}
-				
-				if (!itemObj.isNull("v")) {
-					int v = itemObj.getInt("v");
-					TextOptions options = new TextOptions();
-					options.position(new LatLng(centerLat, centerLng));
-					options.fontColor(Color.BLACK);
-					options.fontSize(20);
-					options.text(v+"");
-					options.backgroundColor(Color.TRANSPARENT);
-					Text text = aMap.addText(options);
-					texts.add(text);
-				}
+
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -1152,7 +1155,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 					circles.add(circle);
 				}
 
-				CommonUtil.drawAllDistrict(mContext, aMap, 0xff72e5f3, polylines);
+				CommonUtil.drawAllDistrict(mContext, aMap, polylines);
 				break;
 
 			default:
