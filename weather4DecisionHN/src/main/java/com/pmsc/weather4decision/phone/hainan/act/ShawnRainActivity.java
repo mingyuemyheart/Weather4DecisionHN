@@ -82,54 +82,34 @@ import okhttp3.Response;
 
 /**
  * 实况资料
- * @author shawn_sun
- *
  */
-
 public class ShawnRainActivity extends BaseActivity implements OnClickListener, OnCameraChangeListener{
 	
-	private Context mContext = null;
-	private RelativeLayout reTitle = null;
-	private TextView tvTitle = null;
-	private TextView tvControl = null;
+	private Context mContext;
+	private RelativeLayout reTitle;
 	private final static String CHANNEL_DATA = "channel_data";
-	private LinearLayout llBack = null;
-	private LinearLayout llContainer2 = null;
-	private LinearLayout llContainer = null;
-	private LinearLayout llContainer1 = null;
-	private String url = null;
-	private MapView mapView = null;//高德地图
-	private AMap aMap = null;//高德地图
-	private TextView tvLayerName = null;
-	private String layerName = null;
-	private String startTime = null,  endTime = null;
+	private LinearLayout llContainer,llContainer1,llContainer2;
+	private String url,layerName,startTime,endTime;
+	private MapView mapView;//高德地图
+	private AMap aMap;//高德地图
+	private TextView tvLayerName,tvToast,tvIntro;
 	private int selectId = 0;
-	private TextView tvToast = null;
-	private ImageView ivChart = null;
-	private TextView tvDetail = null;
-	private TextView tvHistory = null;
+	private ImageView ivChart;
 	private ProgressBar progressBar = null;
-	private List<Polygon> polygons = new ArrayList<Polygon>();
-	private List<Polyline> polylines = new ArrayList<Polyline>();
-	private List<ShawnRainDto> times = new ArrayList<ShawnRainDto>();
-	private List<ShawnRainDto> realDatas = new ArrayList<ShawnRainDto>();
+	private List<Polygon> polygons = new ArrayList<>();
+	private List<Polyline> polylines = new ArrayList<>();
+	private List<ShawnRainDto> times = new ArrayList<>();
+	private List<ShawnRainDto> realDatas = new ArrayList<>();
 	public static String childId = null;
-	private String title = null;
-	private String stationName = null;
-	private String area = null;
-	private String val = null;
-	private List<ShawnRainDto> nameList = new ArrayList<ShawnRainDto>();
-	private List<Text> texts = new ArrayList<Text>();//等值线
-	private List<Text> cityNames = new ArrayList<Text>();
-	private List<Circle> circles = new ArrayList<Circle>();
-	private List<ShawnRainDto> dataList = new ArrayList<ShawnRainDto>();
+	private String title,stationName,area,val;
+	private List<Text> texts = new ArrayList<>();//等值线
+	private List<ShawnRainDto> dataList = new ArrayList<>();
 	private int width = 0, height = 0;
 	private float density = 0;
-	private TextView tvIntro = null;
 	private LinearLayout listTitle = null;
 	private ListView listView = null;
 	private ShawnRainAdapter mAdapter = null;
-	private List<ShawnRainDto> mList = new ArrayList<ShawnRainDto>();
+	private List<ShawnRainDto> mList = new ArrayList<>();
 	private LinearLayout llBottom = null;
 	private ScrollView scrollView = null;
 	private LinearLayout llViewPager = null;
@@ -143,40 +123,39 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shawn_rain);
 		mContext = this;
-		initListView();
-		initWidget();
 		initAmap(savedInstanceState);
+		initWidget();
+		initListView();
 	}
 	
 	private void initWidget() {
-		reTitle = (RelativeLayout) findViewById(R.id.reTitle);
-		llBack = (LinearLayout) findViewById(R.id.llBack);
+		reTitle = findViewById(R.id.reTitle);
+		LinearLayout llBack = findViewById(R.id.llBack);
 		llBack.setOnClickListener(this);
-		tvTitle = (TextView) findViewById(R.id.tvTitle);
-		tvControl = (TextView) findViewById(R.id.tvControl);
+		TextView tvTitle = findViewById(R.id.tvTitle);
+		TextView tvControl = findViewById(R.id.tvControl);
 		tvControl.setOnClickListener(this);
 		tvControl.setText("天气统计");
 		tvControl.setVisibility(View.VISIBLE);
-		llContainer2 = (LinearLayout) findViewById(R.id.llContainer2);
-		llContainer = (LinearLayout) findViewById(R.id.llContainer);
-		llContainer1 = (LinearLayout) findViewById(R.id.llContainer1);
-		tvLayerName = (TextView) findViewById(R.id.tvLayerName);
-		progressBar = (ProgressBar) findViewById(R.id.progressBar);
-		ivChart = (ImageView) findViewById(R.id.ivChart);
-		tvDetail = (TextView) findViewById(R.id.tvDetail);
+		llContainer2 = findViewById(R.id.llContainer2);
+		llContainer = findViewById(R.id.llContainer);
+		llContainer1 = findViewById(R.id.llContainer1);
+		tvLayerName = findViewById(R.id.tvLayerName);
+		progressBar = findViewById(R.id.progressBar);
+		ivChart = findViewById(R.id.ivChart);
+		TextView tvDetail = findViewById(R.id.tvDetail);
 		tvDetail.setOnClickListener(this);
-		tvHistory = (TextView) findViewById(R.id.tvHistory);
+		TextView tvHistory = findViewById(R.id.tvHistory);
 		tvHistory.setOnClickListener(this);
-		tvToast = (TextView) findViewById(R.id.tvToast);
-		tvIntro = (TextView) findViewById(R.id.tvIntro);
-		listTitle = (LinearLayout) findViewById(R.id.listTitle);
-		llBottom = (LinearLayout) findViewById(R.id.llBottom);
-		scrollView = (ScrollView) findViewById(R.id.scrollView);
-		llViewPager = (LinearLayout) findViewById(R.id.llViewPager);
-		llRainCheck = (LinearLayout) findViewById(R.id.llRainCheck);
-		tv1 = (TextView) findViewById(R.id.tv1);
-		tv2 = (TextView) findViewById(R.id.tv2);
-		tv3 = (TextView) findViewById(R.id.tv3);
+		tvToast = findViewById(R.id.tvToast);
+		tvIntro = findViewById(R.id.tvIntro);
+		listTitle = findViewById(R.id.listTitle);
+		llBottom = findViewById(R.id.llBottom);
+		llViewPager = findViewById(R.id.llViewPager);
+		llRainCheck = findViewById(R.id.llRainCheck);
+		tv1 = findViewById(R.id.tv1);
+		tv2 = findViewById(R.id.tv2);
+		tv3 = findViewById(R.id.tv3);
 		
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -337,6 +316,59 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 			StatisticUtil.statisticClickCount(columnId);
 		}
 	}
+
+	/**
+	 * 绘制城市名称及行政边界
+	 */
+	private void drawCityNameAndDistrict() {
+		if (aMap == null) {
+			return;
+		}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String result = Utils.getFromAssets(mContext, "all_citys.json");
+				if (!TextUtils.isEmpty(result)) {
+					try {
+						JSONObject obj = new JSONObject(result);
+						if (!obj.isNull("districts")) {
+							JSONArray array = obj.getJSONArray("districts");
+							for (int i = 0; i < array.length(); i++) {
+								JSONObject itemObj = array.getJSONObject(i);
+								ShawnRainDto dto = new ShawnRainDto();
+								if (!itemObj.isNull("name")) {
+									String name = itemObj.getString("name");
+									if (name.contains("五指山")) {
+										dto.cityName = name.substring(0, 3);
+									}else {
+										dto.cityName = name.substring(0, 2);
+									}
+								}
+								if (!itemObj.isNull("center")) {
+									String[] latLng = itemObj.getString("center").split(",");
+									dto.lng = Double.valueOf(latLng[0]);
+									dto.lat = Double.valueOf(latLng[1]);
+								}
+
+								TextOptions options = new TextOptions();
+								options.position(new LatLng(dto.lat+0.05, dto.lng));
+								options.fontColor(Color.BLACK);
+								options.fontSize(20);
+								options.text(dto.cityName);
+								options.backgroundColor(Color.TRANSPARENT);
+								aMap.addText(options);
+							}
+
+							CommonUtil.drawAllDistrict(mContext, aMap, polylines);
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+
+	}
 	
 	/**
 	 * 初始化viewPager
@@ -468,7 +500,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 	 * 初始化高德地图
 	 */
 	private void initAmap(Bundle bundle) {
-		mapView = (MapView) findViewById(R.id.mapView);
+		mapView = findViewById(R.id.mapView);
 		mapView.setVisibility(View.VISIBLE);
 		mapView.onCreate(bundle);
 		if (aMap == null) {
@@ -482,8 +514,10 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 		aMap.getUiSettings().setRotateGesturesEnabled(false);
 		aMap.showMapText(false);
 
-		TextView tvMapNumber = (TextView) findViewById(R.id.tvMapNumber);
+		TextView tvMapNumber = findViewById(R.id.tvMapNumber);
 		tvMapNumber.setText(aMap.getMapContentApprovalNumber());
+
+		scrollView = findViewById(R.id.scrollView);
 		
 		aMap.setOnMapTouchListener(new OnMapTouchListener() {
 			@Override
@@ -510,6 +544,13 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 			.image(BitmapDescriptorFactory.fromResource(R.drawable.empty))
 			.transparency(0.0f));
 		aMap.runOnDrawFrame();
+
+		aMap.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
+			@Override
+			public void onMapLoaded() {
+				drawCityNameAndDistrict();
+			}
+		});
 		
 	}
 	
@@ -625,102 +666,9 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 	}
 	
 	private void initListView() {
-		listView = (ListView) findViewById(R.id.listView);
+		listView = findViewById(R.id.listView);
 		mAdapter = new ShawnRainAdapter(mContext, mList);
 		listView.setAdapter(mAdapter);
-	}
-	
-	/**
-     * 异步解析五中天气现象数据并绘制在地图上
-     */
-	private void drawCityName() {
-		removeCityNames();
-		if (aMap == null) {
-			return;
-		}
-		String result = Utils.getFromAssets(mContext, "all_citys.json");
-		if (!TextUtils.isEmpty(result)) {
-			AsynLoadTaskDistrict task = new AsynLoadTaskDistrict(result);  
-			task.execute();
-		}
-	}
-	
-	private class AsynLoadTaskDistrict extends AsyncTask<Void, Void, Void> {
-		
-		private String result = null;
-		
-		private AsynLoadTaskDistrict(String result) {
-			this.result = result;
-		}
-
-		@Override
-		protected void onPreExecute() {
-			//开始执行
-		}
-		
-		@Override
-		protected void onProgressUpdate(Void... values) {
-		}
-		
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			//执行完毕
-		}
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			try {
-				JSONObject obj = new JSONObject(result);
-//				if (!obj.isNull("polyline")) {
-//					String polyline = obj.getString("polyline");
-//					String[] array1 = polyline.split("\\|");
-//					for (int i = 0; i < 1; i++) {
-//						String[] array2 = array1[i].split(";");
-//						PolygonOptions polylineOption = new PolygonOptions();
-//						polylineOption.strokeColor(0xff999999);
-//						for (int j = 0; j < array2.length; j++) {
-//							String[] array3 = array2[i].split(",");
-//							if (!TextUtils.isEmpty(array3[0]) && !TextUtils.isEmpty(array3[1])) {
-//								double lng = Double.valueOf(array3[0]);
-//								double lat = Double.valueOf(array3[1]);
-//								polylineOption.add(new LatLng(lat, lng));
-//							}
-//						}
-//						aMap.addPolygon(polylineOption);
-//					}
-//				}
-				if (!obj.isNull("districts")) {
-					JSONArray array = obj.getJSONArray("districts");
-					nameList.clear();
-					for (int i = 0; i < array.length(); i++) {
-						JSONObject itemObj = array.getJSONObject(i);
-						ShawnRainDto dto = new ShawnRainDto();
-						if (!itemObj.isNull("name")) {
-							String name = itemObj.getString("name");
-							if (name.contains("五指山")) {
-								dto.cityName = name.substring(0, 3);
-							}else {
-								dto.cityName = name.substring(0, 2);
-							}
-						}
-						if (!itemObj.isNull("center")) {
-							String[] latLng = itemObj.getString("center").split(",");
-							dto.lng = Double.valueOf(latLng[0]);
-							dto.lat = Double.valueOf(latLng[1]);
-						}
-						nameList.add(dto);
-					}
-					
-					Message msg = new Message();
-					msg.what = 101;
-					handler.sendMessage(msg);
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
 	}
 	
 	@Override
@@ -767,9 +715,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
 					@Override
 					public void onFailure(Call call, IOException e) {
-
 					}
-
 					@Override
 					public void onResponse(Call call, Response response) throws IOException {
 						if (!response.isSuccessful()) {
@@ -959,7 +905,6 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 										e.printStackTrace();
 									}
 								}else {
-									drawCityName();
 									removePolygons();
 									progressBar.setVisibility(View.GONE);
 									tvToast.setVisibility(View.VISIBLE);
@@ -989,9 +934,7 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
 					@Override
 					public void onFailure(Call call, IOException e) {
-
 					}
-
 					@Override
 					public void onResponse(Call call, Response response) throws IOException {
 						if (!response.isSuccessful()) {
@@ -1001,7 +944,6 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 						if (!TextUtils.isEmpty(result)) {
 							drawDataToMap(result);
 						}else {
-							drawCityName();
 							removePolygons();
 
 							runOnUiThread(new Runnable() {
@@ -1043,126 +985,81 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 	/**
 	 * 回执区域
 	 */
-	private void drawDataToMap(String result) {
+	private void drawDataToMap(final String result) {
 		if (TextUtils.isEmpty(result) || aMap == null) {
 			return;
 		}
-		removeTexts();
-		removePolygons();
-		
-		try {
-			JSONObject obj = new JSONObject(result);
-			JSONArray array = obj.getJSONArray("l");
-			int length = array.length();
-//			if (length > 200) {
-//				length = 200;
-//			}
-			for (int i = 0; i < length; i++) {
-				JSONObject itemObj = array.getJSONObject(i);
-				JSONArray c = itemObj.getJSONArray("c");
-				int r = c.getInt(0);
-				int g = c.getInt(1);
-				int b = c.getInt(2);
-				int a = (int) (c.getInt(3)*255*1.0);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				removeTexts();
+				removePolygons();
 
-				if (a != 0) {
-					double centerLat = 0;
-					double centerLng = 0;
-					String p = itemObj.getString("p");
-					if (!TextUtils.isEmpty(p)) {
-						String[] points = p.split(";");
-						PolygonOptions polygonOption = new PolygonOptions();
-						polygonOption.fillColor(Color.argb(a, r, g, b));
-						polygonOption.strokeColor(Color.BLACK);
-						polygonOption.strokeWidth(1);
-						for (int j = 0; j < points.length; j++) {
-							String[] value = points[j].split(",");
-							double lat = Double.valueOf(value[1]);
-							double lng = Double.valueOf(value[0]);
-							polygonOption.add(new LatLng(lat, lng));
-							if (j == points.length/2) {
-								centerLat = lat;
-								centerLng = lng;
+				try {
+					JSONObject obj = new JSONObject(result);
+					JSONArray array = obj.getJSONArray("l");
+					int length = array.length();
+					for (int i = 0; i < length; i++) {
+						JSONObject itemObj = array.getJSONObject(i);
+						JSONArray c = itemObj.getJSONArray("c");
+						int r = c.getInt(0);
+						int g = c.getInt(1);
+						int b = c.getInt(2);
+						int a = (int) (c.getInt(3)*255*1.0);
+
+						if (a != 0) {
+							double centerLat = 0;
+							double centerLng = 0;
+							String p = itemObj.getString("p");
+							if (!TextUtils.isEmpty(p)) {
+								String[] points = p.split(";");
+								PolygonOptions polygonOption = new PolygonOptions();
+								polygonOption.fillColor(Color.argb(a, r, g, b));
+								polygonOption.strokeColor(Color.BLACK);
+								polygonOption.strokeWidth(1);
+								for (int j = 0; j < points.length; j++) {
+									String[] value = points[j].split(",");
+									double lat = Double.valueOf(value[1]);
+									double lng = Double.valueOf(value[0]);
+									polygonOption.add(new LatLng(lat, lng));
+									if (j == points.length/2) {
+										centerLat = lat;
+										centerLng = lng;
+									}
+								}
+								Polygon polygon = aMap.addPolygon(polygonOption);
+								polygons.add(polygon);
+							}
+
+							if (!itemObj.isNull("v")) {
+								int v = itemObj.getInt("v");
+								TextOptions options = new TextOptions();
+								options.position(new LatLng(centerLat, centerLng));
+								options.fontColor(Color.BLACK);
+								options.fontSize(20);
+								options.text(v+"");
+								options.backgroundColor(Color.TRANSPARENT);
+								Text text = aMap.addText(options);
+								texts.add(text);
 							}
 						}
-						Polygon polygon = aMap.addPolygon(polygonOption);
-						polygons.add(polygon);
-					}
 
-					if (!itemObj.isNull("v")) {
-						int v = itemObj.getInt("v");
-						TextOptions options = new TextOptions();
-						options.position(new LatLng(centerLat, centerLng));
-						options.fontColor(Color.BLACK);
-						options.fontSize(20);
-						options.text(v+"");
-						options.backgroundColor(Color.TRANSPARENT);
-						Text text = aMap.addText(options);
-						texts.add(text);
 					}
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
 
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						progressBar.setVisibility(View.GONE);
+					}
+				});
+
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		Message msg = new Message();
-		msg.what = 100;
-		handler.sendMessage(msg);
+		}).start();
+
 	}
-	
-	private void removeCityNames() {
-		for (int i = 0; i < cityNames.size(); i++) {
-			cityNames.get(i).remove();
-		}
-		cityNames.clear();
-		
-		for (int i = 0; i < circles.size(); i++) {
-			circles.get(i).remove();
-		}
-		circles.clear();
-	}
-
-	@SuppressLint("HandlerLeak")
-	private Handler handler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case 100:
-//				tvHistory.setVisibility(View.VISIBLE);
-//				tvDetail.setVisibility(View.VISIBLE);
-//				ivChart.setVisibility(View.VISIBLE);
-				progressBar.setVisibility(View.GONE);
-				drawCityName();
-				break;
-			case 101:
-				for (int i = 0; i < nameList.size(); i++) {
-					ShawnRainDto dto = nameList.get(i);
-					TextOptions options = new TextOptions();
-					options.position(new LatLng(dto.lat+0.05, dto.lng));
-					options.fontColor(Color.BLACK);
-					options.fontSize(20);
-					options.text(dto.cityName);
-					options.backgroundColor(Color.TRANSPARENT);
-					Text text = aMap.addText(options);
-					cityNames.add(text);
-					
-					CircleOptions cOptions = new CircleOptions();
-					cOptions.center(new LatLng(dto.lat, dto.lng));
-					cOptions.fillColor(Color.BLACK);
-					cOptions.radius(50.0f);
-					Circle circle = aMap.addCircle(cOptions);
-					circles.add(circle);
-				}
-
-				CommonUtil.drawAllDistrict(mContext, aMap, polylines);
-				break;
-
-			default:
-				break;
-			}
-		};
-	};
 	
 	private void dialogHistory() {
 		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

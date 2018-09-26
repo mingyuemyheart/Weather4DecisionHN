@@ -601,6 +601,7 @@ public class CommonUtil {
 							double lng = Double.valueOf(latLng[0]);
 							double lat = Double.valueOf(latLng[1]);
 							polylineOption.add(new LatLng(lat, lng));
+                            polylineOption.zIndex(1000);
 						}
 						Polyline polyLine = aMap.addPolyline(polylineOption);
 						polyLineList.add(polyLine);
