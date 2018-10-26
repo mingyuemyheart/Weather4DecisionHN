@@ -11,6 +11,7 @@ import com.android.lib.data.JsonMap;
 import com.pmsc.weather4decision.phone.hainan.fragment.ListDocumentFragment;
 import com.pmsc.weather4decision.phone.hainan.fragment.ListWarningFragment;
 import com.pmsc.weather4decision.phone.hainan.fragment.RadarFragment;
+import com.pmsc.weather4decision.phone.hainan.fragment.WebviewFragment;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 
 
@@ -46,6 +47,8 @@ public class ListNavigationPageAdapter extends FragmentPagerAdapter {
 				frag = RadarFragment.newInstance(i, channels.get(i));
 			} else if (columnType.equalsIgnoreCase(Utils.DOCUMENT) || columnType.equalsIgnoreCase(Utils.OLD_DOC)) {
 				frag = ListDocumentFragment.newInstance(i, channels.get(i));
+			} else if (columnType.equalsIgnoreCase(Utils.URL_DATA)) {
+				frag = WebviewFragment.newInstance(i, channels.get(i));
 			}
 			
 			if (frag != null) {

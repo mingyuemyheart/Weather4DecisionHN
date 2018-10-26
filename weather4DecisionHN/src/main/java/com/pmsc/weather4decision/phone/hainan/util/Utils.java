@@ -63,6 +63,7 @@ public class Utils {
 	public final static String               IMAGES     = "imgs";                         //多图数据，雷达，卫星云图界面
 	public final static String               JSON_MAP   = "json_map";                     //json map地图数据，全省预报
 	public final static String               TF_TRACK   = "tf_track";                     //台风路径
+	public final static String				 URL_DATA = "url_data";//普通网页
 	private static HashMap<String, Class<?>> mimeTypes  = new HashMap<String, Class<?>>();
 	static {
 		mimeTypes.put(HOME, MainActivity.class);
