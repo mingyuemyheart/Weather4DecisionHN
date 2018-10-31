@@ -60,7 +60,7 @@ public class ListDocumentFragment extends BaseFragment implements OnItemClickLis
 	public static ListDocumentFragment newInstance(int id, JsonMap data) {
 		ListDocumentFragment newFragment = new ListDocumentFragment();
 		Bundle bundle = new Bundle();
-		bundle.putInt("id", id);
+		bundle.putInt("id", data.getInt("id"));
 		bundle.putString("listUrl", data.getString("listUrl"));
 		bundle.putString("dataUrl", data.getString("dataUrl"));
 		bundle.putString("title", data.getString("title"));
@@ -94,6 +94,8 @@ public class ListDocumentFragment extends BaseFragment implements OnItemClickLis
 		
 		if (id == 0) {
 			initData();
+		}else if (id == 627) {//省级预警
+			emptyView.setText(getString(R.string.no_warning));
 		}
 		return view;
 	}
