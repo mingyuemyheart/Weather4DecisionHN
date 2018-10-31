@@ -91,10 +91,9 @@ public class ListDocumentFragment extends BaseFragment implements OnItemClickLis
 		emptyView = (TextView) view.findViewById(R.id.empty_view);
 		listview = (PullListView) view.findViewById(R.id.pull_list_view);
 		listview.setOnItemClickListener(this);
-		
-		if (id == 0) {
-			initData();
-		}else if (id == 627) {//省级预警
+
+		initData();
+		if (id == 627) {//省级预警
 			emptyView.setText(getString(R.string.no_warning));
 		}
 		return view;
