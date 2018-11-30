@@ -303,7 +303,7 @@ public class ShawnRainDetailActivity extends BaseActivity implements OnClickList
 //        return output;  
 //    }  
 
-	 // 返回中文的首字母  
+	// 返回中文的首字母
     public static String getPinYinHeadChar(String str) {  
         String convert = "";  
         int size = str.length();
