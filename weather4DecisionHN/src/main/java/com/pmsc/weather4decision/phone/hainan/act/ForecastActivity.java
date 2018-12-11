@@ -360,7 +360,11 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 												JSONObject itemObj = jhArray.getJSONObject(i);
 												WeatherDto dto = new WeatherDto();
 												dto.hourlyCode = Integer.valueOf(itemObj.getString("ja"));
-												dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
+                                                if (i == 0 && !TextUtils.isEmpty(l1)) {
+                                                    dto.hourlyTemp = Float.parseFloat(l1);
+                                                }else {
+                                                    dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
+                                                }
 												dto.hourlyTime = itemObj.getString("jf");
 												dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
 												dto.hourlyWindForceCode = Integer.valueOf(itemObj.getString("jd"));
@@ -383,7 +387,11 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 													JSONObject itemObj = jhArray.getJSONObject(i);
 													WeatherDto dto = new WeatherDto();
 													dto.hourlyCode = Integer.valueOf(itemObj.getString("ja"));
-													dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
+                                                    if (i == 0 && !TextUtils.isEmpty(nl1)) {
+                                                        dto.hourlyTemp = Float.parseFloat(nl1);
+                                                    }else {
+                                                        dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
+                                                    }
 													dto.hourlyTime = itemObj.getString("jf");
 													dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
 													dto.hourlyWindForceCode = Integer.valueOf(itemObj.getString("jd"));
