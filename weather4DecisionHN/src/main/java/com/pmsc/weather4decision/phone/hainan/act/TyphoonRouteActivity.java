@@ -322,10 +322,11 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		options.icon(BitmapDescriptorFactory.fromView(view));
 		aMap.addMarker(options);
 	}
-	
+
+	private int currentYear;
 	private void initYearListView() {
 		yearList.clear();
-		final int currentYear = Integer.valueOf(sdf1.format(new Date()));
+		currentYear = Integer.valueOf(sdf1.format(new Date()));
 		int years = 5;//要获取台风的年数
 		for (int i = 0; i < years; i++) {
 			TyphoonDto dto = new TyphoonDto();
@@ -382,7 +383,10 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
 					@Override
 					public void onFailure(Call call, IOException e) {
-
+						String url = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/list/" + (currentYear-1);
+						if (!TextUtils.isEmpty(url)) {
+							OkHttpTyphoonList(url, currentYear, currentYear-1);
+						}
 					}
 
 					@Override
