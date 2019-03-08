@@ -367,7 +367,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
                                                 }
 												dto.hourlyTime = itemObj.getString("jf");
 												dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
-												dto.hourlyWindForceCode = Integer.valueOf(itemObj.getString("jd"));
+												dto.hourlyWindSpeed = Integer.valueOf(itemObj.getString("jd"));
 												hourlyList.add(dto);
 											}
 											//逐小时预报信息
@@ -394,7 +394,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
                                                     }
 													dto.hourlyTime = itemObj.getString("jf");
 													dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
-													dto.hourlyWindForceCode = Integer.valueOf(itemObj.getString("jd"));
+													dto.hourlyWindSpeed = Integer.valueOf(itemObj.getString("jd"));
 													hourlyList.add(dto);
 												}
 												//逐小时预报信息

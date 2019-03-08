@@ -195,7 +195,7 @@ public class CubicView extends View{
 			lineP.setColor(0x30ffffff);
 			lineP.setStyle(Style.FILL);
 			lineP.setStrokeWidth(CommonUtil.dip2px(mContext, 1));
-			float windHeight = h-CommonUtil.dip2px(mContext, WeatherUtil.getHourWindForceHeight(dto.hourlyWindForceCode));
+			float windHeight = h-CommonUtil.dip2px(mContext, WeatherUtil.getHourWindForceHeight(dto.hourlyWindSpeed));
 			canvas.drawRect(dto.x-halfX+CommonUtil.dip2px(mContext, 2), windHeight, dto.x+halfX-CommonUtil.dip2px(mContext, 2), h-CommonUtil.dip2px(mContext, 20), lineP);
 			
 			textP.setColor(getResources().getColor(R.color.white));
@@ -209,7 +209,7 @@ public class CubicView extends View{
 			
 			textP.setColor(getResources().getColor(R.color.white));
 			textP.setTextSize(CommonUtil.dip2px(mContext, 10));
-			String windForce = WeatherUtil.getHourWindForce(dto.hourlyWindForceCode);
+			String windForce = WeatherUtil.getHourWindForce(dto.hourlyWindSpeed);
 			float hWindForce = textP.measureText(windForce);
 			canvas.drawText(windForce, dto.x-hWindForce/2, windHeight-CommonUtil.dip2px(mContext, 3f), textP);
 			
