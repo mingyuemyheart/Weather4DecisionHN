@@ -93,6 +93,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		}else {
 			commonControl();
 		}
+
 	}
 
 	@Override

@@ -271,7 +271,7 @@ OnMarkerClickListener, InfoWindowAdapter, OnClickListener {
 														String[] itemArray = names[j].split(",");
 														String w2 = dto.getString("w2");
 														String w11 = dto.getString("w11");
-														String value = w2;
+														String value;
 														if (!TextUtils.isEmpty(w2)) {
 															value = w2;
 														}else {
