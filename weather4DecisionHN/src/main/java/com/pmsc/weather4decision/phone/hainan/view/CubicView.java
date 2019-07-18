@@ -99,7 +99,11 @@ public class CubicView extends View{
 			}else {
 				itemDivider = 5;
 			}
-			maxTemp = maxTemp+itemDivider*3/2;
+			if (maxTemp - minTemp < 1) {
+				maxTemp = maxTemp+0.1f;
+			}else {
+				maxTemp = maxTemp+itemDivider*3/2;
+			}
 			minTemp = minTemp-itemDivider*3/2;
 		}
 	}

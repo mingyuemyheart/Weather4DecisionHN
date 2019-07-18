@@ -12,8 +12,8 @@ android {
         applicationId "com.pmsc.weather4decision.phone.hainan"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 170
-        versionName "2.1.99"
+        versionCode 171
+        versionName "2.2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -50,7 +50,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('/Users/shawn/Desktop/打包/海南气象/weatherdecision.keystore')
+            storeFile file('/Users/sunxiaoming/Downloads/创新网络/打包/海南气象/weatherdecision.keystore')
             storePassword "123456"
             keyAlias "platomix"
             keyPassword "123456"

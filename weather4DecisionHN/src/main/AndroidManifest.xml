@@ -125,7 +125,7 @@
             android:value="0442acab6f692cd5d00700faff341377" />
 
         <activity
-            android:name="com.pmsc.weather4decision.phone.hainan.act.SplashActivity"
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ShawnWelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
             <intent-filter>

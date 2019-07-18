@@ -21,16 +21,15 @@ import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
 
-
 /**
  * 闪屏页
  */
-public class SplashActivity extends AbsLoginActivity {
+public class ShawnWelcomeActivity extends AbsLoginActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_splash);
+		setContentView(R.layout.shawn_activity_welcome);
 		OkHttpServer();
 	}
 
@@ -67,14 +66,12 @@ public class SplashActivity extends AbsLoginActivity {
 								if (!TextUtils.isEmpty(result)) {
 									try {
 										JSONObject object = new JSONObject(result);
-										if (object != null) {
-											if (!object.isNull("result")) {
-												CONST.SERVER_SWITHER = object.getString("result");
-												SharedPreferences sp = getSharedPreferences("CLOUDOR169", Context.MODE_PRIVATE);
-												Editor editor = sp.edit();
-												editor.putString("flag", object.getString("result"));
-												editor.commit();
-											}
+										if (!object.isNull("result")) {
+											CONST.SERVER_SWITHER = object.getString("result");
+											SharedPreferences sp = getSharedPreferences("CLOUDOR169", Context.MODE_PRIVATE);
+											Editor editor = sp.edit();
+											editor.putString("flag", object.getString("result"));
+											editor.apply();
 										}
 									} catch (JSONException e) {
 										e.printStackTrace();
@@ -82,7 +79,6 @@ public class SplashActivity extends AbsLoginActivity {
 								}
 
                                 doLogin();
-
 							}
 						});
 					}

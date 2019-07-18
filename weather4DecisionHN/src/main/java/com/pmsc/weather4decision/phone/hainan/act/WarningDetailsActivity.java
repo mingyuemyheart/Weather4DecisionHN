@@ -77,7 +77,7 @@ public class WarningDetailsActivity extends AbsDrawerActivity {
 		super.onBackPressed();
 		boolean is_push = getIntent().getBooleanExtra("is_push", false);
 		if (is_push) {
-			openActivity(SplashActivity.class, null);
+			openActivity(ShawnWelcomeActivity.class, null);
 		}
 	}
 }
