@@ -1,4 +1,0 @@
-#Thu Sep 13 15:38:02 CST 2018
-base.0=/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dexMerger/debug/8
-path.0=classes.dex
-renamed.0=classes.dex

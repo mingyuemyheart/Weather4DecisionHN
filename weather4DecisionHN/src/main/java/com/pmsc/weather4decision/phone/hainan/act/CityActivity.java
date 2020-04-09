@@ -1,7 +1,10 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,10 +19,10 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.android.lib.data.JsonMap;
+import com.android.lib.util.DBManager;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.adapter.CityHotAdapter;
 import com.pmsc.weather4decision.phone.hainan.adapter.CitySearchAdapter;
-import com.pmsc.weather4decision.phone.hainan.db.DBDao;
 
 
 /**
@@ -54,8 +57,7 @@ public class CityActivity extends AbsDrawerActivity implements TextWatcher, OnIt
 		
 		hotGrid = (GridView) findViewById(R.id.grid_view);
 		hotGrid.setOnItemClickListener(this);
-		String province = getString(R.string.hainan);
-		List<JsonMap> cityList = DBDao.getInstance(getApplicationContext()).queryByProvince(province);
+		List<JsonMap> cityList = queryHainanCity("海南省");
 		hotAdapter = new CityHotAdapter(cityList);
 		hotGrid.setAdapter(hotAdapter);
 		
@@ -69,6 +71,35 @@ public class CityActivity extends AbsDrawerActivity implements TextWatcher, OnIt
 				searchView.setText("");
 			}
 		});
+	}
+
+	/**
+	 * 查询海南城市
+	 */
+	private List<JsonMap> queryHainanCity(String key) {
+		List<JsonMap> cityList = new ArrayList<>();
+		DBManager dbManager = new DBManager(this);
+		dbManager.openDateBase();
+		dbManager.closeDatabase();
+		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
+		String sql = "select * from warning_id where pro like \"%"+key+"%\" or city like \"%"+key+"%\" or dis like \"%"+key+"%\"";
+		Cursor cursor = database.rawQuery(sql,null);
+		for (int i = 0; i < cursor.getCount(); i++) {
+			cursor.moveToPosition(i);
+			String city_id = cursor.getString(cursor.getColumnIndex("cid"));
+			String district = cursor.getString(cursor.getColumnIndex("dis"));
+			String xianqu = cursor.getString(cursor.getColumnIndex("city"));
+			String province = cursor.getString(cursor.getColumnIndex("pro"));
+
+			JsonMap bean = new JsonMap();
+			bean.put("province", province);
+			bean.put("xianqu", xianqu);
+			bean.put("district", district);
+			bean.put("city_id", city_id);
+			cityList.add(bean);
+		}
+		cursor.close();
+		return cityList;
 	}
 	
 	@Override
@@ -110,7 +141,7 @@ public class CityActivity extends AbsDrawerActivity implements TextWatcher, OnIt
 			listView.setVisibility(View.VISIBLE);
 			
 			String key = String.valueOf(s);
-			List<JsonMap> cityList = DBDao.getInstance(getApplicationContext()).queryByDistrict(key);
+			List<JsonMap> cityList = queryHainanCity(key);
 			sAdapter = new CitySearchAdapter(cityList);
 			listView.setAdapter(sAdapter);
 		} else {

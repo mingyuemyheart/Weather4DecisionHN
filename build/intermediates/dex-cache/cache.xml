@@ -12,6 +12,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/shawn/.android/build-cache/c927dcc2c29b04a7382d20241212bdbf42ddbdd0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_bc14679e63b02540c5e79339e66d0f28e925f9ad.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/scene-final.jar"
         jumboMode="false"
         optimize="true"
@@ -27,6 +36,24 @@
         revision="25.0.3"
         sha1="9cd61d269c88f9fb0eb36cea1efcd596ab74772f">
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/commons-codec-1.7_4befe38406270c02f7b1e4d3bd7bdb59e43696ed.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.10.0/7ef0f1d95bf4c0b3ba30bbae25e0e562b05cf75e/okhttp-3.10.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7ef0f1d95bf4c0b3ba30bbae25e0e562b05cf75e">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/okhttp-3.10.0_a5a8150d9472970aca9d5df47f7d052baf0da0b4.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/adapter-rxjava-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="015cdc1160ebe86e0d45784cc5cdaa7dbb721ee8">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/8/adapter-rxjava-2.1.0_3558ebf283fd67becc68cca3e6db1d4eb6de55ec/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -56,13 +83,76 @@
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/bitmcap-cache-1.0_2f2ca8dcf8a45598f4fc2f52e54569623b363dcf.jar" />
     </item>
     <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/uk-co-senab-photoview.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3746c6e7e5faa897fd6689bfbf19d39b9a4fc0c5">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/uk-co-senab-photoview_162cd6462d2d810a0618ce3f6f04186b5b7d4be1/classes.dex" />
+    </item>
+    <item
         is-multidex="false"
-        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/okio-1.6.0.jar"
+        jar="/Users/shawn/.android/build-cache/c9395eb9aeea056985524d8f9d0161443326dfef/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.3"
-        sha1="cc96a1b8821438d09a3fdbd22f7206d4dee358c3">
-        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/okio-1.6.0_1eefc6c2d3efd9934274db51f9664145875b9ced.jar" />
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_41aa51d5fecd800f2f1ab06c359b0389a4047baf.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/rxandroid-1.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="598d38bd10fd263d3e4e7bc4f0828c3f6b55fe00">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/8/rxandroid-1.1.0_1ff4029d05685af19e5d6ee65ea28637baf6da6d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/GetuiSDK2.11.1.0-support-XMP-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="50f1a4293f045a519eb4748bebdfcbf56b366588">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/GetuiSDK2.11.1.0-support-XMP-1.0.2_08bb800c43915f096ddd80680835950b96b902bf/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/GetuiSDK2.11.1.0-support-HWP-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b33abde974afdb7d5a6458be896ee72f03aca080">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/GetuiSDK2.11.1.0-support-HWP-1.0.2_c414023aaf7d99e0cf44e0afef0054c44ecec696/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/retrofit-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0de0b5bff73ae77e4fa499adf5aae433e78ba036">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/8/retrofit-2.1.0_359f5d7ef98ca011a0f32c8058b8f5a4a0a54c01/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7460cf478de7b02ec4649fa6b44102f16d8ea9cc">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_80d855c47a44c41bc0cd14fa8e3752f089ff88ef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/converter-gson-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="251c822d15bee1346cbfd4278fe7acfbf4910a89">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/8/converter-gson-2.1.0_b49e263d86a6d517b02b4357f848a7595a3d05b4/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -72,6 +162,33 @@
         revision="25.0.3"
         sha1="ade91fc5f0dee573bf0bf9f73ecf1ee04a9688e8">
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/AMap3DMap_5.7.0_AMapSearch_5.7.0_AMapLocation_3.7.0_20171229_5fb0aa3bdcb45d511571aeca1b653f6b38298bb7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.android/build-cache/74168adef9f145d7d3dc7096ef1d0fd06c645946/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_15a1533a06b25963a9312e10657f6bf70413b262.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.android/build-cache/2fec614e8de0f8cd02b43e8fa82183979d0232d6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_87377b33b44b8e2779b3d5a57771a62f4bde8b9d.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_3b34c4f638c0cb9b9cb0eb38231c42d9c7055c61/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -92,13 +209,31 @@
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/GetuiSDK2.11.1.0_b7d5b1d3d3459fe848267338152fc7f2b687f8c4.jar" />
     </item>
     <item
-        is-multidex="false"
-        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/okhttp-3.4.1.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/umeng-analytics-v5.6.3.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="c728a64042cd183a7a2e2fb0b611342278f374c9">
-        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/okhttp-3.4.1_a2ea51a08f94d693d479aadeb52fe277e19ad016.jar" />
+        sha1="8a8255ad63bcf5d7609e26b24d6cc38a3d961d40">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/umeng-analytics-v5.6.3_4de467b1c5ecc24eb4c71500390aed9e5e9a939a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/ChinaWeatherAPI.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c00b40fad1180efe2913f07ec2949c6041bf78ea">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/ChinaWeatherAPI_37ede9915e962e0c8bcfe5834680255ab9e30ff4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/commons-codec-1.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9cd61d269c88f9fb0eb36cea1efcd596ab74772f">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/commons-codec-1.7_4befe38406270c02f7b1e4d3bd7bdb59e43696ed/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -108,6 +243,33 @@
         revision="25.0.3"
         sha1="015cdc1160ebe86e0d45784cc5cdaa7dbb721ee8">
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/adapter-rxjava-2.1.0_3558ebf283fd67becc68cca3e6db1d4eb6de55ec.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/rxjava-1.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2c7e006787229f02dde14b2b30884642febd2542">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/8/rxjava-1.1.1_bd835a20012996ef78a9092cfa0e37eaa4545699/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.android/build-cache/08df6def9ba877375608ace7c204b3db7258463e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_2aba4e1122839c2d8974e5a3bf2072629bc3367f.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/bitmcap-cache-1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6fc26ebcfe9fcb8bd3ce12f081ad7d6f331a8178">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/bitmcap-cache-1.0_2f2ca8dcf8a45598f4fc2f52e54569623b363dcf/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -156,6 +318,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/shawn/.android/build-cache/2f71cdd8da0e165da6f6dbe50b84c0178d2888ff/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_7a7fff8a3b31ab314b78de89e95cbe37411fc5c3.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/pdfViewerLibrary/build/intermediates/bundles/default/libs/converter-gson-2.1.0.jar"
         jumboMode="false"
         optimize="true"
@@ -174,12 +345,75 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/httpmime-4.1.3.jar"
+        jar="/Users/shawn/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.3"
-        sha1="e70d34d98f7f7f3b2b92105b9f2fe2a7a7184461">
-        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/httpmime-4.1.3_326ee6e05336707820e7fe2149e4db14269fef20.jar" />
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/support-annotations-25.1.1_797d61be58730317b6d2821e453eb4048ace6f70.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/pinyin4j-2.5.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ae353005f973da1cd8545b54354504c2503f6865">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/pinyin4j-2.5.0_0e2106cd10f2e0624363839f23a745a572f3b800/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.14.1/3bd22672d0999a1a4d13b542b5dd855a89e69993/okio-1.14.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3bd22672d0999a1a4d13b542b5dd855a89e69993">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/okio-1.14.1_7371bd610ba636d5c37448ede408b72d826fe747.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/AMap3DMap_5.7.0_AMapSearch_5.7.0_AMapLocation_3.7.0_20171229.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ade91fc5f0dee573bf0bf9f73ecf1ee04a9688e8">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/AMap3DMap_5.7.0_AMapSearch_5.7.0_AMapLocation_3.7.0_20171229_5fb0aa3bdcb45d511571aeca1b653f6b38298bb7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/GetuiSDK2.11.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2cb95fc505fb52967a4d818857953b88ba4391bb">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/GetuiSDK2.11.1.0_b7d5b1d3d3459fe848267338152fc7f2b687f8c4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/scene-final.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f83bea50820e42e7d186ff9650a299adab7a26ec">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/scene-final_c42f9c111ff60810bafaed6c2029f1d7635df3f0/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.android/build-cache/b0b4a69c09f65cb5c45933df3094d0eab2a04599/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_57a44c6f3ffd59c2ee99665a3d037de85d772e6d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.android/build-cache/6a4c2e6da7dad4842eb3b22f5ab2fcb32d0ad453/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_911c6e2fa4d0c6976a719d8f1ae7a2f8c6cf58fa.jar" />
     </item>
     <item
         is-multidex="false"
@@ -189,6 +423,33 @@
         revision="25.0.3"
         sha1="8a8255ad63bcf5d7609e26b24d6cc38a3d961d40">
         <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/umeng-analytics-v5.6.3_4de467b1c5ecc24eb4c71500390aed9e5e9a939a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.android/build-cache/49f2426cde20d9ddfdfeaa5c51e6519d412fc632/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/classes_67eb4e7dcad2c45f8ea3d5b65fe68725c07ca9ad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shawn/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.1/d8e711ae108185c59c17b36b3c3f11b20cf9b4d5/gson-2.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d8e711ae108185c59c17b36b3c3f11b20cf9b4d5">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/pre-dexed/release/gson-2.2.1_51a5c7008c1d883ec97178168ba38d56d54f7030.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/libs/GetuiSDK2.11.1.0-support-MZP-1.0.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="017e197c94c97982576e31ae54f6d4f4183fe62c">
+        <dex dex="/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/2/GetuiSDK2.11.1.0-support-MZP-1.0.4_4710143c70718b7745fde36f637a35972f5383cb/classes.dex" />
     </item>
 
 </items>

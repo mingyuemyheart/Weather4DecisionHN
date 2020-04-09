@@ -1,7 +1,0 @@
-#Tue Sep 04 10:05:45 CST 2018
-base.0=/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_3b34c4f638c0cb9b9cb0eb38231c42d9c7055c61
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_80d855c47a44c41bc0cd14fa8e3752f089ff88ef/classes.dex
-base.1=/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_80d855c47a44c41bc0cd14fa8e3752f089ff88ef
-file.0=/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_3b34c4f638c0cb9b9cb0eb38231c42d9c7055c61/classes.dex

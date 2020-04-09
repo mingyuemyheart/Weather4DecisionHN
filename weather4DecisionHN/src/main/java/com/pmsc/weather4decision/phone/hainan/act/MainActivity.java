@@ -1,12 +1,19 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -30,13 +37,13 @@ import com.android.lib.app.MyApplication;
 import com.android.lib.data.CONST;
 import com.android.lib.data.JsonMap;
 import com.android.lib.util.AssetFile;
+import com.android.lib.util.AuthorityUtil;
 import com.android.lib.util.DeviceInfo;
 import com.igexin.sdk.PushManager;
 import com.igexin.sdk.Tag;
 import com.pmsc.weather4decision.phone.hainan.HNApp;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.adapter.MainAdapter;
-import com.pmsc.weather4decision.phone.hainan.db.ParseCityTask;
 import com.pmsc.weather4decision.phone.hainan.http.FetchWeather;
 import com.pmsc.weather4decision.phone.hainan.http.FetchWeather.OnFetchWeatherListener;
 import com.pmsc.weather4decision.phone.hainan.util.AutoUpdateUtil;
@@ -54,6 +61,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,7 +73,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MainActivity extends AbsDrawerActivity implements AMapLocationListener, OnClickListener, OnFetchWeatherListener, HNApp.NavigationListener {
+public class MainActivity extends AbsDrawerActivity implements AMapLocationListener, OnClickListener, OnFetchWeatherListener {
 
 	private Context mContext = null;
 	private AMapLocationClientOption mLocationOption = null;//声明mLocationOption对象
@@ -81,24 +89,19 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		new ParseCityTask().run();
 		initChannelData();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mContext = this;
+		checkMultiAuthority();
+	}
 
-		HNApp.setNavigationListener(this);
+	private void init() {
 		if (!CommonUtil.isLocationOpen(mContext)) {
 			locationDialog(mContext);
 		}else {
 			commonControl();
 		}
-
-	}
-
-	@Override
-	public void showNavigation(boolean show) {
-		onLayoutMeasure();
 	}
 
 	/**
@@ -721,6 +724,58 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 				});
 			}
 		}).start();
+	}
+
+	/**
+	 * 申请定位权限
+	 */
+	private void checkMultiAuthority() {
+		if (Build.VERSION.SDK_INT < 23) {
+			init();
+		}else {
+			AuthorityUtil.deniedList.clear();
+			for (String permission : AuthorityUtil.allPermissions) {
+				if (ContextCompat.checkSelfPermission(mContext, permission) != PackageManager.PERMISSION_GRANTED) {
+					AuthorityUtil.deniedList.add(permission);
+				}
+			}
+			if (AuthorityUtil.deniedList.isEmpty()) {//所有权限都授予
+				init();
+			}else {
+				String[] permissions = AuthorityUtil.deniedList.toArray(new String[AuthorityUtil.deniedList.size()]);//将list转成数组
+				ActivityCompat.requestPermissions(this, permissions, AuthorityUtil.AUTHOR_MULTI);
+			}
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		switch (requestCode) {
+			case AuthorityUtil.AUTHOR_MULTI:
+				if (grantResults.length > 0) {
+					boolean isAllGranted = true;//是否全部授权
+					for (int gResult : grantResults) {
+						if (gResult != PackageManager.PERMISSION_GRANTED) {
+							isAllGranted = false;
+							break;
+						}
+					}
+					if (isAllGranted) {//所有权限都授予
+						init();
+					}else {//只要有一个没有授权，就提示进入设置界面设置
+						AuthorityUtil.intentAuthorSetting(mContext, "\""+getString(R.string.app_name)+"\""+"需要使用您的位置权限、设备信息权限、存储权限，是否前往设置？");
+					}
+				}else {
+					for (String permission : permissions) {
+						if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+							AuthorityUtil.intentAuthorSetting(mContext, "\""+getString(R.string.app_name)+"\""+"需要使用您的位置权限、设备信息权限、存储权限，是否前往设置？");
+							break;
+						}
+					}
+				}
+				break;
+		}
 	}
 
 }

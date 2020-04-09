@@ -1,4 +1,0 @@
-#Tue Sep 04 10:05:45 CST 2018
-base.0=/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1
-renamed.0=classes.dex
-file.0=/Users/shawn/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex
