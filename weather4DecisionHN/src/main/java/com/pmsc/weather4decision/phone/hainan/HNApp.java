@@ -27,7 +27,7 @@ public class HNApp extends Application {
 		UMConfigure.init(this, "58aba143677baa01fe0003ab", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
 		PlatformConfig.setWeixin("wx326e03490187f8db", "faf3d4de00910be263a6eb4ed223d3d0");
 		PlatformConfig.setQQZone("1107769691", "VU9E4fgQfDGcRorR");
-		UMConfigure.setLogEnabled(true);
+		UMConfigure.setLogEnabled(false);
 
 		//初始化个推
 		PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);

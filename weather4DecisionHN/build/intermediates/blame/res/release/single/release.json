@@ -200,10 +200,6 @@
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/day53_mini.png"
     },
     {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_abc_list_divider_material.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable/abc_list_divider_material.xml"
-    },
-    {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable-hdpi_iv_back.png.flat",
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/iv_back.png"
     },
@@ -504,10 +500,6 @@
         "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable-mdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/layout_notification_action_tombstone.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/res/layout/notification_action_tombstone.xml"
-    },
-    {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable-mdpi-v4_abc_tab_indicator_mtrl_alpha.9.png.flat",
         "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable-mdpi-v4/abc_tab_indicator_mtrl_alpha.9.png"
     },
@@ -640,10 +632,6 @@
         "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable-ldrtl-xxhdpi-v17/abc_ic_menu_cut_mtrl_alpha.png"
     },
     {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/layout-v16_notification_template_custom_big.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/res/layout-v16/notification_template_custom_big.xml"
-    },
-    {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_umeng_socialize_edit_bg.xml.flat",
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/umeng_socialize_edit_bg.xml"
     },
@@ -676,10 +664,6 @@
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/seekbar_white.xml"
     },
     {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_abc_edit_text_material.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable/abc_edit_text_material.xml"
-    },
-    {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable-hdpi_qy.png.flat",
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/qy.png"
     },
@@ -700,10 +684,6 @@
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/typhoon_level2.png"
     },
     {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_abc_btn_colored_material.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable/abc_btn_colored_material.xml"
-    },
-    {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/layout_shawn_rain_fact_area_cell.xml.flat",
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/shawn_rain_fact_area_cell.xml"
     },
@@ -718,10 +698,6 @@
     {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable-xhdpi-v4_abc_ic_star_half_black_48dp.png.flat",
         "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable-xhdpi-v4/abc_ic_star_half_black_48dp.png"
-    },
-    {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/layout_notification_template_icon_group.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/res/layout/notification_template_icon_group.xml"
     },
     {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/layout_scroll_content.xml.flat",
@@ -782,10 +758,6 @@
     {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable-xxxhdpi-v4_abc_ic_star_black_36dp.png.flat",
         "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable-xxxhdpi-v4/abc_ic_star_black_36dp.png"
-    },
-    {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/color_abc_btn_colored_borderless_text_material.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/color/abc_btn_colored_borderless_text_material.xml"
     },
     {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_bg_corner_typhoon_time.xml.flat",
@@ -1800,10 +1772,6 @@
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable-hdpi/more.png"
     },
     {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/layout_notification_action.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/res/layout/notification_action.xml"
-    },
-    {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/layout_activity_listview_warning_adapter_header.xml.flat",
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/activity_listview_warning_adapter_header.xml"
     },
@@ -1916,16 +1884,16 @@
         "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable-hdpi-v4/abc_popup_background_mtrl_mult.9.png"
     },
     {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_corner_time.xml.flat",
-        "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/corner_time.xml"
+        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable-v21_abc_action_bar_item_background_material.xml.flat",
+        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable-v21/abc_action_bar_item_background_material.xml"
     },
     {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/layout_drawer_item.xml.flat",
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/layout/drawer_item.xml"
     },
     {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable-v21_abc_action_bar_item_background_material.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable-v21/abc_action_bar_item_background_material.xml"
+        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_corner_time.xml.flat",
+        "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/corner_time.xml"
     },
     {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_login_btn_bg_hover.xml.flat",
@@ -2114,10 +2082,6 @@
     {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_wheel_bg.xml.flat",
         "source": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/res/drawable/wheel_bg.xml"
-    },
-    {
-        "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/drawable_abc_dialog_material_background.xml.flat",
-        "source": "/Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/res/drawable/abc_dialog_material_background.xml"
     },
     {
         "merged": "/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/res/merged/release/color_abc_background_cache_hint_selector_material_dark.xml.flat",

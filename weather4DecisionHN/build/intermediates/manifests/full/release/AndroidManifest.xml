@@ -5,7 +5,7 @@
     android:versionName="2.2.3" >
 
     <uses-sdk
-        android:minSdkVersion="17"
+        android:minSdkVersion="21"
         android:targetSdkVersion="28" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -154,7 +154,7 @@
         <activity
             android:name="com.pmsc.weather4decision.phone.hainan.act.ShawnWelcomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+            android:theme="@style/SplashTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
