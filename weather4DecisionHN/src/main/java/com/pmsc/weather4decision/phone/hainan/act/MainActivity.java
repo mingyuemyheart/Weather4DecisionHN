@@ -318,20 +318,14 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			PreferUtil.saveCurrentDistrict(amapLocation.getDistrict());
 			lat = amapLocation.getLatitude();
 			lng = amapLocation.getLongitude();
-//			lat = 20.023931;
-//			lng = 110.359093;
 			OkHttpGeo(lng, lat);
-
-			if (!TextUtils.isEmpty(amapLocation.getStreet())) {
-				setTitle(amapLocation.getStreet()+amapLocation.getStreetNum());
-				cityName = amapLocation.getStreet()+amapLocation.getStreetNum();
-			}else {
+			if (amapLocation.getDistrict().contains("洋浦")) {
+				setTitle("洋浦经济开发区");
+				cityName = "洋浦经济开发区";
+			} else {
 				setTitle(amapLocation.getDistrict());
 				cityName = amapLocation.getDistrict();
 			}
-
-//			setTitle("海南省气象局");
-//			cityName = "海南省气象局";
         }
 	}
 

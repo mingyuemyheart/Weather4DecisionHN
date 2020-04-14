@@ -12,12 +12,12 @@ android {
         applicationId "com.pmsc.weather4decision.phone.hainan"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 172
-        versionName "2.2.2"
+        versionCode 173
+        versionName "2.2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            abiFilters 'armeabi-v7a', 'armeabi'
+            abiFilters 'armeabi-v7a'
         }
 
         //个推
