@@ -81,6 +81,7 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 	private TextView tvFact1, tvFact2;
 	private String l7, l5, l1, l4, l3, l2;//基本站
 	private String nl7, nl5, nl1, nl4, nl3, nl2;//最近站
+	private JSONObject jh,njh;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -152,8 +153,8 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 	private void OkHttpWeatherInfo(final String cityId) {
 		final String url;
 		if (cityId.startsWith("10131")) {
-			llFactButton.setVisibility(View.VISIBLE);
 			if (lat != 0 && lng != 0) {
+				llFactButton.setVisibility(View.VISIBLE);
 				url = String.format("http://hainan.welife100.com/Public/hnfusion?areaid=%s&lon=%s&lat=%s", cityId, lng, lat);
 			}else {
 				url = "http://hainan.welife100.com/Public/hnfusion?areaid="+cityId;
@@ -241,6 +242,13 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 													nl2 = object.getString("l2");
 												}
 											}
+										}
+
+										//逐小时预报信息
+										jh = array.getJSONObject(3);
+										//海南逐小时预报信息
+										if (array.length() > 5) {
+											njh = array.getJSONObject(5);
 										}
 
 										switchHNFactData(true);
@@ -351,60 +359,6 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 											}
 										}
 
-										//逐小时预报信息
-										JSONObject hour = array.getJSONObject(3);
-										if (!hour.isNull("jh")) {
-											List<WeatherDto> hourlyList = new ArrayList<>();
-											JSONArray jhArray = hour.getJSONArray("jh");
-											for (int i = 0; i < jhArray.length(); i++) {
-												JSONObject itemObj = jhArray.getJSONObject(i);
-												WeatherDto dto = new WeatherDto();
-												dto.hourlyCode = Integer.valueOf(itemObj.getString("ja"));
-                                                if (i == 0 && !TextUtils.isEmpty(l1)) {
-                                                    dto.hourlyTemp = Float.parseFloat(l1);
-                                                }else {
-                                                    dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
-                                                }
-												dto.hourlyTime = itemObj.getString("jf");
-												dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
-												dto.hourlyWindSpeed = Integer.valueOf(itemObj.getString("jd"));
-												hourlyList.add(dto);
-											}
-											//逐小时预报信息
-											CubicView cubicView = new CubicView(mContext);
-											cubicView.setData(hourlyList);
-											llContainer1.removeAllViews();
-											llContainer1.addView(cubicView, width*2, (int)(CommonUtil.dip2px(mContext, 300)));
-										}
-
-										//海南逐小时预报信息
-										if (array.length() > 5) {
-											JSONObject hnHour = array.getJSONObject(5);
-											if (!hnHour.isNull("njh")) {
-												List<WeatherDto> hourlyList = new ArrayList<>();
-												JSONArray jhArray = hnHour.getJSONArray("njh");
-												for (int i = 0; i < jhArray.length(); i++) {
-													JSONObject itemObj = jhArray.getJSONObject(i);
-													WeatherDto dto = new WeatherDto();
-													dto.hourlyCode = Integer.valueOf(itemObj.getString("ja"));
-                                                    if (i == 0 && !TextUtils.isEmpty(nl1)) {
-                                                        dto.hourlyTemp = Float.parseFloat(nl1);
-                                                    }else {
-                                                        dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
-                                                    }
-													dto.hourlyTime = itemObj.getString("jf");
-													dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
-													dto.hourlyWindSpeed = Integer.valueOf(itemObj.getString("jd"));
-													hourlyList.add(dto);
-												}
-												//逐小时预报信息
-												CubicView cubicView = new CubicView(mContext);
-												cubicView.setData(hourlyList);
-												llContainer1.removeAllViews();
-												llContainer1.addView(cubicView, width*2, (int)(CommonUtil.dip2px(mContext, 300)));
-											}
-										}
-
 									} catch (JSONException e) {
 										e.printStackTrace();
 										if (url.startsWith("http://data-fusion.tianqi.cn/datafusion/")) {
@@ -428,8 +382,9 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 	/**
 	 * 切换海南实况数据
 	 */
-	private void switchHNFactData(boolean flag) {
-		if (flag) {//基本站数据
+	private void switchHNFactData(boolean flag){
+		flag = !flag;
+		if (!flag) {//基本站数据
 			if (!TextUtils.isEmpty(l7)) {
 				tvTime.setText(l7 + "发布");
 			}
@@ -456,6 +411,34 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 
 			if (!TextUtils.isEmpty(l2)) {
 				tvHumidity.setText("湿度" + l2 + "%");
+			}
+
+			try {
+				if (!jh.isNull("jh")) {
+					List<WeatherDto> hourlyList = new ArrayList<>();
+					JSONArray jhArray = jh.getJSONArray("jh");
+					for (int i = 0; i < jhArray.length(); i++) {
+						JSONObject itemObj = jhArray.getJSONObject(i);
+						WeatherDto dto = new WeatherDto();
+						dto.hourlyCode = Integer.valueOf(itemObj.getString("ja"));
+						if (i == 0 && !TextUtils.isEmpty(l1)) {
+							dto.hourlyTemp = Float.parseFloat(l1);
+						}else {
+							dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
+						}
+						dto.hourlyTime = itemObj.getString("jf");
+						dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
+						dto.hourlyWindSpeed = Integer.valueOf(itemObj.getString("jd"));
+						hourlyList.add(dto);
+					}
+					//逐小时预报信息
+					CubicView cubicView = new CubicView(mContext);
+					cubicView.setData(hourlyList);
+					llContainer1.removeAllViews();
+					llContainer1.addView(cubicView, width*2, (int)(CommonUtil.dip2px(mContext, 300)));
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 		}else {//最近站数据
 			if (!TextUtils.isEmpty(nl7)) {
@@ -485,8 +468,35 @@ public class ForecastActivity extends BaseActivity implements OnClickListener {
 			if (!TextUtils.isEmpty(nl2)) {
 				tvHumidity.setText("湿度" + nl2 + "%");
 			}
+
+			try {
+				if (njh != null && !njh.isNull("njh")) {
+					List<WeatherDto> hourlyList = new ArrayList<>();
+					JSONArray jhArray = njh.getJSONArray("njh");
+					for (int i = 0; i < jhArray.length(); i++) {
+						JSONObject itemObj = jhArray.getJSONObject(i);
+						WeatherDto dto = new WeatherDto();
+						dto.hourlyCode = Integer.valueOf(itemObj.getString("ja"));
+						if (i == 0 && !TextUtils.isEmpty(nl1)) {
+							dto.hourlyTemp = Float.parseFloat(nl1);
+						}else {
+							dto.hourlyTemp = Float.parseFloat(itemObj.getString("jb"));
+						}
+						dto.hourlyTime = itemObj.getString("jf");
+						dto.hourlyWindDirCode = Integer.valueOf(itemObj.getString("jc"));
+						dto.hourlyWindSpeed = Integer.valueOf(itemObj.getString("jd"));
+						hourlyList.add(dto);
+					}
+					//逐小时预报信息
+					CubicView cubicView = new CubicView(mContext);
+					cubicView.setData(hourlyList);
+					llContainer1.removeAllViews();
+					llContainer1.addView(cubicView, width*2, (int)(CommonUtil.dip2px(mContext, 300)));
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
-		flag = !flag;
 	}
 
 	@Override

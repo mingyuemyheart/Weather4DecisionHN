@@ -1,13 +1,11 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -61,7 +59,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -303,7 +300,7 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
         mLocationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);//设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
         mLocationOption.setNeedAddress(true);//设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setOnceLocation(true);//设置是否只定位一次,默认为false
-        mLocationOption.setMockEnable(true);//设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);//设置是否允许模拟位置,默认为false，不允许模拟位置
         mLocationOption.setInterval(2000);//设置定位间隔,单位毫秒,默认为2000ms
         mLocationClient.setLocationOption(mLocationOption);//给定位客户端对象设置定位参数
         mLocationClient.setLocationListener(this);
