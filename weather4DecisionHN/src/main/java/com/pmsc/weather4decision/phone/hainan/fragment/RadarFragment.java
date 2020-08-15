@@ -128,7 +128,7 @@ public class RadarFragment extends BaseFragment implements OnClickListener, Rada
 		llSeekBar = (LinearLayout) view.findViewById(R.id.llSeekBar);
 		
 		mRadarManager = new RadarManager(getActivity());
-		
+
 		getRadarData(baseUrl);
 	}
 	

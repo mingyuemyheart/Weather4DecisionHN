@@ -315,13 +315,20 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			PreferUtil.saveCurrentDistrict(amapLocation.getDistrict());
 			lat = amapLocation.getLatitude();
 			lng = amapLocation.getLongitude();
-			OkHttpGeo(lng, lat);
-			if (amapLocation.getDistrict().contains("洋浦")) {
+			if (amapLocation.getDistrict().contains("洋浦") || amapLocation.getAddress().contains("洋浦")) {
 				setTitle("洋浦经济开发区");
 				cityName = "洋浦经济开发区";
+				cityId = "101310205_y";
+				if (!TextUtils.isEmpty(cityId)) {
+					PreferUtil.saveCurrentCityId(cityId);
+					getAllWeather();
+					setPushTags();
+					registerDevice(lat, lng);
+				}
 			} else {
 				setTitle(amapLocation.getDistrict());
 				cityName = amapLocation.getDistrict();
+				OkHttpGeo(lng, lat);
 			}
         }
 	}

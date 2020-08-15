@@ -216,7 +216,8 @@ public class TouchImageView extends ImageView {
             float scaleX = (float) viewWidth / (float) bmWidth;
             float scaleY = (float) viewHeight / (float) bmHeight;
             
-            if (TextUtils.equals(id, "612") || TextUtils.equals(id, "629") || TextUtils.equals(id, "641") || TextUtils.equals(id, "642")) {
+            if (TextUtils.equals(id, "612") || TextUtils.equals(id, "629")
+                    || TextUtils.equals(id, "641") || TextUtils.equals(id, "642") || TextUtils.equals(id, "685")) {
             	scale = Math.min(scaleX, scaleY);
             	matrix.setScale(scale, scale);
 
