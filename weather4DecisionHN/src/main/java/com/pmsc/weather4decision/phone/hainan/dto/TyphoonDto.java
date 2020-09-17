@@ -1,5 +1,6 @@
 package com.pmsc.weather4decision.phone.hainan.dto;
 
+import java.math.BigDecimal;
 import java.util.GregorianCalendar;
 
 import android.content.Context;
@@ -77,16 +78,20 @@ public class TyphoonDto {
 			}else if (TextUtils.equals(type, "6")) {
 				strength = context.getString(R.string.typhoon_level6);
 			}
-			buffer.append("台风强度："+strength+"\n");
+			buffer.append("台风强度："+strength);
+			if(!TextUtils.isEmpty(move_speed)){
+				int s = Integer.parseInt(move_speed);
+				float speed = s*1000/3600.0f;
+				BigDecimal bd = new BigDecimal(speed);
+				double d = bd.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+				buffer.append("(").append(d).append(context.getString(R.string.chart_speed1)).append(")\n");
+			}
 		}
 		if(!TextUtils.isEmpty(pressure)){
 			buffer.append(context.getString(R.string.chart_center_pressure)).append(pressure).append(context.getString(R.string.chart_baipa));
 		}
 		if(!TextUtils.isEmpty(wind_dir)){
 			buffer.append(context.getString(R.string.chart_yidong_direct)).append(wind_dir).append("\n");
-		}
-		if(!TextUtils.isEmpty(move_speed)){
-			buffer.append(context.getString(R.string.chart_yidong_speed)).append(move_speed).append(context.getString(R.string.chart_speed2));
 		}
 		if(!TextUtils.isEmpty(radius_7) && !TextUtils.equals("999999", radius_10)){
 			buffer.append(context.getString(R.string.chart_radius1)).append(radius_7).append(context.getString(R.string.chart_kilometer));

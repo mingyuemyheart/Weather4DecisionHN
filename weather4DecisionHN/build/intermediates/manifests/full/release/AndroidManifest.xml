@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pmsc.weather4decision.phone.hainan"
+    android:versionCode="176"
+    android:versionName="2.2.6" >
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- //添加允许安装未知应用市场权限，这个权限不是动态权限，所以不用进行动态申请，否则自动更新功能失效 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- umeng -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <!-- umeng -->
+
+
+    <!-- 个推SDK权限配置开始 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 支持iBeancon 需要蓝牙权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 支持个推3.0 电子围栏功能 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 浮动通知权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- 自定义权限引起与其他应用权限冲突 -->
+    <!-- &lt;!&ndash; 自定义权限 &ndash;&gt; -->
+    <!-- <uses-permission android:name="getui.permission.GetuiService.${applicationId}" /> -->
+
+
+    <!-- <permission -->
+    <!-- android:name="getui.permission.GetuiService.${applicationId}" -->
+    <!-- android:protectionLevel="normal" > -->
+    <!-- </permission> -->
+    <!-- 个推SDK权限配置结束 -->
+
+
+    <!-- 小米辅助 SDK -->
+    <permission
+        android:name="com.pmsc.weather4decision.phone.hainan.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signatureOrSystem" />
+
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="com.pmsc.weather4decision.phone.hainan.permission.MIPUSH_RECEIVE" />
+
+    <!-- 魅族辅助 SDK -->
+    <permission
+        android:name="com.pmsc.weather4decision.phone.hainan.push.permission.MESSAGE"
+        android:protectionLevel="signature" />
+    <permission
+        android:name="com.pmsc.weather4decision.phone.hainan.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />
+    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.pmsc.weather4decision.phone.hainan.push.permission.MESSAGE" />
+    <uses-permission android:name="com.pmsc.weather4decision.phone.hainan.permission.C2D_MESSAGE" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name="com.pmsc.weather4decision.phone.hainan.HNApp"
+        android:allowBackup="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/AppTheme" >
+
+        <!-- 解决android28以后无法使用apache http协议 -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <!-- 自动更新下载完成广播 -->
+        <receiver android:name="com.pmsc.weather4decision.phone.hainan.util.AutoUpdateBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.pmsc.weather4decision.phone.hainan.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ed91998449202f42d81cc15b982e1f37" />
+
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <meta-data
+            android:name="VERSIONTYPE"
+            android:value="ChinaDecision_hainan" />
+        <meta-data
+            android:name="WEATHER_APPKEY"
+            android:value="6f688d62594549a2" />
+        <meta-data
+            android:name="LOGLEVEL"
+            android:value="pn" />
+        <meta-data
+            android:name="TTS_APPKEY"
+            android:value="0442acab6f692cd5d00700faff341377" />
+
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ShawnWelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="@string/channel_id" />
+
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.LoginActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+
+            <meta-data
+                android:name="GROUP_ID"
+                android:value="83" />
+        </activity>
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.CityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ProvinceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ListNavigationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ListNormalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.WarningDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.FeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.TyphoonRouteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ShawnRainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ShawnRainDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.StationMonitorDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ForecastActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.StaticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.PushNewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.ShawnPDFActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- umeng share -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1107769691" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- umeng -->
+
+
+        <!-- 个推SDK配置开始 -->
+        <!-- 配置的第三方参数属性 -->
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="XXWnlGGaHg6RjsNz9ClXg" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="jQw2utiZhT6F0JMrOpoJE8" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="HsfcxVuJ3V6cX057vGjgV3" />
+
+        <!-- 配置SDK核心服务 -->
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.service.message" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="com.igexin.sdk.action.refreshls" />
+                <!-- 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.igexin.sdk.GActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 用户自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复 -->
+        <service android:name="com.pmsc.weather4decision.phone.hainan.service.DemoIntentService" />
+
+        <!-- 用户自定义服务名 -->
+        <service
+            android:name="com.pmsc.weather4decision.phone.hainan.service.DemoPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" />
+        <!-- 个推SDK配置结束 -->
+
+
+        <!-- 华为辅助 SDK -->
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="100122495" />
+
+        <receiver
+            android:name="com.igexin.sdk.HmsPushReceiver"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
+                <action android:name="com.huawei.android.push.intent.RECEIVE" />
+                <action android:name="com.huawei.android.push.intent.CLICK" />
+                <action android:name="com.huawei.intent.action.PUSH_STATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="CS_cloud_ablitity"
+                android:value="successRateAnalytics" />
+        </receiver>
+        <receiver
+            android:name="com.huawei.hms.support.api.push.PushEventReceiver"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.huawei.intent.action.PUSH" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 小米辅助 SDK -->
+        <meta-data
+            android:name="MIPUSH_APPID"
+            android:value="XM_2882303761517633419" />
+        <meta-data
+            android:name="MIPUSH_APPKEY"
+            android:value="XM_5481763311419" />
+
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":pushservice" />
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true"
+            android:process=":pushservice" />
+
+        <receiver
+            android:name="com.igexin.sdk.MiuiPushReceiver"
+            android:exported="true"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 魅族辅助 SDK -->
+        <meta-data
+            android:name="MEIZUPUSH_APPID"
+            android:value="MZ_111600" />
+        <meta-data
+            android:name="MEIZUPUSH_APPKEY"
+            android:value="MZ_849752dd8f9b4b5db11b7649325de6de" />
+
+        <service
+            android:name="com.meizu.cloud.pushsdk.NotificationService"
+            android:exported="true"
+            android:process=":pushservice" />
+
+        <receiver
+            android:name="com.meizu.cloud.pushsdk.SystemReceiver"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.meizu.cloud.pushservice.action.PUSH_SERVICE_START" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.igexin.sdk.FlymePushReceiver"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.meizu.flyme.push.intent.MESSAGE" />
+                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK" />
+                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK" />
+                <action android:name="com.meizu.c2dm.intent.REGISTRATION" />
+                <action android:name="com.meizu.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.pmsc.weather4decision.phone.hainan" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

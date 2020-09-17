@@ -80,7 +80,7 @@ public class RadarManager {
 		    	URLConnection connection = new URL(url).openConnection();
 		    	connection.setConnectTimeout(2000);
 		    	connection.connect();
-		    	
+
 				try {
 					File file = new File(getDir() + "/"+id+"_"+index+".png");
 					FileOutputStream os = new FileOutputStream(file);

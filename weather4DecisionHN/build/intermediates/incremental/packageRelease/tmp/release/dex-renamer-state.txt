@@ -1,0 +1,4 @@
+#Thu Sep 17 14:44:21 CST 2020
+base.0=/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex
