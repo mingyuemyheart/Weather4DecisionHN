@@ -79,12 +79,12 @@ public class TyphoonDto {
 				strength = context.getString(R.string.typhoon_level6);
 			}
 			buffer.append("台风强度："+strength);
-			if(!TextUtils.isEmpty(move_speed)){
-				int s = Integer.parseInt(move_speed);
-				float speed = s*1000/3600.0f;
-				BigDecimal bd = new BigDecimal(speed);
-				double d = bd.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-				buffer.append("(").append(d).append(context.getString(R.string.chart_speed1)).append(")\n");
+			if (!isFactPoint) {
+				if(!TextUtils.isEmpty(move_speed)){
+					buffer.append("(").append(move_speed).append(context.getString(R.string.chart_speed1)).append(")\n");
+				}
+			} else {
+				buffer.append("\n");
 			}
 		}
 		if(!TextUtils.isEmpty(pressure)){

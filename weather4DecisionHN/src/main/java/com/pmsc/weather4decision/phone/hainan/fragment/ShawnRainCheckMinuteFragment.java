@@ -146,7 +146,7 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 		if (TextUtils.isEmpty(childId)) {
 			childId = "";
 		}
-		asyncTaskRenyi("http://59.50.130.88:8888/decision-admin/dates/newgetrainfall?city=&start=&end=&cid="+childId, childId);
+		asyncTaskRenyi("http://decision-admin.tianqi.cn/Home/work2019/newgetrainfall?city=&start=&end=&cid="+childId, childId);
 	}
 	
 	private void initAreaList(View view) {
@@ -679,7 +679,7 @@ public class ShawnRainCheckMinuteFragment extends Fragment implements OnClickLis
 				checkArea = "";
 			}
 			progressBar.setVisibility(View.VISIBLE);
-			asyncTaskRenyi("http://59.50.130.88:8888/decision-admin/dates/newgetrainfall?city="+checkArea+"&start="+startTimeCheck+"&end="+endTimeCheck+"&cid="+childId, childId);
+			asyncTaskRenyi("http://decision-admin.tianqi.cn/Home/work2019/newgetrainfall?city="+checkArea+"&start="+startTimeCheck+"&end="+endTimeCheck+"&cid="+childId, childId);
 			break;
 		case R.id.ll1:
 			if (b1) {//升序

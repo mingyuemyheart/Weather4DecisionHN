@@ -62,6 +62,7 @@ import com.pmsc.weather4decision.phone.hainan.view.MainViewPager;
 
 import net.tsz.afinal.FinalBitmap;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -369,51 +370,82 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 	 * 初始化viewPager
 	 */
 	private void initViewPager() {
-		if (viewPager != null) {
-			viewPager.removeAllViewsInLayout();
-			fragments.clear();
-		}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String url = "http://decision-admin.tianqi.cn/Home/work2019/hnSkSelectTitles";
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(@NotNull Call call, @NotNull IOException e) {
+					}
+					@Override
+					public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONArray array = new JSONArray(result);
+										if (viewPager != null) {
+											viewPager.removeAllViewsInLayout();
+											fragments.clear();
+										}
 
-		llRainCheck.removeAllViews();
-		for (int i = 0; i < 2; i++) {
-			TextView tvName = new TextView(mContext);
-			if (i == 0) {
-				tvName.setText("近7天分钟查询");
-				tvName.setBackgroundColor(Color.WHITE);
-				tvName.setTextColor(getResources().getColor(R.color.text_color3));
-			}else {
-				tvName.setText("近3个月逐时查询");
-				tvName.setBackgroundColor(getResources().getColor(R.color.light_gray2));
-				tvName.setTextColor(getResources().getColor(R.color.text_color4));
+										llRainCheck.removeAllViews();
+										for (int i = 0; i < array.length(); i++) {
+											String name = array.getString(i);
+											TextView tvName = new TextView(mContext);
+											if (i == 0) {
+												tvName.setBackgroundColor(Color.WHITE);
+												tvName.setTextColor(getResources().getColor(R.color.text_color3));
+											}else {
+												tvName.setBackgroundColor(getResources().getColor(R.color.light_gray2));
+												tvName.setTextColor(getResources().getColor(R.color.text_color4));
+											}
+											tvName.setText(name);
+											tvName.setOnClickListener(new MyOnClickListener(i));
+											tvName.setGravity(Gravity.CENTER);
+											tvName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+											tvName.setPadding(0, (int)(density*10), 0, (int)(density*10));
+											tvName.setMaxLines(1);
+											tvName.setTag(i);
+											llRainCheck.addView(tvName);
+											LayoutParams params = tvName.getLayoutParams();
+											params.width = width/array.length();
+											tvName.setLayoutParams(params);
+
+											Bundle bundle = new Bundle();
+											bundle.putString("childId", childId);
+											Fragment fragment;
+											if (name.contains("分钟")) {
+												fragment = new ShawnRainCheckMinuteFragment();
+											} else {
+												fragment = new ShawnRainCheckHourFragment();
+											}
+											fragment.setArguments(bundle);
+											fragments.add(fragment);
+										}
+										if (viewPager == null) {
+											viewPager = (MainViewPager) findViewById(R.id.viewPager);
+											viewPager.setSlipping(true);//设置ViewPager是否可以滑动
+											viewPager.setOffscreenPageLimit(fragments.size());
+											viewPager.setOnPageChangeListener(new MyOnPageChangeListener());
+										}
+										viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						});
+					}
+				});
 			}
-			tvName.setOnClickListener(new MyOnClickListener(i));
-			tvName.setGravity(Gravity.CENTER);
-			tvName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
-			tvName.setPadding(0, (int)(density*10), 0, (int)(density*10));
-			tvName.setMaxLines(1);
-			tvName.setTag(i);
-			llRainCheck.addView(tvName);
-			LayoutParams params = tvName.getLayoutParams();
-			params.width = width/2;
-			tvName.setLayoutParams(params);
-		}
-
-		Bundle bundle = new Bundle();
-		bundle.putString("childId", childId);
-		Fragment fragment1 = new ShawnRainCheckMinuteFragment();
-		fragment1.setArguments(bundle);
-		fragments.add(fragment1);
-		Fragment fragment2 = new ShawnRainCheckHourFragment();
-		fragment2.setArguments(bundle);
-		fragments.add(fragment2);
-
-		if (viewPager == null) {
-			viewPager = (MainViewPager) findViewById(R.id.viewPager);
-			viewPager.setSlipping(true);//设置ViewPager是否可以滑动
-			viewPager.setOffscreenPageLimit(fragments.size());
-			viewPager.setOnPageChangeListener(new MyOnPageChangeListener());
-		}
-		viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+		}).start();
 	}
 	
 	public class MyOnPageChangeListener implements OnPageChangeListener {
