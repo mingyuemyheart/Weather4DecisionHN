@@ -1,11 +1,9 @@
 package com.pmsc.weather4decision.phone.hainan.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,30 +13,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView;
 
 import com.android.lib.app.BaseActivity;
 import com.android.lib.app.BaseFragment;
 import com.android.lib.data.JsonMap;
 import com.android.lib.util.LogUtil;
-import com.android.lib.view.PullListView;
-import com.android.lib.view.PullListView.OnLoadMoreListener;
 import com.pmsc.weather4decision.phone.hainan.R;
-import com.pmsc.weather4decision.phone.hainan.act.AbsDrawerActivity;
-import com.pmsc.weather4decision.phone.hainan.adapter.ListNormalAdapter;
-import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
-import com.pmsc.weather4decision.phone.hainan.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * 普通网页

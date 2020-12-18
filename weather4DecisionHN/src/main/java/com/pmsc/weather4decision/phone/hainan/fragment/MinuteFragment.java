@@ -1,7 +1,6 @@
 package com.pmsc.weather4decision.phone.hainan.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -10,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -83,7 +83,7 @@ import okhttp3.Response;
 /**
  * 逐小时预报
  */
-public class MinuteFragment extends Fragment implements OnClickListener, RadarListener,  
+public class MinuteFragment extends Fragment implements OnClickListener, RadarListener,
 OnMapClickListener, OnGeocodeSearchListener, AMapLocationListener{
 	
 	private MapView mMapView = null;

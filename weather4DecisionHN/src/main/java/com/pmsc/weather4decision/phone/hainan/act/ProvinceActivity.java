@@ -1,17 +1,22 @@
 package com.pmsc.weather4decision.phone.hainan.act;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.lib.data.JsonMap;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.adapter.MyPagerAdapter;
+import com.pmsc.weather4decision.phone.hainan.fragment.ListDocumentFragment;
 import com.pmsc.weather4decision.phone.hainan.fragment.MinuteFragment;
 import com.pmsc.weather4decision.phone.hainan.fragment.ProvinceFragment;
+import com.pmsc.weather4decision.phone.hainan.fragment.WebviewFragment;
 import com.pmsc.weather4decision.phone.hainan.util.StatisticUtil;
 import com.pmsc.weather4decision.phone.hainan.view.MainViewPager;
 
@@ -32,8 +37,7 @@ public class ProvinceActivity extends AbsDrawerActivity {
 	private MyPagerAdapter pagerAdapter = null;
 	private List<Fragment> fragments = new ArrayList<>();
 	private String time_7 = null;
-	private TextView tab1, tab2;
-	private LinearLayout llTab = null;
+	private LinearLayout llContainer = null;
 	private TextView divider = null;
 	
 	@Override
@@ -46,11 +50,7 @@ public class ProvinceActivity extends AbsDrawerActivity {
 	
 	private void initWidget() {
 		time_7 = getIntent().getStringExtra("time_7");
-		tab1 = (TextView) findViewById(R.id.tab1);
-		tab1.setOnClickListener(new MyOnClickListener(0));
-		tab2 = (TextView) findViewById(R.id.tab2);
-		tab2.setOnClickListener(new MyOnClickListener(1));
-		llTab = (LinearLayout) findViewById(R.id.llTab);
+		llContainer = (LinearLayout) findViewById(R.id.llContainer);
 		divider = (TextView) findViewById(R.id.divider);
 
 		if (getIntent().hasExtra("columnId")) {
@@ -63,14 +63,43 @@ public class ProvinceActivity extends AbsDrawerActivity {
 	 * 初始化viewPager
 	 */
 	private void initViewPager() {
+		llContainer.removeAllViews();
+		fragments.clear();
 		try {
 			JSONObject obj = new JSONObject(channelData);
 			if (!obj.isNull("child")) {
 				JSONArray array = obj.getJSONArray("child");
+
+				if (array.length() <= 1) {
+					llContainer.setVisibility(View.GONE);
+					divider.setVisibility(View.GONE);
+				}else {
+					llContainer.setVisibility(View.VISIBLE);
+					divider.setVisibility(View.VISIBLE);
+				}
+
 				for (int i = 0; i < array.length(); i++) {
 					JSONObject itemObj = array.getJSONObject(i);
-					String id = itemObj.getString("id");
+
+					String title = itemObj.getString("title");
+					TextView textView = new TextView(this);
+					textView.setText(title);
+					textView.setSingleLine();
+					textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+					textView.setGravity(Gravity.CENTER);
+					textView.setOnClickListener(new MyOnClickListener(i));
+					if (i == 0) {
+						textView.setTextColor(getResources().getColor(R.color.tab_font_selected));
+					} else {
+						textView.setTextColor(getResources().getColor(R.color.tab_font_unselected));
+					}
+					llContainer.addView(textView);
+					LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+					params.weight = 1;
+					textView.setLayoutParams(params);
+
 					Fragment fragment;
+					String id = itemObj.getString("id");
 					if (TextUtils.equals(id, "650")) {
 						fragment = new ProvinceFragment();
 						Bundle bundle = new Bundle();
@@ -82,6 +111,14 @@ public class ProvinceActivity extends AbsDrawerActivity {
 					} else if (TextUtils.equals(id, "651")) {
 						fragment = new MinuteFragment();
 						fragments.add(fragment);
+					} else if (TextUtils.equals(id, "691")) {
+						JsonMap data = JsonMap.parseJson(itemObj.toString());
+						fragment = ListDocumentFragment.newInstance(i, data);
+						fragments.add(fragment);
+					} else if (TextUtils.equals(id, "692")) {
+						JsonMap data = JsonMap.parseJson(itemObj.toString());
+						fragment = WebviewFragment.newInstance(i, data);
+						fragments.add(fragment);
 					}
 				}
 			}
@@ -90,30 +127,24 @@ public class ProvinceActivity extends AbsDrawerActivity {
 		}
 			
 		viewPager = (MainViewPager) findViewById(R.id.viewPager);
-		pagerAdapter = new MyPagerAdapter(ProvinceActivity.this, fragments);
+		pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragments);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setSlipping(false);//设置ViewPager是否可以滑动
 		viewPager.setOffscreenPageLimit(fragments.size());
 		viewPager.setOnPageChangeListener(new MyOnPageChangeListener());
-		
-		if (fragments.size() <= 1) {
-			llTab.setVisibility(View.GONE);
-			divider.setVisibility(View.GONE);
-		}else {
-			llTab.setVisibility(View.VISIBLE);
-			divider.setVisibility(View.VISIBLE);
-		}
 	}
 	
 	public class MyOnPageChangeListener implements OnPageChangeListener {
 		@Override
 		public void onPageSelected(int arg0) {
-			if (arg0 == 0) {
-				tab1.setTextColor(getResources().getColor(R.color.tab_font_selected));
-				tab2.setTextColor(getResources().getColor(R.color.tab_font_unselected));
-			}else if (arg0 == 1) {
-				tab1.setTextColor(getResources().getColor(R.color.tab_font_unselected));
-				tab2.setTextColor(getResources().getColor(R.color.tab_font_selected));
+			TextView tt = (TextView) llContainer.getChildAt(arg0);
+			for (int i = 0; i < llContainer.getChildCount(); i++) {
+				TextView tv = (TextView) llContainer.getChildAt(i);
+				if (TextUtils.equals(tv.getText().toString(), tt.getText().toString())) {
+					tv.setTextColor(getResources().getColor(R.color.tab_font_selected));
+				} else {
+					tv.setTextColor(getResources().getColor(R.color.tab_font_unselected));
+				}
 			}
 		}
 

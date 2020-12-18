@@ -1,50 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical">
     
     <LinearLayout 
-        android:id="@+id/llTab"
-        android:visibility="gone"
+        android:id="@+id/llContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:background="@color/white"
         android:padding="5dp"
-        android:orientation="horizontal">
-        
-        <TextView 
-            android:id="@+id/tab1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="市县预报"
-            android:textColor="@color/tab_font_selected"
-            android:textSize="@dimen/level_4"
-            android:gravity="center"/>
-        
-        <TextView 
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/light_gray"/>
-        
-        <TextView 
-            android:id="@+id/tab2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="2小时降水预测"
-            android:textColor="@color/tab_font_unselected"
-            android:textSize="@dimen/level_4"
-            android:gravity="center"/>
-        
-    </LinearLayout>
+        android:orientation="horizontal"/>
     
     <TextView 
         android:id="@+id/divider"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/light_gray"/>
