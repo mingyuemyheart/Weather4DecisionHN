@@ -120,8 +120,8 @@ public class ShawnRainActivity extends BaseActivity implements OnClickListener, 
 		setContentView(R.layout.shawn_rain);
 		mContext = this;
 		initAmap(savedInstanceState);
-		initWidget();
 		initListView();
+		initWidget();
 	}
 	
 	private void initWidget() {
