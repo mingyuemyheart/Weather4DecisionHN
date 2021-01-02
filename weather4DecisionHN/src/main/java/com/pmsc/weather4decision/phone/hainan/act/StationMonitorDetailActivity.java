@@ -51,7 +51,6 @@ public class StationMonitorDetailActivity extends BaseActivity implements OnClic
 	private List<ShawnRainDto> dataList = new ArrayList<>();
 	private ProgressBar progressBar = null;
 	private LinearLayout llContainer = null, llContainer1 = null;
-	private String childId = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +67,6 @@ public class StationMonitorDetailActivity extends BaseActivity implements OnClic
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		llContainer = (LinearLayout) findViewById(R.id.llContainer);
 		llContainer1 = (LinearLayout) findViewById(R.id.llContainer1);
-
-		childId = getIntent().getExtras().getString("childId");
 
 		ShawnRainDto data = getIntent().getParcelableExtra("data");
 		if (data != null) {
@@ -102,48 +99,18 @@ public class StationMonitorDetailActivity extends BaseActivity implements OnClic
 			TextView tvBar = new TextView(mContext);
 			tvBar.setGravity(Gravity.CENTER);
 
-			if (TextUtils.equals(childId, "631") || TextUtils.equals(childId, "631") || TextUtils.equals(childId, "632") || TextUtils.equals(childId, "648")) {//降水
-				if (j == 0) {
-					tvName.setText("降水");
-					tvName.setTextColor(getResources().getColor(R.color.main_color));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.main_color));
-				}else if (j == 1) {
-					tvName.setText("温度");
-					tvName.setTextColor(getResources().getColor(R.color.text_color3));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-				}else if (j == 2) {
-					tvName.setText("风速");
-					tvName.setTextColor(getResources().getColor(R.color.text_color3));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-				}
-			}else if (TextUtils.equals(childId, "636") || TextUtils.equals(childId, "637") || TextUtils.equals(childId, "638") || TextUtils.equals(childId, "656")) {//温度
-				if (j == 0) {
-					tvName.setText("降水");
-					tvName.setTextColor(getResources().getColor(R.color.text_color3));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-				}else if (j == 1) {
-					tvName.setText("温度");
-					tvName.setTextColor(getResources().getColor(R.color.main_color));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.main_color));
-				}else if (j == 2) {
-					tvName.setText("风速");
-					tvName.setTextColor(getResources().getColor(R.color.text_color3));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-				}
-			}else if (TextUtils.equals(childId, "633") || TextUtils.equals(childId, "634") || TextUtils.equals(childId, "635") || TextUtils.equals(childId, "655")) {//风速
-				if (j == 0) {
-					tvName.setText("降水");
-					tvName.setTextColor(getResources().getColor(R.color.text_color3));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-				}else if (j == 1) {
-					tvName.setText("温度");
-					tvName.setTextColor(getResources().getColor(R.color.text_color3));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-				}else if (j == 2) {
-					tvName.setText("风速");
-					tvName.setTextColor(getResources().getColor(R.color.main_color));
-					tvBar.setBackgroundColor(getResources().getColor(R.color.main_color));
-				}
+			if (j == 0) {
+				tvName.setText("降水");
+				tvName.setTextColor(getResources().getColor(R.color.main_color));
+				tvBar.setBackgroundColor(getResources().getColor(R.color.main_color));
+			}else if (j == 1) {
+				tvName.setText("温度");
+				tvName.setTextColor(getResources().getColor(R.color.text_color3));
+				tvBar.setBackgroundColor(getResources().getColor(R.color.transparent));
+			}else if (j == 2) {
+				tvName.setText("风速");
+				tvName.setTextColor(getResources().getColor(R.color.text_color3));
+				tvBar.setBackgroundColor(getResources().getColor(R.color.transparent));
 			}
 
 			llContainer.addView(tvName);
@@ -175,14 +142,6 @@ public class StationMonitorDetailActivity extends BaseActivity implements OnClic
 		viewPager.setOffscreenPageLimit(fragments.size());
 		viewPager.setOnPageChangeListener(new MyOnPageChangeListener());
 		viewPager.setAdapter(new MyPagerAdapter());
-
-		if (TextUtils.equals(childId, "631") || TextUtils.equals(childId, "631") || TextUtils.equals(childId, "632") || TextUtils.equals(childId, "648")) {//降水
-			viewPager.setCurrentItem(0);
-		}else if (TextUtils.equals(childId, "636") || TextUtils.equals(childId, "637") || TextUtils.equals(childId, "638") || TextUtils.equals(childId, "656")) {//温度
-			viewPager.setCurrentItem(1);
-		}else if (TextUtils.equals(childId, "633") || TextUtils.equals(childId, "634") || TextUtils.equals(childId, "635") || TextUtils.equals(childId, "655")) {//风速
-			viewPager.setCurrentItem(2);
-		}
 	}
 	
 	public class MyOnPageChangeListener implements OnPageChangeListener {
