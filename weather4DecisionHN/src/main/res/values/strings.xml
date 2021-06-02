@@ -30,7 +30,7 @@
     <string name="login">登录</string>
     <string name="hn_decision_service">海南省决策气象服务</string>
     <string name="hn_decision_service_support">由海南省气象服务中心和中国气象局公共气象服务中心\n共同提供技术支持</string>
-    <string name="hn_weather">海南省气象局</string>
+    <string name="hn_weather">海南省气象台</string>
     <string name="hn_weather_tai">海南省气象台%1$s发布</string>
     <string name="input_account_tip">请输入用户名</string>
     <string name="input_passwd_tip">请输入密码</string>

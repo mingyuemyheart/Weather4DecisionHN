@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./weather4DecisionHN/libs/uk-co-senab-photoview.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/weather4DecisionHN/libs/uk-co-senab-photoview.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

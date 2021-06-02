@@ -112,36 +112,36 @@ ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
-MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/15aa99ffa3c3b0ae01ef83868c807776/AndroidManifest.xml:17:1-22:12
 MERGED from [:android-pdf-viewer] /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/android-pdf-viewer/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-5:12
-MERGED from [com.github.barteksc:pdfium-android:1.5.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/pdfium-android-1.5.0.aar/13c79ac5dbd19dd3e22ef16c0fcdcf87/AndroidManifest.xml:2:1-11:12
-MERGED from [com.android.support:support-v4:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/2ab704e592a4659cae65b5334608e372/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-fragment:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/61ce96f4cc664732fa70deb9f925b7a4/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/b15408528a391e65fd1b719a66971908/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/cacd96ce5a994caef1997ea1727c8813/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/fcad4c600031509138e35db1b66bd5c8/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/b983d1b6b2681f4d65fe1fd452b8ba7e/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:loader:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/0e5e762081e3c89ed67299dac7479944/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:viewpager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/aece3ed0d7da9d511ccc26f416a2278f/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/d726f50646b4204bf67aa6bef9d655d9/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/18e1151727eb4f1de5b6e2345d413d4a/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/af6d69d120e1848afdb1bf291821be8c/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:customview:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/c8f1bbf5fa5d9579876275df07073ae6/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/64a2bb9d0cb744a585616b979dd86ba3/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/ae2bc488b04dfe18292ec8fc12c81568/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/72047dcd6034d0ca220cf9f3fb46e6f0/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/AndroidManifest.xml:17:1-24:12
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/81011b519e35b76f0bfc5808fc588a9a/AndroidManifest.xml:17:1-25:12
-MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/8f2f652eb7cd08416b075c2f3f1d637d/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/f34e8ef0365627861985eaa28367cd47/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:documentfile:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/a3e57e47be1c36c00577fd30a0eba0f2/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/7e3ed29bdf537dc6b320985cc7b96ed2/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:print:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/e376d0fa56f276214eb692f1b1ec03d5/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/7839e66b73eda69486a0d74c5258134e/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:interpolator:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/1eea132ef5078091e8992c4bdeb97221/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/5fe30fa8ceaf91dd5abd8114b9975a49/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/c40a6113d16b4e8e80068f5faa0fc2f0/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.core:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/139ebdada885c75a6e3602bc752c4d6a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.barteksc:pdfium-android:1.5.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/pdfium-android-1.5.0.aar/fe8490132ce2351cb8a9210cd851065f/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:support-v4:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/4a481a9847c7921612c807762b67f473/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/44a4ad0db906f5705dd3275efaef55a9/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/746e08b8de9a9cab22e477e873001309/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/214d92638b90265fc61be387e94d620d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/e71d2d3573c85e8f3bb388ad3ecf2e31/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/1eb1534c8e24d61228bba9299dbb2466/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/b866460620c82ff76e8969aacd3e4fca/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/4494de0898487605a19f928294192046/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/7f23cbbc7ffc16cac362d412aaf47e88/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/ebeb5bebaf58febea2d4759feff666d4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/32d60f3610638f6ed1b53b1e1ae55124/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/8f7a6c1b1db92481d8f22f346442130c/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/2c332c41b9d789eb9b6a06266b8ec2bd/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/0de298ea36eb97318513c2f9d0e8d7de/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/02da6f31e097d157c157ddaede552ca1/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ef2951868c5784886609f06d490bb144/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/34e6eb7ac12d37a04b652c0a7bf00d19/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/04b90177543e3d54656eeaeb836311eb/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/a4df6ed625cccd458a7bc7e24ad84804/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/ece762fdfc1a78eb9069fe39dcc651a2/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/8790f9857e05079296fdcb5f8c075ada/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/eb74e8ce49f10421016d042c0ba1c7d8/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/3021bea47d175955ff491064cafe7e73/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/81901d94f7a1708792f0ad7027a384e8/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/c299ca92e3fc84e09f07319adfc3d2b5/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/123b727b8ef1874f774840c3a87ed21e/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/edd61d6107b2e073f6d89763267d0d1d/AndroidManifest.xml:17:1-22:12
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
@@ -317,12 +317,12 @@ ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:86:9-34
 application
 ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:92:5-405:19
-MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/AndroidManifest.xml:22:5-94
-MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/AndroidManifest.xml:22:5-94
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/81011b519e35b76f0bfc5808fc588a9a/AndroidManifest.xml:22:5-23:19
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/81011b519e35b76f0bfc5808fc588a9a/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ef2951868c5784886609f06d490bb144/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ef2951868c5784886609f06d490bb144/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/34e6eb7ac12d37a04b652c0a7bf00d19/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/34e6eb7ac12d37a04b652c0a7bf00d19/AndroidManifest.xml:22:5-23:19
 	android:appComponentFactory
-		ADDED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/AndroidManifest.xml:22:18-91
+		ADDED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ef2951868c5784886609f06d490bb144/AndroidManifest.xml:22:18-91
 	android:label
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:96:9-41
 	android:icon
@@ -807,64 +807,64 @@ uses-sdk
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/9656a42503e1338de03ace09a50a7ad0/AndroidManifest.xml:20:5-44
-MERGED from [com.github.barteksc:pdfium-android:1.5.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/pdfium-android-1.5.0.aar/13c79ac5dbd19dd3e22ef16c0fcdcf87/AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.barteksc:pdfium-android:1.5.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/pdfium-android-1.5.0.aar/13c79ac5dbd19dd3e22ef16c0fcdcf87/AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:support-v4:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/2ab704e592a4659cae65b5334608e372/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/2ab704e592a4659cae65b5334608e372/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/61ce96f4cc664732fa70deb9f925b7a4/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/61ce96f4cc664732fa70deb9f925b7a4/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/b15408528a391e65fd1b719a66971908/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/b15408528a391e65fd1b719a66971908/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/cacd96ce5a994caef1997ea1727c8813/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/cacd96ce5a994caef1997ea1727c8813/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/fcad4c600031509138e35db1b66bd5c8/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/fcad4c600031509138e35db1b66bd5c8/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/b983d1b6b2681f4d65fe1fd452b8ba7e/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/b983d1b6b2681f4d65fe1fd452b8ba7e/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:loader:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/0e5e762081e3c89ed67299dac7479944/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:loader:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/0e5e762081e3c89ed67299dac7479944/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:viewpager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/aece3ed0d7da9d511ccc26f416a2278f/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:viewpager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/aece3ed0d7da9d511ccc26f416a2278f/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/d726f50646b4204bf67aa6bef9d655d9/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/d726f50646b4204bf67aa6bef9d655d9/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/18e1151727eb4f1de5b6e2345d413d4a/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/18e1151727eb4f1de5b6e2345d413d4a/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/af6d69d120e1848afdb1bf291821be8c/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/af6d69d120e1848afdb1bf291821be8c/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:customview:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/c8f1bbf5fa5d9579876275df07073ae6/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:customview:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/c8f1bbf5fa5d9579876275df07073ae6/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/64a2bb9d0cb744a585616b979dd86ba3/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/64a2bb9d0cb744a585616b979dd86ba3/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/ae2bc488b04dfe18292ec8fc12c81568/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/ae2bc488b04dfe18292ec8fc12c81568/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/72047dcd6034d0ca220cf9f3fb46e6f0/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/72047dcd6034d0ca220cf9f3fb46e6f0/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/90122f14b355878a63d3cfcdb95839f2/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/81011b519e35b76f0bfc5808fc588a9a/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/81011b519e35b76f0bfc5808fc588a9a/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/8f2f652eb7cd08416b075c2f3f1d637d/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/8f2f652eb7cd08416b075c2f3f1d637d/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/f34e8ef0365627861985eaa28367cd47/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/f34e8ef0365627861985eaa28367cd47/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:documentfile:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/a3e57e47be1c36c00577fd30a0eba0f2/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:documentfile:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/a3e57e47be1c36c00577fd30a0eba0f2/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/7e3ed29bdf537dc6b320985cc7b96ed2/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/7e3ed29bdf537dc6b320985cc7b96ed2/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:print:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/e376d0fa56f276214eb692f1b1ec03d5/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:print:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/e376d0fa56f276214eb692f1b1ec03d5/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/7839e66b73eda69486a0d74c5258134e/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/7839e66b73eda69486a0d74c5258134e/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:interpolator:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/1eea132ef5078091e8992c4bdeb97221/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:interpolator:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/1eea132ef5078091e8992c4bdeb97221/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/5fe30fa8ceaf91dd5abd8114b9975a49/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/5fe30fa8ceaf91dd5abd8114b9975a49/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/c40a6113d16b4e8e80068f5faa0fc2f0/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/c40a6113d16b4e8e80068f5faa0fc2f0/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.core:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/139ebdada885c75a6e3602bc752c4d6a/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.core:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/139ebdada885c75a6e3602bc752c4d6a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/15aa99ffa3c3b0ae01ef83868c807776/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/15aa99ffa3c3b0ae01ef83868c807776/AndroidManifest.xml:20:5-44
+MERGED from [com.github.barteksc:pdfium-android:1.5.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/pdfium-android-1.5.0.aar/fe8490132ce2351cb8a9210cd851065f/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.barteksc:pdfium-android:1.5.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/pdfium-android-1.5.0.aar/fe8490132ce2351cb8a9210cd851065f/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:support-v4:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/4a481a9847c7921612c807762b67f473/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/4a481a9847c7921612c807762b67f473/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/44a4ad0db906f5705dd3275efaef55a9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/44a4ad0db906f5705dd3275efaef55a9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/746e08b8de9a9cab22e477e873001309/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/746e08b8de9a9cab22e477e873001309/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/214d92638b90265fc61be387e94d620d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/214d92638b90265fc61be387e94d620d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/e71d2d3573c85e8f3bb388ad3ecf2e31/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/e71d2d3573c85e8f3bb388ad3ecf2e31/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/1eb1534c8e24d61228bba9299dbb2466/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/1eb1534c8e24d61228bba9299dbb2466/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/b866460620c82ff76e8969aacd3e4fca/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/b866460620c82ff76e8969aacd3e4fca/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/4494de0898487605a19f928294192046/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/4494de0898487605a19f928294192046/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/7f23cbbc7ffc16cac362d412aaf47e88/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/7f23cbbc7ffc16cac362d412aaf47e88/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/ebeb5bebaf58febea2d4759feff666d4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/ebeb5bebaf58febea2d4759feff666d4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/32d60f3610638f6ed1b53b1e1ae55124/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/32d60f3610638f6ed1b53b1e1ae55124/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/8f7a6c1b1db92481d8f22f346442130c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/8f7a6c1b1db92481d8f22f346442130c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/2c332c41b9d789eb9b6a06266b8ec2bd/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/2c332c41b9d789eb9b6a06266b8ec2bd/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/0de298ea36eb97318513c2f9d0e8d7de/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/0de298ea36eb97318513c2f9d0e8d7de/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/02da6f31e097d157c157ddaede552ca1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/02da6f31e097d157c157ddaede552ca1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ef2951868c5784886609f06d490bb144/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ef2951868c5784886609f06d490bb144/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/34e6eb7ac12d37a04b652c0a7bf00d19/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/34e6eb7ac12d37a04b652c0a7bf00d19/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/04b90177543e3d54656eeaeb836311eb/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/04b90177543e3d54656eeaeb836311eb/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/a4df6ed625cccd458a7bc7e24ad84804/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/a4df6ed625cccd458a7bc7e24ad84804/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/ece762fdfc1a78eb9069fe39dcc651a2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/ece762fdfc1a78eb9069fe39dcc651a2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/8790f9857e05079296fdcb5f8c075ada/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/8790f9857e05079296fdcb5f8c075ada/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/eb74e8ce49f10421016d042c0ba1c7d8/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/eb74e8ce49f10421016d042c0ba1c7d8/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/3021bea47d175955ff491064cafe7e73/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/3021bea47d175955ff491064cafe7e73/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/81901d94f7a1708792f0ad7027a384e8/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/81901d94f7a1708792f0ad7027a384e8/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/c299ca92e3fc84e09f07319adfc3d2b5/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/c299ca92e3fc84e09f07319adfc3d2b5/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/123b727b8ef1874f774840c3a87ed21e/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/123b727b8ef1874f774840c3a87ed21e/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/edd61d6107b2e073f6d89763267d0d1d/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/edd61d6107b2e073f6d89763267d0d1d/AndroidManifest.xml:20:5-44
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
 	android:targetSdkVersion

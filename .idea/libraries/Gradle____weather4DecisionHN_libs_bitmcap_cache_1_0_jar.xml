@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./weather4DecisionHN/libs/bitmcap-cache-1.0.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/weather4DecisionHN/libs/bitmcap-cache-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

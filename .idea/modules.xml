@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Weather4DecisionHN.iml" filepath="$PROJECT_DIR$/Weather4DecisionHN.iml" group="Weather4DecisionHN" />
-      <module fileurl="file://$PROJECT_DIR$/android-pdf-viewer/android-pdf-viewer.iml" filepath="$PROJECT_DIR$/android-pdf-viewer/android-pdf-viewer.iml" group="Weather4DecisionHN/android-pdf-viewer" />
-      <module fileurl="file://$PROJECT_DIR$/weather4DecisionHN/weather4DecisionHN.iml" filepath="$PROJECT_DIR$/weather4DecisionHN/weather4DecisionHN.iml" group="Weather4DecisionHN/weather4DecisionHN" />
+      <module fileurl="file://$PROJECT_DIR$/Weather4DecisionHN.iml" filepath="$PROJECT_DIR$/Weather4DecisionHN.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-pdf-viewer/Weather4DecisionHN.android-pdf-viewer.iml" filepath="$PROJECT_DIR$/.idea/modules/android-pdf-viewer/Weather4DecisionHN.android-pdf-viewer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/weather4DecisionHN/Weather4DecisionHN.weather4DecisionHN.iml" filepath="$PROJECT_DIR$/.idea/modules/weather4DecisionHN/Weather4DecisionHN.weather4DecisionHN.iml" />
     </modules>
   </component>
 </project>
