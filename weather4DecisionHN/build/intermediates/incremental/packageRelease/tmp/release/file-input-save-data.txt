@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Jun 02 08:54:59 CST 2021
+#Sat Jun 26 19:54:08 CST 2021
 156.baseType=DIRECTORY
 190.base=/Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/build/intermediates/assets/release
 82.baseType=DIRECTORY

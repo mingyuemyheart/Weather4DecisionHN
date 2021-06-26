@@ -9,6 +9,32 @@ import android.app.Application;
 
 public class MyApplication extends Application{
 
+    private static String top_img,top_img_url,top_img_title;
+
+    public static String getTop_img() {
+        return top_img;
+    }
+
+    public static void setTop_img(String top_img) {
+        MyApplication.top_img = top_img;
+    }
+
+    public static String getTop_img_url() {
+        return top_img_url;
+    }
+
+    public static void setTop_img_url(String top_img_url) {
+        MyApplication.top_img_url = top_img_url;
+    }
+
+    public static String getTop_img_title() {
+        return top_img_title;
+    }
+
+    public static void setTop_img_title(String top_img_title) {
+        MyApplication.top_img_title = top_img_title;
+    }
+
 	private static Map<String,Activity> destoryMap = new HashMap<>();
 
     private MyApplication() {

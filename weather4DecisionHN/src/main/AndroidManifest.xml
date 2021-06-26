@@ -220,6 +220,10 @@
             android:name="com.pmsc.weather4decision.phone.hainan.act.ShawnPDFActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.pmsc.weather4decision.phone.hainan.act.WebviewActivity"
+            android:screenOrientation="portrait" />
+
         <!--umeng share-->
         <activity
             android:name="com.tencent.tauth.AuthActivity"

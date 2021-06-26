@@ -47,71 +47,71 @@ INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4Decisio
 	android:name
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:113:13-67
 meta-data#PUSH_APPID
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:253:9-255:47
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:257:9-259:47
 	android:value
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:255:13-44
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:259:13-44
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:254:13-38
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:258:13-38
 meta-data#PUSH_APPKEY
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:256:9-258:48
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:260:9-262:48
 	android:value
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:258:13-45
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:262:13-45
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:257:13-39
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:261:13-39
 meta-data#PUSH_APPSECRET
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:259:9-261:51
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:263:9-265:51
 	android:value
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:261:13-48
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:265:13-48
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:260:13-42
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:264:13-42
 meta-data#com.huawei.hms.client.appid
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:317:9-319:48
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:321:9-323:48
 	android:value
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:319:13-45
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:323:13-45
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:318:13-55
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:322:13-55
 meta-data#MIPUSH_APPID
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:343:9-345:51
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:347:9-349:51
 	android:value
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:345:13-48
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:349:13-48
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:344:13-40
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:348:13-40
 meta-data#MIPUSH_APPKEY
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:346:9-348:52
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:350:9-352:52
 	android:value
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:348:13-49
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:352:13-49
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:347:13-41
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:351:13-41
 meta-data#MEIZUPUSH_APPID
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:374:9-376:50
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:378:9-380:50
 	android:value
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:376:13-47
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:380:13-47
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:375:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:379:13-43
 meta-data#MEIZUPUSH_APPKEY
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:377:9-379:51
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:381:9-383:51
 	android:value
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:379:13-48
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:383:13-48
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:378:13-44
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:382:13-44
 category#com.pmsc.weather4decision.phone.hainan
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:401:17-61
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:405:17-61
 	android:name
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:401:27-58
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:405:27-58
 manifest
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
 MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/15aa99ffa3c3b0ae01ef83868c807776/AndroidManifest.xml:17:1-22:12
 MERGED from [:android-pdf-viewer] /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/android-pdf-viewer/build/intermediates/manifests/full/release/AndroidManifest.xml:2:1-5:12
 MERGED from [com.github.barteksc:pdfium-android:1.5.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/pdfium-android-1.5.0.aar/fe8490132ce2351cb8a9210cd851065f/AndroidManifest.xml:2:1-11:12
@@ -142,20 +142,20 @@ MERGED from [com.android.support:interpolator:28.0.0] /Users/sunxiaoming/.gradle
 MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/c299ca92e3fc84e09f07319adfc3d2b5/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/123b727b8ef1874f774840c3a87ed21e/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.1] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/edd61d6107b2e073f6d89763267d0d1d/AndroidManifest.xml:17:1-22:12
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
-INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
+INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
 	package
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:3:5-53
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-407:12
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:1-411:12
 		INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:2:11-69
@@ -316,7 +316,7 @@ ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN
 	android:anyDensity
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:86:9-34
 application
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:92:5-405:19
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:92:5-409:19
 MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ef2951868c5784886609f06d490bb144/AndroidManifest.xml:22:5-94
 MERGED from [com.android.support:support-compat:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ef2951868c5784886609f06d490bb144/AndroidManifest.xml:22:5-94
 MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sunxiaoming/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/34e6eb7ac12d37a04b652c0a7bf00d19/AndroidManifest.xml:22:5-23:19
@@ -533,276 +533,282 @@ ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:221:13-49
 	android:name
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:220:13-87
+activity#com.pmsc.weather4decision.phone.hainan.act.WebviewActivity
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:223:9-225:52
+	android:screenOrientation
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:225:13-49
+	android:name
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:224:13-86
 activity#com.tencent.tauth.AuthActivity
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:224:9-236:20
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:228:9-240:20
 	android:launchMode
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:226:13-44
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:230:13-44
 	android:noHistory
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:227:13-37
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:231:13-37
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:225:13-58
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:229:13-58
 intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:tencent1107769691
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:228:13-235:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:232:13-239:29
 action#android.intent.action.VIEW
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:229:17-69
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:233:17-69
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:229:25-66
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:233:25-66
 category#android.intent.category.DEFAULT
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:231:17-76
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:235:17-76
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:231:27-73
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:235:27-73
 category#android.intent.category.BROWSABLE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:232:17-78
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:236:17-78
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:232:27-75
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:236:27-75
 data
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:234:17-60
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:238:17-60
 	android:scheme
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:234:23-57
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:238:23-57
 activity#com.tencent.connect.common.AssistActivity
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:237:9-240:76
-	android:configChanges
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:240:13-74
-	android:theme
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:239:13-72
-	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:238:13-69
-activity#com.pmsc.weather4decision.phone.hainan.wxapi.WXEntryActivity
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:242:9-246:75
-	android:exported
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:245:13-36
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:241:9-244:76
 	android:configChanges
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:244:13-74
 	android:theme
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:246:13-72
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:243:13-72
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:243:13-50
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:242:13-69
+activity#com.pmsc.weather4decision.phone.hainan.wxapi.WXEntryActivity
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:246:9-250:75
+	android:exported
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:249:13-36
+	android:configChanges
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:248:13-74
+	android:theme
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:250:13-72
+	android:name
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:247:13-50
 service#com.igexin.sdk.PushService
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:264:9-272:19
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:268:9-276:19
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:268:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:272:13-43
 	android:label
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:267:13-47
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:271:13-47
 	android:exported
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:266:13-36
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:270:13-36
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:265:13-54
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:269:13-54
 intent-filter#action:name:com.igexin.sdk.action.service.message
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:269:13-271:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:273:13-275:29
 action#com.igexin.sdk.action.service.message
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:270:17-79
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:274:17-79
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:270:25-77
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:274:25-77
 receiver#com.igexin.sdk.PushReceiver
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:274:9-285:20
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:278:9-289:20
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:274:19-61
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:278:19-61
 intent-filter#action:name:android.intent.action.ACTION_POWER_CONNECTED+action:name:android.intent.action.ACTION_POWER_DISCONNECTED+action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MEDIA_MOUNTED+action:name:android.intent.action.USER_PRESENT+action:name:android.net.conn.CONNECTIVITY_CHANGE+action:name:com.igexin.sdk.action.refreshls
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:275:13-284:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:279:13-288:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:276:17-79
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:280:17-79
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:276:25-76
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:280:25-76
 action#android.net.conn.CONNECTIVITY_CHANGE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:277:17-79
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:281:17-79
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:277:25-76
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:281:25-76
 action#android.intent.action.USER_PRESENT
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:278:17-77
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:282:17-77
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:278:25-74
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:282:25-74
 action#com.igexin.sdk.action.refreshls
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:279:17-74
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:283:17-74
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:279:25-71
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:283:25-71
 action#android.intent.action.MEDIA_MOUNTED
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:281:17-78
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:285:17-78
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:281:25-75
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:285:25-75
 action#android.intent.action.ACTION_POWER_CONNECTED
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:282:17-87
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:286:17-87
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:282:25-84
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:286:25-84
 action#android.intent.action.ACTION_POWER_DISCONNECTED
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:283:17-90
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:287:17-90
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:283:25-87
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:287:25-87
 activity#com.igexin.sdk.PushActivity
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:287:9-294:20
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:291:9-298:20
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:291:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:295:13-43
 	android:excludeFromRecents
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:289:13-46
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:293:13-46
 	android:exported
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:290:13-37
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:294:13-37
 	android:theme
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:293:13-72
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:297:13-72
 	android:taskAffinity
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:292:13-67
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:296:13-67
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:288:13-55
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:292:13-55
 activity#com.igexin.sdk.GActivity
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:296:9-302:74
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:300:9-306:74
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:300:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:304:13-43
 	android:excludeFromRecents
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:298:13-46
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:302:13-46
 	android:exported
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:299:13-36
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:303:13-36
 	android:theme
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:302:13-72
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:306:13-72
 	android:taskAffinity
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:301:13-67
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:305:13-67
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:297:13-52
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:301:13-52
 service#com.pmsc.weather4decision.phone.hainan.service.DemoIntentService
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:305:9-99
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:309:9-99
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:305:18-97
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:309:18-97
 service#com.pmsc.weather4decision.phone.hainan.service.DemoPushService
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:308:9-312:46
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:312:9-316:46
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:312:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:316:13-43
 	android:label
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:311:13-40
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:315:13-40
 	android:exported
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:310:13-36
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:314:13-36
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:309:13-90
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:313:13-90
 receiver#com.igexin.sdk.HmsPushReceiver
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:320:9-332:20
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:324:9-336:20
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:322:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:326:13-43
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:321:13-58
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:325:13-58
 intent-filter#action:name:com.huawei.android.push.intent.CLICK+action:name:com.huawei.android.push.intent.RECEIVE+action:name:com.huawei.android.push.intent.REGISTRATION+action:name:com.huawei.intent.action.PUSH_STATE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:323:13-328:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:327:13-332:29
 action#com.huawei.android.push.intent.REGISTRATION
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:324:17-86
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:328:17-86
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:324:25-83
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:328:25-83
 action#com.huawei.android.push.intent.RECEIVE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:325:17-81
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:329:17-81
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:325:25-78
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:329:25-78
 action#com.huawei.android.push.intent.CLICK
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:326:17-79
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:330:17-79
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:326:25-76
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:330:25-76
 action#com.huawei.intent.action.PUSH_STATE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:327:17-78
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:331:17-78
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:327:25-75
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:331:25-75
 meta-data#CS_cloud_ablitity
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:329:13-331:56
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:333:13-335:56
 	android:value
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:331:17-53
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:335:17-53
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:330:17-49
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:334:17-49
 receiver#com.huawei.hms.support.api.push.PushEventReceiver
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:333:9-339:20
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:337:9-343:20
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:335:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:339:13-43
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:334:13-77
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:338:13-77
 intent-filter#action:name:com.huawei.intent.action.PUSH
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:336:13-338:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:340:13-342:29
 action#com.huawei.intent.action.PUSH
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:337:17-72
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:341:17-72
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:337:25-69
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:341:25-69
 service#com.xiaomi.mipush.sdk.PushMessageHandler
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:349:9-353:46
-	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:353:13-43
-	android:enabled
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:351:13-35
-	android:exported
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:352:13-36
-	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:350:13-68
-service#com.xiaomi.mipush.sdk.MessageHandleService
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:354:9-357:46
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:353:9-357:46
 	android:process
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:357:13-43
 	android:enabled
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:356:13-35
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:355:13-35
+	android:exported
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:356:13-36
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:355:13-70
-receiver#com.igexin.sdk.MiuiPushReceiver
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:358:9-371:20
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:354:13-68
+service#com.xiaomi.mipush.sdk.MessageHandleService
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:358:9-361:46
 	android:process
 		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:361:13-43
-	android:exported
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:360:13-36
+	android:enabled
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:360:13-35
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:359:13-59
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:359:13-70
+receiver#com.igexin.sdk.MiuiPushReceiver
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:362:9-375:20
+	android:process
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:365:13-43
+	android:exported
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:364:13-36
+	android:name
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:363:13-59
 intent-filter#action:name:com.xiaomi.mipush.RECEIVE_MESSAGE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:362:13-364:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:366:13-368:29
 action#com.xiaomi.mipush.RECEIVE_MESSAGE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:363:17-76
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:367:17-76
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:363:25-73
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:367:25-73
 intent-filter#action:name:com.xiaomi.mipush.MESSAGE_ARRIVED
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:365:13-367:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:369:13-371:29
 action#com.xiaomi.mipush.MESSAGE_ARRIVED
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:366:17-76
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:370:17-76
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:366:25-73
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:370:25-73
 intent-filter#action:name:com.xiaomi.mipush.ERROR
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:368:13-370:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:372:13-374:29
 action#com.xiaomi.mipush.ERROR
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:369:17-66
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:373:17-66
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:369:25-63
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:373:25-63
 service#com.meizu.cloud.pushsdk.NotificationService
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:380:9-383:46
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:384:9-387:46
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:383:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:387:13-43
 	android:exported
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:382:13-36
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:386:13-36
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:381:13-71
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:385:13-71
 receiver#com.meizu.cloud.pushsdk.SystemReceiver
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:384:9-391:20
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:388:9-395:20
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:386:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:390:13-43
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:385:13-66
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:389:13-66
 intent-filter#action:name:com.meizu.cloud.pushservice.action.PUSH_SERVICE_START+category:name:android.intent.category.DEFAULT
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:387:13-390:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:391:13-394:29
 action#com.meizu.cloud.pushservice.action.PUSH_SERVICE_START
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:388:17-96
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:392:17-96
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:388:25-93
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:392:25-93
 receiver#com.igexin.sdk.FlymePushReceiver
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:392:9-403:20
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:396:9-407:20
 	android:process
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:394:13-43
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:398:13-43
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:393:13-60
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:397:13-60
 intent-filter#action:name:com.meizu.c2dm.intent.RECEIVE+action:name:com.meizu.c2dm.intent.REGISTRATION+action:name:com.meizu.flyme.push.intent.MESSAGE+action:name:com.meizu.flyme.push.intent.REGISTER.FEEDBACK+action:name:com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK+category:name:com.pmsc.weather4decision.phone.hainan
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:395:13-402:29
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:399:13-406:29
 action#com.meizu.flyme.push.intent.MESSAGE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:396:17-78
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:400:17-78
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:396:25-75
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:400:25-75
 action#com.meizu.flyme.push.intent.REGISTER.FEEDBACK
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:397:17-88
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:401:17-88
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:397:25-85
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:401:25-85
 action#com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:398:17-90
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:402:17-90
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:398:25-87
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:402:25-87
 action#com.meizu.c2dm.intent.REGISTRATION
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:399:17-77
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:403:17-77
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:399:25-74
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:403:25-74
 action#com.meizu.c2dm.intent.RECEIVE
-ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:400:17-72
+ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:404:17-72
 	android:name
-		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:400:25-69
+		ADDED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml:404:25-69
 uses-sdk
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/sunxiaoming/Downloads/AndroidStudioProjects/Weather4DecisionHN/weather4DecisionHN/src/main/AndroidManifest.xml

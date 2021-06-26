@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,6 +53,8 @@ import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
 import com.pmsc.weather4decision.phone.hainan.util.SecretUrlUtil;
 import com.pmsc.weather4decision.phone.hainan.util.Utils;
 import com.pmsc.weather4decision.phone.hainan.util.WeatherUtil;
+
+import net.tsz.afinal.FinalBitmap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -182,6 +185,8 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
         AutoUpdateUtil.checkUpdate(MainActivity.this, MainActivity.this, "39", getString(R.string.app_name), true);
         SettingActivity.clearCache(mContext);
 
+		ImageView ivBanner = (ImageView) findViewById(R.id.ivBanner);
+		ivBanner.setOnClickListener(this);
 		rightButton.setBackgroundResource(R.drawable.icon_my);
 		rightButton.setVisibility(View.VISIBLE);
 		setTitle(PreferUtil.getCurrentCity());
@@ -198,6 +203,14 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 		llContainer2 = (LinearLayout) findViewById(R.id.llContainer2);
 		daysView.setOnClickListener(this);
 		pubTimeView.setOnClickListener(this);
+
+		if (!TextUtils.isEmpty(MyApplication.getTop_img())) {
+			FinalBitmap finalBitmap = FinalBitmap.create(this);
+			finalBitmap.display(ivBanner, MyApplication.getTop_img(), null, 0);
+			ivBanner.setVisibility(View.VISIBLE);
+		} else {
+			ivBanner.setVisibility(View.GONE);
+		}
 
 		Drawable iconRefresh = getResources().getDrawable(R.drawable.icon_refresh);
 		iconRefresh.setBounds(0, 0, iconRefresh.getMinimumWidth() / 2, iconRefresh.getMinimumHeight() / 2);
@@ -287,8 +300,15 @@ public class MainActivity extends AbsDrawerActivity implements AMapLocationListe
 			//刷新当前数据
 			showLoadingDialog(R.string.loading);
 			getAllWeather();
+		} else if (v.getId() == R.id.ivBanner) {
+			if (TextUtils.isEmpty(MyApplication.getTop_img_title()) || TextUtils.isEmpty(MyApplication.getTop_img_url())) {
+				return;
+			}
+			Intent intent = new Intent(mContext, WebviewActivity.class);
+			intent.putExtra(CONST.ACTIVITY_NAME, MyApplication.getTop_img_title());
+			intent.putExtra(CONST.WEB_URL, MyApplication.getTop_img_url());
+			startActivity(intent);
 		}
-
 	}
 
 	/**

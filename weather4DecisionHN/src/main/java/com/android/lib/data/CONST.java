@@ -16,6 +16,7 @@ public class CONST {
 	public static String userGroup = "a418f91fc0ac4b9ca6329806f6b7f8d3";
 
 
+	public static final String ACTIVITY_NAME = "activity_name";//界面名称
 	public static final String WEB_URL = "web_Url";//网页地址的标示
 
 }

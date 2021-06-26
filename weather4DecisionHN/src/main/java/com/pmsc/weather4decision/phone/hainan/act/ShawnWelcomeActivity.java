@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.android.lib.app.MyApplication;
 import com.android.lib.data.CONST;
+import com.google.gson.JsonObject;
 import com.pmsc.weather4decision.phone.hainan.R;
 import com.pmsc.weather4decision.phone.hainan.util.OkHttpUtil;
 import com.pmsc.weather4decision.phone.hainan.util.PreferUtil;
@@ -30,6 +33,7 @@ public class ShawnWelcomeActivity extends AbsLoginActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shawn_activity_welcome);
+		okHttpTheme();
 		OkHttpServer();
 	}
 
@@ -109,6 +113,53 @@ public class ShawnWelcomeActivity extends AbsLoginActivity {
 				finish();
 			}
 		}, 1000);
+	}
+
+	/**
+	 * 获取主题
+	 */
+	private void okHttpTheme() {
+		final String url = "http://decision-admin.tianqi.cn/Home/work2019/hn_theme_flag";
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
+					@Override
+					public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+					}
+
+					@Override
+					public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+						if (!response.isSuccessful()) {
+							return;
+						}
+						final String result = response.body().string();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (!TextUtils.isEmpty(result)) {
+									try {
+										JSONObject obj = new JSONObject(result);
+										if (!obj.isNull("top_img")) {
+											MyApplication.setTop_img(obj.getString("top_img"));
+										}
+										if (!obj.isNull("top_img_url")) {
+											MyApplication.setTop_img_url(obj.getString("top_img_url"));
+										}
+										if (!obj.isNull("top_img_title")) {
+											MyApplication.setTop_img_title(obj.getString("top_img_title"));
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						});
+					}
+				});
+			}
+		}).start();
 	}
 
 }
