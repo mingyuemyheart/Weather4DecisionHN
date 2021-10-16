@@ -32,6 +32,7 @@ public class TyphoonDto {
 	public String type;//台风类型
 	public String radius_7;
 	public String radius_10;
+	public String radius_12;
 	public String en_radius_7;
 	public String es_radius_7;
 	public String wn_radius_7;
@@ -98,6 +99,9 @@ public class TyphoonDto {
 		}
 		if(!TextUtils.isEmpty(radius_10) && !TextUtils.equals("999999", radius_10)){
 			buffer.append(context.getString(R.string.chart_radius2)).append(radius_10).append(context.getString(R.string.chart_kilometer));
+		}
+		if(!TextUtils.isEmpty(radius_12) && !TextUtils.equals("999999", radius_12)){
+			buffer.append(context.getString(R.string.chart_radius3)).append(radius_12).append(context.getString(R.string.chart_kilometer));
 		}
 		return buffer.toString();
 	}

@@ -128,6 +128,7 @@
     <string name="chart_radius1">7级风圈半径：</string>
     <string name="chart_kilometer">公里\n</string>
     <string name="chart_radius2">10级风圈半径：</string>
+    <string name="chart_radius3">12级风圈半径：</string>
     <string name="chart_di">第</string>
     <string name="chart_haotaifeng">号台风</string>
     <string name="chart_propt">提示</string>

@@ -684,6 +684,7 @@
     <string name="chart_propt">提示</string>
     <string name="chart_radius1">7级风圈半径：</string>
     <string name="chart_radius2">10级风圈半径：</string>
+    <string name="chart_radius3">12级风圈半径：</string>
     <string name="chart_south">南</string>
     <string name="chart_south_east">东南</string>
     <string name="chart_south_west">西南</string>

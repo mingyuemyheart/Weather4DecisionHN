@@ -280,6 +280,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			locationMarker.remove();
 		}
 		locationMarker = aMap.addMarker(options);
+		locationMarker.setClickable(false);
 	}
 	
 	/**
@@ -549,7 +550,6 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 				typhoonId = dto.id;
 				String detailUrl = "http://decision-admin.tianqi.cn/Home/extra/gettyphoon/view/" + dto.id;
 				OkHttpTyphoonDetail(dto.id, detailUrl, tvTyphoonName.getText().toString());
-				
 			}
 		});
 	}
@@ -659,6 +659,8 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 															dto.radius_7 = itemArray10.getString(1)+","+itemArray10.getString(2)+","+itemArray10.getString(3)+","+itemArray10.getString(4);
 														}else if (m == 1) {
 															dto.radius_10 = itemArray10.getString(1)+","+itemArray10.getString(2)+","+itemArray10.getString(3)+","+itemArray10.getString(4);
+														}else if (m == 2) {
+															dto.radius_12 = itemArray10.getString(1)+","+itemArray10.getString(2)+","+itemArray10.getString(3)+","+itemArray10.getString(4);
 														}
 													}
 													points.add(dto);
@@ -1040,8 +1042,8 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		}
 		
 		MarkerOptions options = new MarkerOptions();
-		options.title(start.name+"|"+start.content(mContext)+"|"+start.radius_7+"|"+start.radius_10);
-		options.snippet(start.radius_7+","+start.radius_10);
+		options.title(start.name+"|"+start.content(mContext)+"|"+start.radius_7+"|"+start.radius_10+"|"+start.radius_12);
+		options.snippet(start.radius_7+","+start.radius_10+","+start.radius_12);
 		options.anchor(0.5f, 0.5f);
 		options.position(new LatLng(start.lat, start.lng));
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -1106,7 +1108,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 
 
 			//绘制最后一个实况点对应的七级、十级风圈
-			drawWindCircle(start.radius_7, start.radius_10, new LatLng(start.lat, start.lng));
+			drawWindCircle(start.radius_7, start.radius_10, start.radius_12, new LatLng(start.lat, start.lng));
 			
 			View timeView = inflater.inflate(R.layout.layout_marker_time, null);
 			TextView tvTime = (TextView) timeView.findViewById(R.id.tvTime);
@@ -1128,6 +1130,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 				factTimeMarkers.add(factTimeMarker);
 				
 				Marker rotateMarker = aMap.addMarker(tOption);
+				rotateMarker.setClickable(false);
 				rotateMarkers.add(rotateMarker);
 				
 				MarkerOptions info = new MarkerOptions();
@@ -1191,7 +1194,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	/**
 	 * 绘制七级、十级风圈
 	 */
-	private void drawWindCircle(String radius_7, String radius_10, LatLng center) {
+	private void drawWindCircle(String radius_7, String radius_10, String radius_12, LatLng center) {
 		removeWindCircle();
 
 		//七级风圈
@@ -1223,8 +1226,27 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 			getWindCirclePoints(center, radiuss[1], 270, wind10Points);
 			if (wind10Points.size() > 0) {
 				PolygonOptions polygonOptions = new PolygonOptions();
-				polygonOptions.strokeWidth(3).strokeColor(Color.RED).fillColor(0x20FF0000);
+				polygonOptions.strokeWidth(3).strokeColor(0xffFE9900).fillColor(0x20FF0000);
 				for (LatLng latLng : wind10Points) {
+					polygonOptions.add(latLng);
+				}
+				Polygon polygon = aMap.addPolygon(polygonOptions);
+				windCirclePolygons.add(polygon);
+			}
+		}
+
+		//十二级风圈
+		if (!TextUtils.isEmpty(radius_12) && !TextUtils.equals(radius_12, "null") && radius_12.contains(",")) {
+			String[] radiuss = radius_12.split(",");
+			List<LatLng> wind12Points = new ArrayList<>();
+			getWindCirclePoints(center, radiuss[0], 0, wind12Points);
+			getWindCirclePoints(center, radiuss[3], 90, wind12Points);
+			getWindCirclePoints(center, radiuss[2], 180, wind12Points);
+			getWindCirclePoints(center, radiuss[1], 270, wind12Points);
+			if (wind12Points.size() > 0) {
+				PolygonOptions polygonOptions = new PolygonOptions();
+				polygonOptions.strokeWidth(3).strokeColor(Color.RED).fillColor(0x20FF0000);
+				for (LatLng latLng : wind12Points) {
 					polygonOptions.add(latLng);
 				}
 				Polygon polygon = aMap.addPolygon(polygonOptions);
@@ -1382,7 +1404,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 		if (marker != null && marker != locationMarker) {
 			if (!TextUtils.isEmpty(marker.getTitle())) {
 				String[] title = marker.getTitle().split("\\|");
-				drawWindCircle(title[2], title[3], marker.getPosition());
+				drawWindCircle(title[2], title[3], title[4], marker.getPosition());
 			}
 
 			clickMarker = marker;
