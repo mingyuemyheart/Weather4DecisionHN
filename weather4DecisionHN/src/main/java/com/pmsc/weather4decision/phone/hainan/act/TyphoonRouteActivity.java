@@ -465,14 +465,14 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 													ivTyphoonPlay.setVisibility(View.VISIBLE);
 													ivTyphoonRange.setVisibility(View.VISIBLE);
 													mRadarManager = new CaiyunManager(getApplicationContext());
-													OkHttpMinute("http://api.tianqi.cn:8070/v1/img.py");
-													OkHttpCloud("http://decision-admin.tianqi.cn/Home/other/getDecisionCloudImages");
+													OkHttpMinute();
+													OkHttpCloud();
 												} else {// 2个以上生效台风
 													ivTyphoonPlay.setVisibility(View.GONE);
 													ivTyphoonRange.setVisibility(View.VISIBLE);
 													mRadarManager = new CaiyunManager(getApplicationContext());
-													OkHttpMinute("http://api.tianqi.cn:8070/v1/img.py");
-													OkHttpCloud("http://decision-admin.tianqi.cn/Home/other/getDecisionCloudImages");
+													OkHttpMinute();
+													OkHttpCloud();
 												}
 												tvTyphoonName.setVisibility(View.VISIBLE);
 											}
@@ -1512,10 +1512,11 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	 * 获取分钟级降水图
 	 * @param url
 	 */
-	private void OkHttpMinute(final String url) {
+	private void OkHttpMinute() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				String url = "http://api.tianqi.cn:8070/v1/img.py";
 				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
 					@Override
 					public void onFailure(Call call, IOException e) {
@@ -1757,10 +1758,11 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	/**
 	 * 获取云图数据
 	 */
-	private void OkHttpCloud(final String url) {
+	private void OkHttpCloud() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				String url = "http://59.50.130.88:8888/decision/getDecisionCloudImages.php";
 				OkHttpUtil.enqueue(new Request.Builder().url(url).build(), new Callback() {
 					@Override
 					public void onFailure(Call call, IOException e) {
