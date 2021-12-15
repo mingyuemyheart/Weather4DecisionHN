@@ -144,6 +144,7 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	private GroundOverlay radarOverlay = null;
 	private GroundOverlay cloudOverlay = null;
 	private Bitmap cloudBitmap = null;
+	private LatLng leftLatLng = null,rightLatLng = null;
 	private RelativeLayout container = null;
 	public RelativeLayout container2 = null;
 	private int width = 0, height = 0;
@@ -1510,7 +1511,6 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 	
 	/**
 	 * 获取分钟级降水图
-	 * @param url
 	 */
 	private void OkHttpMinute() {
 		new Thread(new Runnable() {
@@ -1781,6 +1781,11 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 								if (!TextUtils.isEmpty(result)) {
 									try {
 										JSONObject obj = new JSONObject(result);
+										if (!obj.isNull("rect")) {
+											JSONArray rect = obj.getJSONArray("rect");
+											leftLatLng = new LatLng(rect.getDouble(2), rect.getDouble(1));
+											rightLatLng = new LatLng(rect.getDouble(0), rect.getDouble(3));
+										}
 										if (!obj.isNull("l")) {
 											JSONArray array = obj.getJSONArray("l");
 											if (array.length() > 0) {
@@ -1868,8 +1873,8 @@ OnMarkerClickListener, InfoWindowAdapter, RadarListener, OnCameraChangeListener,
 
 		BitmapDescriptor fromView = BitmapDescriptorFactory.fromBitmap(bitmap);
 		LatLngBounds bounds = new LatLngBounds.Builder()
-				.include(new LatLng(-10.787277369124666, 62.8820698883665))
-				.include(new LatLng(56.385845314127209, 161.69675114151386))
+				.include(leftLatLng)
+				.include(rightLatLng)
 				.build();
 
 		if (cloudOverlay == null) {
