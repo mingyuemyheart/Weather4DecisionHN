@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.media.ThumbnailUtils;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -213,7 +214,13 @@ public class CubicView extends View{
 			
 			textP.setColor(getResources().getColor(R.color.white));
 			textP.setTextSize(CommonUtil.dip2px(mContext, 10));
-			String windForce = WeatherUtil.getHourWindForce(dto.hourlyWindSpeed);
+
+			String windForce;
+			if (!TextUtils.isEmpty(dto.hourlyWindLevel)) {
+				windForce = dto.hourlyWindLevel;
+			} else {
+				windForce = WeatherUtil.getHourWindForce(dto.hourlyWindSpeed);
+			}
 			float hWindForce = textP.measureText(windForce);
 			canvas.drawText(windForce, dto.x-hWindForce/2, windHeight-CommonUtil.dip2px(mContext, 3f), textP);
 			
