@@ -2,6 +2,7 @@ package com.pmsc.weather4decision.phone.hainan;
 
 import android.app.Application;
 
+import com.android.lib.util.CrashHandler;
 import com.igexin.sdk.PushManager;
 import com.pmsc.weather4decision.phone.hainan.service.DemoIntentService;
 import com.pmsc.weather4decision.phone.hainan.service.DemoPushService;
@@ -22,6 +23,9 @@ public class HNApp extends Application {
 	public void onCreate() {
 		super.onCreate();
 		appContext = this;
+
+		CrashHandler crashHandler = CrashHandler.getInstance();
+		crashHandler.init(getApplicationContext());
 
 		//umeng分享的平台注册
 		UMConfigure.init(this, "58aba143677baa01fe0003ab", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
